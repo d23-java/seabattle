@@ -1,4 +1,4 @@
-package utilz;
+package system;
 
 import java.util.Scanner;
 
