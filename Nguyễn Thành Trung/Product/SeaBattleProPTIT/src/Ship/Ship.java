@@ -1,6 +1,5 @@
 package Ship;
 
-import System.ComputerSystem;
 import java.util.ArrayList;
 
 public class Ship {
@@ -30,18 +29,9 @@ public class Ship {
         }
     }
 
-    public void addShipAndCheckValid() {
-        int input = 1;
-
-        while (input <= size) {
-            System.out.print("Insert row: ");
-            int xAxis = ComputerSystem.scanner.nextInt();
-            System.out.print("Insert column: ");
-            int yAxis = ComputerSystem.scanner.nextInt();
-            axisX.add(xAxis);
-            axisY.add(yAxis);
-            input++;
-        }
+    public void addCoordinate(int xAxis, int yAxis) {
+        axisX.add(xAxis);
+        axisY.add(yAxis);
     }
 
     public ArrayList<Integer> getAxisX() {
@@ -58,5 +48,9 @@ public class Ship {
 
     public int getShipID() {
         return shipID;
+    }
+
+    public String getName() {
+        return name;
     }
 }
