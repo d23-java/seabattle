@@ -1,7 +1,7 @@
 package MapResources;
 
 public class Board {
-    private final int boardSize = 11;
+    public static final int boardSize = 11;
     private Cell[][] board = new Cell[boardSize][boardSize];
 
     public Board() {
@@ -27,8 +27,8 @@ public class Board {
         }
     }
 
-    public void setBoardCell(int XAxis, int YAxis) {
-        board[XAxis][YAxis].setCellColor("41");
+    public void setBoardCell(int XAxis, int YAxis, String information, String ANSIcode) {
+        board[XAxis][YAxis].setCellColor(ANSIcode, information);
     }
 
     public void addShip() {

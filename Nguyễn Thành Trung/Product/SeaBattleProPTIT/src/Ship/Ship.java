@@ -1,23 +1,24 @@
 package Ship;
 
-import java.util.ArrayList;
 import System.ComputerSystem;
+import java.util.ArrayList;
 
 public class Ship {
     private String name;
     private int size;
     private int shipID;
-    private ArrayList<Integer> axisX;
-    private ArrayList<Integer> axisY;
+    private ArrayList<Integer> axisX = new ArrayList<>();
+    private ArrayList<Integer> axisY = new ArrayList<>();
 
     public Ship(int shipID) {
+        this.shipID = shipID;
         switch (shipID) {
             case 1:
-                this.name = "numberOfPatrolBoat";
+                this.name = "PatrolBoat";
                 this.size = 2;
                 break;
             case 2:
-                this.name = "numberOfDestroyerBoat";
+                this.name = "DestroyerBoat";
                 this.size = 4;
                 break;
             case 3:
@@ -29,11 +30,6 @@ public class Ship {
         }
     }
 
-    public void addCoordinate(Integer xAxis, Integer yAxis) {
-        axisX.add(xAxis);
-        axisY.add(yAxis);
-    }
-
     public void addShipAndCheckValid() {
         int input = 1;
 
@@ -42,7 +38,8 @@ public class Ship {
             int xAxis = ComputerSystem.scanner.nextInt();
             System.out.print("Insert column: ");
             int yAxis = ComputerSystem.scanner.nextInt();
-            addCoordinate(xAxis, yAxis);
+            axisX.add(xAxis);
+            axisY.add(yAxis);
             input++;
         }
     }
@@ -57,5 +54,9 @@ public class Ship {
 
     public int getSize() {
         return size;
+    }
+
+    public int getShipID() {
+        return shipID;
     }
 }
