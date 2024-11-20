@@ -8,5 +8,5 @@ public class Main {
         Player player1 = new Player();
         player1.showPlayerBoard();
         player1.insertShip();
-     }
+        }
 }
