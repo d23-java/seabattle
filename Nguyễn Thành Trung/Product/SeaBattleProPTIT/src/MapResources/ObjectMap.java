@@ -8,7 +8,7 @@ public class ObjectMap {
         for (int row = 0; row < mapsize; row++) {
             for (int column = 0; column < mapsize; column++) {
                 if (row == 0 || column == 0) {
-                    objectMap[row][column] = 1;
+                    objectMap[row][column] = -1;
                 } else {
                     objectMap[row][column] = 0;
                 }

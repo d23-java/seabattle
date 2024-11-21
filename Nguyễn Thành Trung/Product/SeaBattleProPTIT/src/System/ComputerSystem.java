@@ -16,4 +16,9 @@ public class ComputerSystem {
     }
 
     public static Scanner scanner = new Scanner(System.in);
+
+    public static int charToInt(String xAxisString) {
+        char c = xAxisString.charAt(0);
+        return c - 'A' + 1;
+    }
 }

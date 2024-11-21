@@ -19,7 +19,7 @@ public class Player {
     private ArrayList<Ship> shipArrayList = new ArrayList<>();
 
     public void insertShip() {
-        while (totalShipNumber == 5) {
+        while (totalShipNumber != 0) {
             System.out.println("Insert type of ship: ");
             System.out.println("1. PatrolBoat");
             System.out.println("2. DestroyerBoat");
@@ -31,6 +31,7 @@ public class Player {
                 case 1:
                     if (numberOfPatrolBoat == 0) {
                         System.out.println("No Patrol Boat left!!!");
+                        System.out.println("Press Enter to continue...");
                         ComputerSystem.scanner.next();
                         continue;
                     }
@@ -40,6 +41,7 @@ public class Player {
                 case 2:
                     if (numberOfDestroyerBoat == 0) {
                         System.out.println("No Destroyer Boat left!!!");
+                        System.out.println("Press Enter to continue...");
                         ComputerSystem.scanner.next();
                         continue;
                     }
@@ -49,6 +51,7 @@ public class Player {
                 case 3:
                     if (numberOfSubmarine == 0) {
                         System.out.println("No Submarine left!!!");
+                        System.out.println("Press Enter to continue...");
                         ComputerSystem.scanner.next();
                         continue;
                     }
@@ -58,6 +61,7 @@ public class Player {
                 case 4:
                     if (numberOfBattleShip == 0) {
                         System.out.println("No Battle Ship left!!!");
+                        System.out.println("Press Enter to continue...");
                         ComputerSystem.scanner.next();
                         continue;
                     }
@@ -65,19 +69,21 @@ public class Player {
                     ANSIcode = "107";
                     break;
             }
+            totalShipNumber--;
 
             ComputerSystem.clearScreen();
             showPlayerBoard();
 
             Ship newShip = new Ship(shipID);
-            int shipSize = newShip.getSize();
-            for (int input = 0; input < shipSize; ++input) {
+            for (int input = 0; input < newShip.getSize(); ++input) {
                 System.out.print("Insert " + newShip.getName() + " row: ");
-                int xAxis = ComputerSystem.scanner.nextInt();
+                String xAxisString = ComputerSystem.scanner.next();
+                int xAxis = ComputerSystem.charToInt(xAxisString);
                 System.out.print("Insert " + newShip.getName() + " column: ");
                 int yAxis = ComputerSystem.scanner.nextInt();
                 newShip.addCoordinate(xAxis, yAxis);
                 setPlayerBoard(xAxis, yAxis, newShip.getShipID(), ANSIcode);
+                playerObjectMap.setObjectMapCell(xAxis, yAxis, newShip.getShipID());
                 ComputerSystem.clearScreen();
                 showPlayerBoard();
             }
@@ -88,10 +94,6 @@ public class Player {
     public void setPlayerBoard(int xAxis, int yAxis, int valueOfCell, String ANSIcode) {
         playerBoard.setBoardCell(xAxis, yAxis, "" + valueOfCell, ANSIcode);
         playerObjectMap.setObjectMapCell(xAxis, yAxis, 2);
-    }
-
-    public void setEnemyFoggyBoard(int xAxis, int yAxis, String missCheck, String ANSIcode) {
-        enemyFoggyBoard.setBoardCell(xAxis, yAxis, missCheck, ANSIcode);
     }
 
     public void showEnemyFoggyBoard() {
@@ -107,11 +109,42 @@ public class Player {
     }
 
     public void checkHitOrMiss(int xAxis, int yAxis) {
-        if (playerObjectMap.getObjectMapCell(xAxis, yAxis) == 2) {
-            enemyFoggyBoard.setBoardCell(xAxis, yAxis, "O", "42");
-        } else if (playerObjectMap.getObjectMapCell(xAxis, yAxis) == 0) {
+        int valueOfCell = playerObjectMap.getObjectMapCell(xAxis, yAxis);
+        boolean checkBreak = false;
+
+        if (valueOfCell > 0) {
+            enemyFoggyBoard.setBoardCell(xAxis, yAxis, "" + valueOfCell, "42");
+
+            for (Ship ship : shipArrayList) {
+                if (ship.getShipID() == valueOfCell && !ship.getAxisX().isEmpty()) {
+                    for (int x : ship.getAxisX()) {
+                        if (x == xAxis) {
+                            for (int y : ship.getAxisY()) {
+                                if (y == yAxis) {
+                                    ship.romveXAxis(xAxis);
+                                    ship.romveYAxis(yAxis);
+                                    checkBreak = true;
+                                    break;
+                                }
+                            }
+                            if (checkBreak) break;
+                        }
+                    }
+                    if (checkBreak) break;
+                }
+            }
+        } else if (valueOfCell == 0) {
             enemyFoggyBoard.setBoardCell(xAxis, yAxis, "X", "41");
         }
         playerObjectMap.setObjectMapCell(xAxis, yAxis, 3);
+    }
+
+    public boolean checkLost() {
+        for (Ship ship : shipArrayList) {
+            if (!ship.getAxisX().isEmpty()) {
+                return false;
+            }
+        }
+        return true;
     }
 }

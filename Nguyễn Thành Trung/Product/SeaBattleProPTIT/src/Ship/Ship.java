@@ -23,9 +23,11 @@ public class Ship {
             case 3:
                 this.name = "Submarine";
                 this.size = 3;
+                break;
             case 4:
                 this.name = "BattleShip";
                 this.size = 5;
+                break;
         }
     }
 
@@ -40,6 +42,14 @@ public class Ship {
 
     public ArrayList<Integer> getAxisY() {
         return axisY;
+    }
+
+    public void romveXAxis(int value) {
+        axisX.remove(Integer.valueOf(value));
+    }
+
+    public void romveYAxis(int value) {
+        axisY.remove(Integer.valueOf(value));
     }
 
     public int getSize() {
