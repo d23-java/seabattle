@@ -27,9 +27,6 @@ public class Board {
                 fogBoard[i][j] = 0; // ban dau bang chua co thuyen
         }
     }
-//    public boolean isSunk(ArrayList<Boolean>hitStatus){
-//        return !hitStatus.contains(false);// neu o nao cung bi ban thi thuyen chim
-//    }
 
     Scanner scanf = new Scanner(System.in);
     // dat thuyen
@@ -60,6 +57,7 @@ public class Board {
     }
     // tan cong
     public void attackShip(Player player, Player enemy){
+            enemy.getBoard().displayFogBoard();
             boolean check = false;
             System.out.println("Nhập toạ độ ô mà bạn muốn bắn: ");
             int x = scanf.nextInt();
@@ -71,11 +69,16 @@ public class Board {
                     check = true;
                     enemyBoard.board[x][y] = 2;
                     enemyBoard.fogBoard[x][y] = 2;
+                    //System.out.println("Kiểm tra cập nhật: " + boat.getHitStatus());
                     player.increaseCellEnermyHited();
                     if(boat.isSunk()){
                         System.out.println("Bạn đã bắn chìm tàu: " + boat.getNameShip());
                         player.increaseDestroyedShip();
                         enemy.decreaseShipLeft();
+                        if(enemy.getNumberOfShipLeft() == 0) {
+                            System.out.println("Toàn bộ tàu của đối thủ đã bị chìm. Bạn chiến thắng.");
+                            return;
+                        }
                         System.out.println("Xin mời lượt bắn tiếp theo");
                     }
                     else
@@ -89,6 +92,7 @@ public class Board {
             else{
                 enemyBoard.board[x][y] = -1;
                 enemyBoard.fogBoard[x][y] = -1;
+                player.increaseCellEnermyHited();
                 System.out.println("Bạn đã bắn trượt, đến lượt đối thủ.");
             }
 
@@ -121,14 +125,6 @@ public class Board {
             }
             System.out.println();
         }
-    }
-    // kiem tra game ket thuc chua
-    public boolean isGameover(){
-        for(Ship ship: ships){
-            if(!ship.isSunk())
-                return false;
-        }
-        return true;
     }
 
 }

@@ -37,12 +37,14 @@ public class Game {
         int totleNum = 0;
         while(totleNum < 5 ){
             boardA.setShip();
+            boardA.displayBoard();
             totleNum++;
         }
         System.out.println("Người chơi thứ 2 đặt thuyền: ");
         totleNum = 0;
         while(totleNum < 5){
             boardB.setShip();
+            boardB.displayBoard();
             totleNum++;
         }
     }
@@ -80,6 +82,10 @@ public class Game {
                     }
                     if(choice == 5)
                         break;
+                    if(playerB.getNumberOfShipLeft() == 0) {
+                        gameRunning = false;
+                        break;
+                    }
                 }
             }
             if (currentPlayer == 2) {
@@ -111,24 +117,18 @@ public class Game {
                     }
                     if(choice == 5)
                         break;
+                    if(playerA.getNumberOfShipLeft() == 0){
+                        gameRunning = false;
+                        break;
+                    }
                 }
             }
-            if(boardA.isGameover()){
-                winner = 2;
-                gameRunning = false;
-            }
-            else if(boardB.isGameover()){
-                winner = 1;
-                gameRunning = false;
-            }
         }
-        System.out.println("Trận chiến kết thúc, người chiến thắng là người thứ: " + winner);
+        System.out.println("Trận chiến kết thúc, người chiến thắng là người thứ: " + currentPlayer);
         System.out.println("Bảng chơi của người chơi 1: ");
         boardA.displayBoard();
         System.out.println("Bảng chơi của người chơi 2: ");
         boardB.displayBoard();
     }
-
-
 
 }
