@@ -1,10 +1,10 @@
-package Character;
+package character;
 
-import MapResources.Board;
-import MapResources.ObjectMap;
-import Ship.Ship;
-import System.ComputerSystem;
 import java.util.ArrayList;
+import mapresources.Board;
+import mapresources.ObjectMap;
+import ship.Ship;
+import system.ComputerSystem;
 
 public class Player {
     private Board playerBoard = new Board();

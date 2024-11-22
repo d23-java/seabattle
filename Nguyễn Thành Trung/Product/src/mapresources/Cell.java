@@ -1,4 +1,4 @@
-package MapResources;
+package mapresources;
 
 public class Cell {
     private String[] cell =

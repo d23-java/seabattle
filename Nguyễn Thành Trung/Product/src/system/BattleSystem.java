@@ -1,6 +1,6 @@
-package System;
+package system;
 
-import Character.Player;
+import character.Player;
 
 public class BattleSystem {
     private Player human1 = new Player();

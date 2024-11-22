@@ -1,4 +1,4 @@
-package MapResources;
+package mapresources;
 
 public class Board {
     public static final int boardSize = 11;
@@ -19,8 +19,8 @@ public class Board {
     }
 
     public void showBoard() {
-        for (int row = 0; row < 11; row++) {
-            for (int column = 0; column < 11; column++) {
+        for (int row = 0; row < boardSize; row++) {
+            for (int column = 0; column < boardSize; column++) {
                 board[row][column].showCell();
             }
             System.out.println();

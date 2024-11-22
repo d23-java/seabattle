@@ -1,4 +1,4 @@
-package Ship;
+package ship;
 
 import java.util.ArrayList;
 
