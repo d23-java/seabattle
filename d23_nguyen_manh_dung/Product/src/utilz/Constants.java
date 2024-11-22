@@ -23,18 +23,18 @@ public class Constants {
     }
 
     public static class audioConstants {
-        //todo
-    }
+        public static final String MAIN_SOUNDTRACK = "MainSoundTrack.wav";
+    }   
 
     public static class gameConstants {
-        public static final int BOARD_SIZE = 10;
+        public static int BOARD_SIZE = 10;
         public static final String EMPTY_BOAT = "_0_";
         public static final String PATROL_BOAT = textConstants.BLUE_BACKGROUND + "_P_" + textConstants.RESET;
         public static final String DESTROYER_BOAT = textConstants.GREEN_BACKGROUND + "_D_" + textConstants.RESET;
         public static final String SUBMARINE = textConstants.CYAN_BACKGROUND + "_S_" + textConstants.RESET;
         public static final String BATTLE_SHIP = textConstants.PINK_BACKGROUND + "_B_" + textConstants.RESET;
         public static final String DESTROYER_CELL = textConstants.RED_BACKGROUND + "_A_" + textConstants.RESET;
-        public static final String SHOTTED_CELL = textConstants.YELLOW_BACKGROUND + "_B_" + textConstants.RESET;
+        public static final String MISS_CELL = textConstants.YELLOW_BACKGROUND + "_B_" + textConstants.RESET;
 
         public static final int PATROL_BOAT_SIZE = 2;
         public static final int DESTROYER_BOAT_SIZE = 4;
