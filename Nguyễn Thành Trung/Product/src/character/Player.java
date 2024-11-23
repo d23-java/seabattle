@@ -240,4 +240,10 @@ public class Player {
     public boolean getAttackMiss() {
         return attackMiss;
     }
+
+    public void autoSetup(ArrayList<Ship> shipLArrayList, Board playerBoard, ObjectMap playerObjectMap) {
+        this.shipArrayList = shipLArrayList;
+        this.playerBoard = playerBoard;
+        this.playerObjectMap = playerObjectMap;
+    }
 }

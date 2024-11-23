@@ -1,6 +1,7 @@
 package system;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.Scanner;
 import mapresources.Board;
 
@@ -16,6 +17,8 @@ public class ComputerSystem {
         }
     }
 
+    public static Random random = new Random();
+
     public static Scanner scanner = new Scanner(System.in);
 
     public static int charToInt(String xAxisString) {
@@ -24,7 +27,7 @@ public class ComputerSystem {
     }
 
     public static boolean checkValidCoordinate(int xAxis, int yAxis) {
-        if (xAxis < 1 || yAxis < 1 || xAxis > Board.boardSize || yAxis > Board.boardSize) {
+        if (xAxis < 1 || yAxis < 1 || xAxis >= Board.boardSize || yAxis >= Board.boardSize) {
             return false;
         }
         return true;
@@ -36,5 +39,11 @@ public class ComputerSystem {
         System.out.println("Press Enter to continue...");
         scanner.nextLine();
         scanner.nextLine();
+    }
+
+    public static void waitScreen() {
+        System.out.print("Press Enter to continue...");
+        ComputerSystem.scanner.nextLine();
+        ComputerSystem.scanner.nextLine();
     }
 }
