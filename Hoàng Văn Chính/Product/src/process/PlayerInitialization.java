@@ -1,22 +1,13 @@
 package process;
 
-import data.*;
+import display.ClearConsole;
+import model.*;
 
 public class PlayerInitialization {
-    private Player player1;
-    private Player player2;
-
-    public void initPlayerName() {
-        String name;
-        System.out.println("Nhập tên người chơi 1: ");
-        name = ScannerInput.scanner.nextLine();
-        player1 = new Player(name);
-        System.out.println("Nhập tên người chơi 2: ");
-        name = ScannerInput.scanner.nextLine();
-        player2 = new Player(name);
-    }
-
-    public void initPlayerShip() {
-
+    public static void initPlayerShip(Player player) {
+        System.out.printf("Người chơi \u001B[34m[%s]\u001B[0m tạo tàu!\n", player.getName());
+        ShipPlacementMode.placeShipsCustom(player);
+        System.out.printf("\u001B[32mNgười chơi [%s] tạo tàu thành công!!!\u001B[0m\n\n\n", player.getName());;
+        ClearConsole.clearConsole();
     }
 }

@@ -1,4 +1,4 @@
-package data;
+package model;
 
 public class Ship {
     private String name;
@@ -37,11 +37,12 @@ public class Ship {
     public int getColumnEnd() {
         return columnEnd;
     }
-    public String getOrientation() {
-        return orientation;
-    }
     public int getLeng() {
         return leng;
+    }
+
+    public void setLeng(int leng) {
+        this.leng = leng;
     }
 }
 
