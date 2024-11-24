@@ -47,10 +47,10 @@ public class BattleSystem {
             System.out.println("It's player" + playerTurn + "'s turn!!!");
             switch (playerTurn) {
                 case 1:
-                    humanFirst.showEnemyFoggyBoard();
+                    humanSecond.showEnemyFoggyBoard();
                     break;
                 case 2:
-                    humanSecond.showEnemyFoggyBoard();
+                    humanFirst.showEnemyFoggyBoard();
                     break;
             }
             System.out.print("Insert x axis you want to attack: ");
@@ -60,10 +60,10 @@ public class BattleSystem {
             int yAxisAttack = ComputerSystem.scanner.nextInt();
             switch (playerTurn) {
                 case 1:
-                    humanFirst.checkHitOrMiss(xAxisAttack, yAxisAttack);
+                    humanSecond.checkHitOrMiss(xAxisAttack, yAxisAttack);
                     ComputerSystem.clearScreen();
-                    humanFirst.showEnemyFoggyBoard();
-                    if (humanFirst.getAttackMiss()) {
+                    humanSecond.showEnemyFoggyBoard();
+                    if (humanSecond.getAttackMiss()) {
                         System.out.println("You miss!!!");
                         playerTurn = 2;
                     } else {
@@ -72,10 +72,10 @@ public class BattleSystem {
                     ComputerSystem.waitScreen();
                     break;
                 case 2:
-                    humanSecond.checkHitOrMiss(xAxisAttack, yAxisAttack);
+                    humanFirst.checkHitOrMiss(xAxisAttack, yAxisAttack);
                     ComputerSystem.clearScreen();
-                    humanSecond.showEnemyFoggyBoard();
-                    if (humanSecond.getAttackMiss()) {
+                    humanFirst.showEnemyFoggyBoard();
+                    if (humanFirst.getAttackMiss()) {
                         System.out.println("You miss!!!");
                         playerTurn = 1;
                     } else {

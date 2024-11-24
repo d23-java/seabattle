@@ -46,4 +46,14 @@ public class ComputerSystem {
         ComputerSystem.scanner.nextLine();
         ComputerSystem.scanner.nextLine();
     }
+
+    public static void displayScreen() {
+        clearScreen();
+        try {
+            Intro intro = new Intro();
+            intro.displayIntro();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
