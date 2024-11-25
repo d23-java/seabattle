@@ -34,4 +34,8 @@ public class Board {
     public void addShip() {
         System.out.println();
     }
+
+    public String getBoardCell(int xAxis, int yAxis) {
+        return board[xAxis][yAxis].getCentreCell();
+    }
 }
