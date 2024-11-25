@@ -1,7 +1,7 @@
 package mapresources;
 
 public class Board {
-    public static int boardSize = 11;
+    public static int boardSize = 21;
     private Cell[][] board = new Cell[boardSize][boardSize];
 
     public Board() {

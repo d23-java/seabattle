@@ -3,6 +3,7 @@ package system;
 import character.Player;
 import character.RandomSetup;
 import java.util.ArrayList;
+import mapresources.Board;
 
 public class BattleSystem {
     private Player humanFirst = new Player();
@@ -120,10 +121,9 @@ public class BattleSystem {
         }
     }
 
-    //Being develop....
-    //PVE mode is not done...
     public void PVEmode() {
         Player botPlayer = new Player();
+        botPlayer.setName("Bot");
         ArrayList<Player> playerList = new ArrayList<>();
         playerList.add(humanFirst);
         playerList.add(botPlayer);
@@ -146,7 +146,6 @@ public class BattleSystem {
         autoSetup(botPlayer);
         System.out.print("Bot has already set up its board!!! Press Enter to continue!!!");
         ComputerSystem.scanner.nextLine();
-        ComputerSystem.scanner.nextLine();
         
         playerTurn = 1;        
         ComputerSystem.clearScreen();
@@ -168,36 +167,47 @@ public class BattleSystem {
             while (!checkValidAttack) {
                 ComputerSystem.clearScreen();
                 System.out.println("It's player" + playerTurn + "'s turn!!!");
-                System.out.print("Press 0 to show your board, 1 to attack: ");
-                int attackOrNot = ComputerSystem.scanner.nextInt();
-                if (attackOrNot == 0) {
-                    ComputerSystem.clearScreen();
-                    playerList.get(playerTurn - 1).showPlayerBoard();
-                    System.out.print("Here is your board");
-                    ComputerSystem.scanner.nextLine();
-                    ComputerSystem.scanner.nextLine();
-                    continue;
-                }
+                if (playerTurn == 1) {
+                    System.out.print("Press 0 to show your board, 1 to attack: ");
+                    int attackOrNot = ComputerSystem.scanner.nextInt();
+                    if (attackOrNot == 0) {
+                        ComputerSystem.clearScreen();
+                        playerList.get(playerTurn - 1).showPlayerBoard();
+                        System.out.print("Here is your board");
+                        ComputerSystem.scanner.nextLine();
+                        ComputerSystem.scanner.nextLine();
+                        continue;
+                    }
 
-                playerList.get(yourEnemy - 1).showEnemyFoggyBoard();
-                System.out.print("Insert x axis you want to attack: ");
-                String xAttackString = ComputerSystem.scanner.next();
-                xAxisAttack = ComputerSystem.charToInt(xAttackString);
-                System.out.print("Insert y axis you want to attack: ");
-                yAxisAttack = ComputerSystem.scanner.nextInt();
-                if (!ComputerSystem.checkValidCoordinate(xAxisAttack, yAxisAttack)) {
-                    System.out.print("Invalid coordinate, press Enter to continue...");
-                    ComputerSystem.scanner.nextLine();
-                    ComputerSystem.scanner.nextLine();
-                    continue;
-                }
-                if (playerList.get(yourEnemy - 1).getPlayerObjectMap().getObjectMapCell(xAxisAttack, yAxisAttack) != 3) {
-                    checkValidAttack = true;
+                    playerList.get(yourEnemy - 1).showEnemyFoggyBoard();
+                    System.out.print("Insert x axis you want to attack: ");
+                    String xAttackString = ComputerSystem.scanner.next();
+                    xAxisAttack = ComputerSystem.charToInt(xAttackString);
+                    System.out.print("Insert y axis you want to attack: ");
+                    yAxisAttack = ComputerSystem.scanner.nextInt();
+
+                    if (!ComputerSystem.checkValidCoordinate(xAxisAttack, yAxisAttack)) {
+                        System.out.print("Invalid coordinate, press Enter to continue...");
+                        ComputerSystem.scanner.nextLine();
+                        ComputerSystem.scanner.nextLine();
+                        continue;
+                    }
+                    if (playerList.get(yourEnemy - 1).getPlayerObjectMap().getObjectMapCell(xAxisAttack, yAxisAttack) != 3) {
+                        checkValidAttack = true;
+                    } else {
+                        System.out.print("Invalid coordinate, press Enter to continue...");
+                        ComputerSystem.scanner.nextLine();
+                        ComputerSystem.scanner.nextLine();
+                    }
                 } else {
-                    System.out.print("Invalid coordinate, press Enter to continue...");
-                    ComputerSystem.scanner.nextLine();
-                    ComputerSystem.scanner.nextLine();
-                    continue;
+                    xAxisAttack = ComputerSystem.random.nextInt(Board.boardSize - 1) + 1;
+                    yAxisAttack = ComputerSystem.random.nextInt(Board.boardSize - 1) + 1;
+                    if (!ComputerSystem.checkValidCoordinate(xAxisAttack, yAxisAttack)) {
+                        continue;
+                    }
+                    if (playerList.get(yourEnemy - 1).getPlayerObjectMap().getObjectMapCell(xAxisAttack, yAxisAttack) != 3) {
+                        checkValidAttack = true;
+                    }
                 }
             }
 
@@ -205,18 +215,18 @@ public class BattleSystem {
             ComputerSystem.clearScreen();
             playerList.get(yourEnemy - 1).showEnemyFoggyBoard();
             if (playerList.get(yourEnemy - 1).getAttackMiss()) {
-                System.out.println("You miss!!!");
+                System.out.println(playerList.get(playerTurn - 1).getName() + " miss!!!");
                 ComputerSystem.waitScreen();
                 playerTurn = yourEnemy;
             } else {
-                System.out.println("You hit!!!");
+                System.out.println(playerList.get(playerTurn - 1).getName() + " hit!!!");
                 ComputerSystem.waitScreen();
             }
             
             if (humanFirst.checkLost()) {
-                System.out.println("Player 2 win <3 <3 <3");
-            } else if (humanSecond.checkLost()) {
-                System.out.println("Player 1 win <3 <3 <3");
+                System.out.println("You lose :( :( :( ");
+            } else if (botPlayer.checkLost()) {
+                System.out.println("You win <3 <3 <3");
             }
         }
     }
