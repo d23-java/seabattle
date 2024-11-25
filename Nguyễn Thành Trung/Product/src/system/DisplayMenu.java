@@ -6,6 +6,9 @@ public class DisplayMenu {
     public void setBoardSize() {
         System.out.print("Insert size of your sea: ");
         int boardSize = ComputerSystem.scanner.nextInt();
+        ComputerSystem.scanner.nextLine();
         Board.boardSize = boardSize + 1;
     }
+
+
 }

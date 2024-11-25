@@ -7,6 +7,7 @@ import ship.Ship;
 import system.ComputerSystem;
 
 public class Player {
+    private String name;
     private Board playerBoard = new Board();
     private ObjectMap playerObjectMap = new ObjectMap();
     private Board enemyFoggyBoard = new Board();
@@ -245,5 +246,13 @@ public class Player {
         this.shipArrayList = shipLArrayList;
         this.playerBoard = playerBoard;
         this.playerObjectMap = playerObjectMap;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

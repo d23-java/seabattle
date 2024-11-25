@@ -56,4 +56,10 @@ public class ComputerSystem {
             e.printStackTrace();
         }
     }
+
+    public static String insertPlayerName() {
+        System.out.print("Let me know your name: ");
+        String name = scanner.nextLine();
+        return name;
+    }
 }
