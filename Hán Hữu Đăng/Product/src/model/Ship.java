@@ -1,4 +1,5 @@
-// File: src/Ship.java
+package model;
+
 public class Ship {
     private ShipType type;
     private int size;
@@ -24,5 +25,9 @@ public class Ship {
 
     public boolean isSunk() {
         return hits >= size;
+    }
+
+    public int getHits() {
+        return hits;
     }
 }
