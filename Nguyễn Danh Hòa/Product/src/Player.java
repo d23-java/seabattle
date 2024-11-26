@@ -1,12 +1,12 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import static java.lang.Long.min;
+
 import static java.lang.Math.max;
 
 public class Player extends Field {
+    public Scanner sc = new Scanner(System.in);
     private String namePlayer; // Tên của người chơi
-    Scanner sc = new Scanner(System.in);
-    public ArrayList<Ship> ships = new ArrayList<Ship>(); // Danh sách các tàu của người chơi
+    private ArrayList<Ship> ships = new ArrayList<Ship>(); // Danh sách các tàu của người chơi
 
     public int numberShip = 0; // Số lượng tàu hiện tại
     public int sizeField; // Kích thước bảng chơi
@@ -53,74 +53,100 @@ public class Player extends Field {
 
     public void setShip() {
         while (numberShip < 5) { // Lặp cho đến khi đặt đủ 5 tàu
-            String name; // Tên của tàu
-            int size; // Kích cỡ của tàu
-            if (numberShip < 2) { // Các điều kiện để xác định loại tàu
-                name = "Thuyền Tuần Tra";
-                size = 2;
-            } else if (numberShip == 2) {
-                name = "Tàu Khu Trục";
-                size = 4;
-            } else if (numberShip == 3) {
-                name = "Tàu Ngầm";
-                size = 3;
-            } else {
-                name = "Thiết Chiến Hạm";
-                size = 5;
+            String name = "";
+            int size = 0;
+
+            // Gán tên và kích thước tàu dựa vào số lượng tàu hiện tại
+            switch (numberShip) {
+                case 0:
+                case 1:
+                    name = "Thuyền Tuần Tra";
+                    size = 2;
+                    break;
+                case 2:
+                    name = "Tàu Khu Trục";
+                    size = 4;
+                    break;
+                case 3:
+                    name = "Tàu Ngầm";
+                    size = 3;
+                    break;
+                case 4:
+                    name = "Thiết Chiến Hạm";
+                    size = 5;
+                    break;
             }
+
             int checkShip = 1; // Biến để kiểm tra nếu tàu đã được đặt đúng
             while (checkShip == 1) {
                 showMyBoard(); // Hiển thị bảng hiện tại của người chơi
                 System.out.println("Đặt tàu: Thông tin " + name + " mang kích cỡ 1x" + size);
                 System.out.print("Tọa độ đầu: ");
-                int x_begin = sc.nextInt();
-                int y_begin = sc.nextInt();
+                int xBegin = sc.nextInt();
+                int yBegin = sc.nextInt();
                 System.out.print("Tọa độ cuối: ");
-                int x_end = sc.nextInt();
-                int y_end = sc.nextInt();
+                int xEnd = sc.nextInt();
+                int yEnd = sc.nextInt();
                 sc.nextLine(); // Đọc ký tự dòng mới còn lại
 
-                // Kiểm tra tọa độ nhập có hợp lệ với kích thước tàu không
-                if (Math.abs(x_begin - x_end) != size - 1 && Math.abs(y_begin - y_end) != size - 1) {
-                    System.out.println("Bạn đang nhập sai kích thước " + size + " của tàu " + name);
-                    System.out.println("Vui lòng nhập lại");
-                    continue; // Quay lại vòng lặp để nhập lại tọa độ
-                }
-                // Kiểm tra tọa độ có nằm trong kích thước bảng không
-                if (x_begin > sizeField || x_end > sizeField || y_end > sizeField || y_begin > sizeField) {
-                    System.out.println("Tọa độ vượt quá kích thước bảng! Vui lòng đặt lại tàu!");
-                    continue;
+                // Kiểm tra điều kiện đặt tàu
+                if (!checkShipPlacement(xBegin, yBegin, xEnd, yEnd, size, name)) {
+                    continue; // Nếu không hợp lệ, yêu cầu nhập lại
                 }
 
-                // Kiểm tra khu vực có đủ không gian để đặt tàu không
-                int cnt = 0; // Đếm số ô trống có thể đặt tàu
-                for (int i = Math.min(y_end, y_begin) -1; i < Math.max(y_end, y_begin); i++) {
-                    for (int j = Math.min(x_end, x_begin) -1 ; j < Math.max(x_end, x_begin); j++) {
-                        if (getMyBoard(i, j) == ' ') cnt++;
-                        else break; // Nếu trùng, dừng việc kiểm tra
-                    }
-                }
-
-                if (cnt == size) { // Nếu đủ không gian để đặt tàu
-                    for (int i = Math.min(y_end, y_begin) - 1; i < Math.max(y_end, y_begin); i++) {
-                        for (int j = Math.min(x_end, x_begin) - 1; j < Math.max(x_end, x_begin); j++) {
-                            char shipChar = (char) ('A' + numberShip); // Tạo ký tự đại diện cho tàu
-                            setMyBoard(i, j, shipChar); // Đánh dấu tàu trên bảng của mình
-                        }
-                    }
-                } else {
-                    System.out.println("Bạn đã đặt trùng lên tàu, vui lòng đặt lại");
-                    continue;
-                }
-
+                // Đặt tàu trên bảng
+                placeShip(xBegin, yBegin, xEnd, yEnd, size);
                 System.out.println("Bạn đã đặt tàu " + name + " thành công");
-                ships.add(new Ship(name, x_begin, y_begin, x_end, y_end, size)); // Thêm tàu vào danh sách
+
+                ships.add(new Ship(name, xBegin, yBegin, xEnd, yEnd, size)); // Thêm tàu vào danh sách
                 checkShip = 0; // Đánh dấu tàu đã được đặt xong
                 numberShip++; // Tăng số lượng tàu đã đặt
             }
         }
         showMyBoard(); // Hiển thị bảng sau khi đặt tất cả tàu
     }
+
+    // Hàm kiểm tra điều kiện đặt tàu
+    private boolean checkShipPlacement(int xBegin, int yBegin, int xEnd, int yEnd, int size, String name) {
+        if (Math.abs(xBegin - xEnd) != size - 1 && Math.abs(yBegin - yEnd) != size - 1) {
+            System.out.println("Bạn đang nhập sai kích thước " + size + " của tàu " + name);
+            System.out.println("Vui lòng nhập lại");
+            return false;
+        }
+
+        if (xBegin > sizeField || xEnd > sizeField || yEnd > sizeField || yBegin > sizeField) {
+            System.out.println("Tọa độ vượt quá kích thước bảng! Vui lòng đặt lại tàu!");
+            return false;
+        }
+
+        int count = 0; // Đếm số ô trống có thể đặt tàu
+        for (int i = Math.min(yEnd, yBegin) - 1; i < Math.max(yEnd, yBegin); i++) {
+            for (int j = Math.min(xEnd, xBegin) - 1; j < Math.max(xEnd, xBegin); j++) {
+                if (getMyBoard(i, j) == ' ') {
+                    count++;
+                } else {
+                    return false; // Nếu trùng, không thể đặt tàu
+                }
+            }
+        }
+
+        if (count != size) {
+            System.out.println("Bạn đã đặt trùng lên tàu, vui lòng đặt lại");
+            return false;
+        }
+        return true;
+    }
+
+    // Hàm đặt tàu trên bảng
+    private void placeShip(int xBegin, int yBegin, int xEnd, int yEnd, int size) {
+        for (int i = Math.min(yEnd, yBegin) - 1; i < Math.max(yEnd, yBegin); i++) {
+            for (int j = Math.min(xEnd, xBegin) - 1; j < Math.max(xEnd, xBegin); j++) {
+                char shipChar = (char) ('A' + numberShip); // Tạo ký tự đại diện cho tàu
+                setMyBoard(i, j, shipChar); // Đánh dấu tàu trên bảng của mình
+            }
+        }
+    }
+
 
 
     public void beHit() {
@@ -149,7 +175,7 @@ public class Player extends Field {
                 if (check == 1) break; // Thoát vòng lặp nếu đã thắng
             } else { // Nếu bắn trượt
                 System.out.println("Bạn đã bắn trượt.");
-                setDisplayBoard(x, y, 'o'); // Đánh dấu bắn trượt trên bảng
+                setDisplayBoard(x, y, 'O'); // Đánh dấu bắn trượt trên bảng
                 break;
             }
         }
@@ -171,7 +197,7 @@ public class Player extends Field {
                 for (int i = Math.min(ship.getY_begin(), ship.getY_end())-1; i < Math.max(ship.getY_begin(), ship.getY_end()); i++) {
                     for (int j = Math.min(ship.getX_begin(), ship.getX_end())-1; j < Math.max(ship.getX_begin(), ship.getX_end()); j++) {
                         setDisplayBoard(i, j,getMyBoard(i,j)); // Đánh dấu toàn bộ tàu chìm
-                        setMyBoard(i,j, 'x');
+                        setMyBoard(i,j, 'X');
                     }
                 }
                 System.out.println("Tàu " + ship.getName() + " đã bị bắn hạ!");

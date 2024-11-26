@@ -1,17 +1,34 @@
 import java.util.Scanner;
 
 public class Game {
-    Scanner scanner = new Scanner(System.in);
+    public Scanner scanner = new Scanner(System.in);
     public void showGame()
     {
 
-        System.out.println("chào mừng bạn đến với trò chơi Sea-Battle");
-        System.out.println("-----------------------------------------");
-        System.out.println("------------------Luật chơi--------------");
-        System.out.println("1. Hai người chơi lần lượt bắn vào bản đồ của đối phương.");
-        System.out.println("2. Đánh trúng tất cả tàu của đối phương sẽ thắng.");
-        System.out.println("3. Mỗi người sẽ có bản đồ nxn với 5 tàu chiến.");
-        System.out.println("Hãy sẵn sàng!");
+        System.out.println("············································································");
+        System.out.println(":                    █████████  ██████████   █████████                     :");
+        System.out.println(":                   ███░░░░░███░░███░░░░░█  ███░░░░░███                    :");
+        System.out.println(":                  ░███    ░░░  ░███  █ ░  ░███    ░███                    :");
+        System.out.println(":                  ░░█████████  ░██████    ░███████████                    :");
+        System.out.println(":                   ░░░░░░░░███ ░███░░█    ░███░░░░░███                    :");
+        System.out.println(":                   ███    ░███ ░███ ░   █ ░███    ░███                    :");
+        System.out.println(":                  ░░█████████  ██████████ █████   █████                   :");
+        System.out.println(":                                                                          :");
+        System.out.println(":                                                                          :");
+        System.out.println(": ███████████    █████████   ███████████ ███████████ █████       ██████████:");
+        System.out.println(":░░███░░░░░███  ███░░░░░███ ░█░░░███░░░█░█░░░███░░░█░░███       ░░███░░░░░█:");
+        System.out.println(": ░███    ░███ ░███    ░███ ░   ░███  ░ ░   ░███  ░  ░███        ░███  █ ░ :");
+        System.out.println(": ░██████████  ░███████████     ░███        ░███     ░███        ░██████   :");
+        System.out.println(": ░███░░░░░███ ░███░░░░░███     ░███        ░███     ░███        ░███░░█   :");
+        System.out.println(": ░███    ░███ ░███    ░███     ░███        ░███     ░███      █ ░███ ░   █:");
+        System.out.println(": ███████████  █████   █████    █████       █████    ███████████ ██████████:");
+        System.out.println("············································································");
+        System.out.println("----------------------------------------------------------------------------");
+        System.out.println("-------------------------------------Luật chơi------------------------------");
+        System.out.println("|1.        Hai người chơi lần lượt bắn vào bản đồ của đối phương           |");
+        System.out.println("|2.             Đánh trúng tất cả tàu của đối phương sẽ thắng              |");
+        System.out.println("|3.              Mỗi người sẽ có bản đồ nxn với 5 tàu chiến                |");
+        System.out.println("|----------------------------------Hãy sẵn sàng----------------------------|");
     }
     public void  menuGame()
     {
@@ -67,25 +84,25 @@ public class Game {
         System.out.println("vui lòng nhập kích thước bàn đấu");
         int size = Integer.parseInt(scanner.nextLine());
         System.out.println("nhập tên người chơi số 1:" );
-        String name1 = scanner.nextLine();
+        String firstName = scanner.nextLine();
         System.out.println("nhập tên người chơi số 2");
-        String name2 = scanner.nextLine();
-        Player player1 = new Player(size,name1);
-        Player player2 = new Player(size,name2);
-        System.out.println("xin chào người chơi "+name1+ "đây là giai đoạn đặt tàu chiến của người chơi 1");
+        String secondName = scanner.nextLine();
+        Player firstPlayer = new Player(size,firstName);
+        Player secondPlayer = new Player(size,secondName);
+        System.out.println("xin chào người chơi "+firstName+ "đây là giai đoạn đặt tàu chiến của người chơi 1");
         System.out.println("vui lòng đặt tàu:");
-        player1.setShip();
-        System.out.println("xin chào người chơi "+name2+ "đây là giai đoạn đặt tàu chiến của người chơi 2");
+        firstPlayer.setShip();
+        System.out.println("xin chào người chơi "+secondName+ "đây là giai đoạn đặt tàu chiến của người chơi 2");
         System.out.println("vui lòng đặt tàu:");
-        player2.setShip();
+        secondPlayer.setShip();
         int turn = 1;
-        while(player1.check == 0 && player2.check == 0)
+        while(firstPlayer.check == 0 && secondPlayer.check == 0)
         {
             if(turn %2 == 1)
             {
-                gameBattle(player1,player2);
+                gameBattle(firstPlayer,secondPlayer);
             }
-            else gameBattle(player2,player1);
+            else gameBattle(secondPlayer,firstPlayer);
             turn ++;
         }
 
