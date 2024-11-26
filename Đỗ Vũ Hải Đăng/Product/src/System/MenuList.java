@@ -43,10 +43,15 @@ public class MenuList {
         System.out.println("4. Battle Ship");
     }
     public static void showPlayerOption(){
-        System.out.println("Player Option:");
-        System.out.println("1. Shot");
-        System.out.println("2. View Board");
-        System.out.println("3. End turn");
+        System.out.println("     PLAYER OPTION");
+        System.out.println("+---------------------+");
+        System.out.println("|       1. Shot       |");
+        System.out.println("+---------------------+");
+        System.out.println("|    2. View Board    |");
+        System.out.println("+---------------------+");
+        System.out.println("|     3. End turn     |");
+        System.out.println("+---------------------+");
+        System.out.println(" ");
     }
     public static void showPlayerTitle(int idPlayer){
         if(idPlayer == 1){
@@ -85,9 +90,10 @@ public class MenuList {
         System.out.println("█████▄▄██   ██████████    ▄████▀         ▄████████▀     ▄████▀     ███    █▀    ███    ███    ▄████▀");
     }
     public static void setShipOptionMenu(){
-        System.out.println("Set up Ship:");
-        System.out.println("1. Basic");
-        System.out.println("2. Auto");
+        System.out.println("  +----Set up Ship----+");
+        System.out.println("  | 1.    Basic       |");
+        System.out.println("  | 2.    Auto        |");
+        System.out.println("  +-------------------+");
     }
     public static void printNumber(int number){
         if(number == 1){
@@ -133,5 +139,36 @@ public class MenuList {
         System.out.println("  ███    ███   ███      ███");
         System.out.println("  ███    ███   ███      ███");
         System.out.println("  ███    █▀    █▀      ▄████▀");
+    }
+    public static void sunkNotify(){
+        System.out.println("   ▄████████ ███    █▄  ███▄▄▄▄      ▄█   ▄█▄");
+        System.out.println("  ███    ███ ███    ███ ███▀▀▀██▄   ███ ▄███▀");
+        System.out.println("  ███    █▀  ███    ███ ███   ███   ███▐██▀");
+        System.out.println("  ███        ███    ███ ███   ███  ▄█████▀");
+        System.out.println("▀███████████ ███    ███ ███   ███ ▀▀█████▄");
+        System.out.println("         ███ ███    ███ ███   ███   ███▐██▄");
+        System.out.println("   ▄█    ███ ███    ███ ███   ███   ███ ▀███▄");
+        System.out.println(" ▄████████▀  ████████▀   ▀█   █▀    ███   ▀█▀");
+        System.out.println("                                    ▀");
+    }
+    public static void isWinnerNotify(){
+        System.out.println("    ▄█     ▄████████");
+        System.out.println("   ███    ███    ███");
+        System.out.println("   ███▌   ███    █▀");
+        System.out.println("   ███▌   ███");
+        System.out.println("   ███▌ ▀███████████");
+        System.out.println("   ███           ███");
+        System.out.println("   ███     ▄█    ███");
+        System.out.println("   █▀    ▄████████▀");
+        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println("    ▄█     █▄   ▄█  ███▄▄▄▄   ███▄▄▄▄      ▄████████    ▄████████");
+        System.out.println("   ███     ███ ███  ███▀▀▀██▄ ███▀▀▀██▄   ███    ███   ███    ███");
+        System.out.println("   ███     ███ ███▌ ███   ███ ███   ███   ███    █▀    ███    ███");
+        System.out.println("   ███     ███ ███▌ ███   ███ ███   ███  ▄███▄▄▄      ▄███▄▄▄▄██▀");
+        System.out.println("   ███     ███ ███▌ ███   ███ ███   ███ ▀▀███▀▀▀     ▀▀███▀▀▀▀▀");
+        System.out.println("   ███     ███ ███  ███   ███ ███   ███   ███    █▄  ▀███████████");
+        System.out.println("   ███ ▄█▄ ███ ███  ███   ███ ███   ███   ███    ███   ███    ███");
+        System.out.println("    ▀███▀███▀  █▀    ▀█   █▀   ▀█   █▀    ██████████   ███    ███");
     }
 }

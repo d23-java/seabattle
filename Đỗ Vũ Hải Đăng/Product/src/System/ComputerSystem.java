@@ -107,10 +107,10 @@ public class ComputerSystem {
     void inGame(){
         int playerTurn = 1;
         while(!players.get(0).isDefeat() && !players.get(1).isDefeat()){
-            Terminal.clear();
             playerTurn = (playerTurn == 1) ? 0 : 1;
-            System.out.println(players.get(playerTurn).getName() + "'s turn: ");
             while(true){
+                Terminal.clear();
+                System.out.println(">>> " + players.get(playerTurn).getName() + "'s turn <<<<\n\n");
                 MenuList.showPlayerOption();
                 int playerChoice = Integer.parseInt(InputSystem.sc.nextLine());
                 if(playerChoice == 1){
@@ -118,16 +118,24 @@ public class ComputerSystem {
                     break;
                 }
                 else if(playerChoice == 2){
+                    Terminal.clear();
+                    System.out.println("          Player's Board\n");
                     players.get(playerTurn).getPlayerScreen().display();
+                    System.out.println(" ");
+                    System.out.println("Press Enter to return");
+                    InputSystem.sc.nextLine();
                 }
                 else if(playerChoice == 3){
                     break;
                 }
             }
-
         }
+        Terminal.clear();
+        MenuList.showPlayerTitle(playerTurn + 1);
+        System.out.println(" ");
+        MenuList.isWinnerNotify();
+        System.out.println(" ");
+        System.out.println("\n\n\n\nPress Enter to return to the main menu");
+        InputSystem.sc.nextLine();
     }
-
-
-
 }

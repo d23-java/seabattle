@@ -54,12 +54,22 @@ public class Screen{
     int checkShipBeDestroyed(){
         for(int i = 0; i < activeShip.size(); i++){
             if(!activeShip.get(i).checkShipBeDestroyed(matrix)){
-                System.out.println("Defeat " +activeShip.get(i).getNameShip());
                 activeShip.remove(i);
                 return i;
             }
         }
         return -1;
+    }
+
+    public boolean checkCoordinates(String coordinates){
+        if(coordinates.length() != 2) return false;
+        if(coordinates.charAt(0) < 'a' || coordinates.charAt(0) > 'z'){
+            return false;
+        }
+        if(coordinates.charAt(1) < '0' || coordinates.charAt(1) >= (char)(sizeScreen + '0') ) {
+            return false;
+        }
+        return true;
     }
 
     String[][] getMatrix(){

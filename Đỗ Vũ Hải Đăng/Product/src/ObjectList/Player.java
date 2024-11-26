@@ -33,7 +33,6 @@ public class Player {
         int setUpChoice = Integer.parseInt(InputSystem.sc.nextLine());
         if(setUpChoice == 1){
             for(int i = 0;i < 5;++i){
-                MenuList.setShipOptionMenu();
                 Terminal.clear();
                 System.out.println("      +---------------+");
                 System.out.println("      | Set up Screen |");
@@ -89,27 +88,45 @@ public class Player {
                     }
                 }
             }
+            Terminal.clear();
+            MenuList.showPlayerTitle(idPlayer);
             playerScreen.display();
+            System.out.println(" ");
+            System.out.println(" ");
             System.out.println("Press Enter to continue...");
             InputSystem.sc.nextLine();
         }
     }
     public void shotShip(Player Enemy){
         Terminal.clear();
-        System.out.println("FIRE!!!");
+        System.out.println(name + "'s turn");
+        System.out.println("FIRE!!! \n");
+        System.out.println("          Enemy's Board\n");
         shotScreen.display();
+        System.out.println(" ");
+        String coordinates;
+        while(true){
         System.out.println("Enter the coordinates to fire:");
-        String coordinates = InputSystem.sc.nextLine();
+            coordinates = InputSystem.sc.nextLine();
+            if(shotScreen.checkCoordinates(coordinates)){
+                break;
+            }
+            System.out.println("\nCannot fire to outside position !!\n");
+        }
         if(Enemy.playerScreen.checkShot(coordinates)){
             MenuList.hitNotify();
             shotScreen.getMatrix()[(int)coordinates.charAt(0) - 'a'][(int)coordinates.charAt(1) - '0'] = "[F]";
             Enemy.playerScreen.getMatrix()[(int)coordinates.charAt(0) - 'a'][(int)coordinates.charAt(1) - '0'] = "[F]";
             int checkShipDown = Enemy.playerScreen.checkShipBeDestroyed();
             if(checkShipDown != -1){
+                System.out.println("\n");
+                MenuList.sunkNotify();
                 Enemy.playerShip.remove(checkShipDown);
             }
-            System.out.println("Press Enter to continue...");
+            System.out.println("You have one more bullet!!!!");
+            System.out.println("Press Enter to continue shot...");
             InputSystem.sc.nextLine();
+            if(!Enemy.isDefeat()) shotShip(Enemy);
         }
         else{
             shotScreen.getMatrix()[(int)coordinates.charAt(0) - 'a'][(int)coordinates.charAt(1) - '0'] = "[F]";
@@ -119,7 +136,6 @@ public class Player {
             System.out.println("Press Enter to continue...");
             InputSystem.sc.nextLine();
         }
-        shotScreen.checkShot(coordinates);
     }
     public String getName(){
         return name;
