@@ -1,15 +1,22 @@
 package data;
 
+import java.util.ArrayList;
+
 public class Ship {
-    protected int size;
-    protected int quantity;
-    protected boolean ruined;
-    protected int wasHit;
+    private int size;
+    private int quantity;
+    private boolean ruined;
+    private int wasHit;
+    private ArrayList<int[]> coordinates = new ArrayList<>();
     public Ship(int size,int quantity) {
         this.size = size;
         this.ruined = false;
         this.wasHit = 0;
         this.quantity = quantity;
+    }
+
+    public ArrayList<int[]> getCoordinate() {
+        return coordinates;
     }
 
     public int getSize() {
