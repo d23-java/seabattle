@@ -1,6 +1,8 @@
+package model;
+
 public class Ship {
-    private int size;
-    private char symbol;
+    private final int size;
+    private final char symbol;
 
     public Ship(int size, char symbol) {
         this.size = size;

@@ -1,10 +1,12 @@
-public class Player {
-    private String name;
-    private Board board;
+package model;
 
-    public Player(String name) {
+public class Player {
+    private final String name;
+    private final Board board;
+
+    public Player(String name, int boardSize) {
         this.name = name;
-        this.board = new Board();
+        this.board = new Board(boardSize);
     }
 
     public String getName() {

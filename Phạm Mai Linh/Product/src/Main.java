@@ -1,6 +1,8 @@
+import controller.GameController;
+
 public class Main {
     public static void main(String[] args) {
-        SeaBattleGame game = new SeaBattleGame();
-        game.startGame();
+        GameController gameController = new GameController();
+        gameController.startGame();
     }
 }
