@@ -2,6 +2,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanf = new Scanner(System.in);
+
         Game game = new Game();
         // hien thi menu
         System.out.println("Hien thi menu: ");

@@ -1,30 +1,36 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Board {
-    private int[][] board = new int[15][15];
-    private int[][] fogBoard = new int[15][15];
+    private int[][] board;
+    private int[][] fogBoard;
+    private int rows, cols;
 
-
-    private ArrayList<int[]> ship = new ArrayList<int[]>();// danh sach toa do 1 thuyen
-    private ArrayList<Ship> ships = new ArrayList<Ship>();// danh sach luu cac thuyen
+    private ArrayList<int[]> ship;// danh sach toa do 1 thuyen
+    private ArrayList<Ship> ships;// danh sach luu cac thuyen
     private ArrayList<Boolean>hitStatus = new ArrayList<Boolean>(); // luu trang thai cua cac o ( da bi ban trung hay chua)
     // khoi tao thong so ban dau
-    public Board(int[][] board, int [][]fogBoard, ArrayList<Ship>ships){
-        this.board = board;
-        this.fogBoard = fogBoard;
+    public Board(int rows, int cols, ArrayList<Ship>ships){
+        this.rows = rows;
+        this.cols = cols;
+        this.board = new int[rows+5][cols+5];
+        this.fogBoard = new int[rows+5][cols+5];
         this.ships = ships;
+        System.out.println("Hang "+ rows + " cot " + cols);
+
     }
 
-    public void setBoard(){
-        for(int i = 1; i <= 10; i++){
-            for(int j = 1; j <= 10; j++)
+    public void setBoard(int rows, int cols){
+
+        for(int i = 1; i <= rows; i++){
+            for(int j = 1; j <= cols; j++)
                 board[i][j] = 0; // ban dau bang chua co thuyen
         }
     }
-    public void setFogBoard(){
-        for(int i = 1; i <= 10; i++){
-            for(int j = 1; j <= 10; j++)
-                fogBoard[i][j] = 0; // ban dau bang chua co thuyen
+    public void setFogBoard(int rows, int cols){
+
+        for(int i = 1; i <= rows; i++){
+            for(int j = 1; j <= cols; j++)
+                fogBoard[i-1][j-1] = 0; // ban dau bang chua co thuyen
         }
     }
 
@@ -36,18 +42,17 @@ public class Board {
         String name = scanf.nextLine();
 
         System.out.println("Nhập toạ độ vị trí đầu của thuyền: ");
-        int x_begin = scanf.nextInt();
-        int y_begin = scanf.nextInt();
-        scanf.nextLine();
+        int xBegin = Integer.parseInt(scanf.nextLine());
+        int yBegin = Integer.parseInt(scanf.nextLine());
+
 
         System.out.println("Nhập toạ độ vị trí cuối của thuyền: ");
-        int x_end = scanf.nextInt();
-        int y_end = scanf.nextInt();
-        scanf.nextLine();
+        int xEnd = Integer.parseInt(scanf.nextLine());
+        int yEnd = Integer.parseInt(scanf.nextLine());
 
         ship = new ArrayList<int[]>();
-        for (int i = x_begin; i <= x_end; i++) {
-            for (int j = y_begin; j <= y_end; j++) {
+        for (int i = xBegin; i <= xEnd; i++) {
+            for (int j = yBegin; j <= yEnd; j++) {
                 ship.add(new int[]{i, j});
                 board[i][j] = 1;
             }
@@ -60,9 +65,9 @@ public class Board {
             enemy.getBoard().displayFogBoard();
             boolean check = false;
             System.out.println("Nhập toạ độ ô mà bạn muốn bắn: ");
-            int x = scanf.nextInt();
-            int y = scanf.nextInt();
-            scanf.nextLine();
+            int x = Integer.parseInt(scanf.nextLine());
+            int y = Integer.parseInt(scanf.nextLine());
+
             Board enemyBoard = enemy.getBoard();
             for (Ship boat : enemyBoard.ships) {
                 if(boat.isOccupyCoordinate(x,y)){

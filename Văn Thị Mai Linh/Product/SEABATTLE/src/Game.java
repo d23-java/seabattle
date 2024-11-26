@@ -2,21 +2,44 @@ import java.util.Scanner;
 import java.util.ArrayList;
 public class Game {
     Scanner scanf = new Scanner(System.in);
+    private int rows, cols;
+    public Game(){
+        System.out.println("Nhập vào số hàng của bảng chơi: ");
+        this.rows = Integer.parseInt(scanf.nextLine());
+        System.out.println("Nhập vào số cột của bảng chơi: ");
+        this.cols = Integer.parseInt(scanf.nextLine());
+        boardFirst = new int[rows + 5][cols +5];
+        fogBoardFirst = new int[rows +5][cols+5];
+        shipsFirst = new ArrayList<Ship>();
+        boardPlayerFirst = new Board(rows, cols,shipsFirst);
+        playerFirst = new Player(boardPlayerFirst);
+        playerFirstMenu = new Menu(playerFirst);
+
+
+        boardSecond  = new int[rows +5][cols+5];
+        fogBoardSecond = new int[rows +5][cols+5];
+        shipsSecond = new ArrayList<Ship>();
+        boardPlayerSecond = new Board(rows, cols, shipsSecond);
+        playerSecond = new Player(boardPlayerSecond);
+        playerSecondMenu = new Menu(playerSecond);
+
+
+    }
     // nguoi choi 1
-    private int [][] board1 = new int [15][15];
-    private int[][] fogBoard1 = new int [15][15];
-    private ArrayList<Ship>ships1 = new ArrayList<Ship>();
-    Board boardA = new Board(board1, fogBoard1,ships1);
-    Player playerA = new Player(boardA);
-    Menu player1 = new Menu(playerA);
+    private int [][] boardFirst;
+    private int[][] fogBoardFirst;
+    private ArrayList<Ship>shipsFirst;
+    private Board boardPlayerFirst;
+    private Player playerFirst;
+    private Menu playerFirstMenu;
 
     // nguoi choi 2
-    private int [][] board2 = new int [15][15];
-    private int[][] fogBoard2 = new int [15][15];
-    private ArrayList<Ship>ships2 = new ArrayList<Ship>();
-    Board boardB = new Board(board2, fogBoard2, ships2);
-    Player playerB = new Player(boardB);
-    Menu player2 = new Menu(playerB);
+    private int [][] boardSecond;
+    private int[][] fogBoardSecond;
+    private ArrayList<Ship>shipsSecond;
+    private Board boardPlayerSecond;
+    private Player playerSecond;
+    private Menu playerSecondMenu;
 
     public void menu(){
         System.out.println("Bạn có các lựa chọn sau: ");
@@ -28,23 +51,24 @@ public class Game {
     }
 
     public void startGame(){
-        playerA.getBoard().setBoard();
-        playerA.getBoard().setFogBoard();
-        playerB.getBoard().setBoard();
-        playerB.getBoard().setFogBoard();
+
+        playerFirst.getBoard().setBoard(rows, cols);
+        playerFirst.getBoard().setFogBoard(rows, cols);
+        playerSecond.getBoard().setBoard(rows, cols);
+        playerSecond.getBoard().setFogBoard(rows, cols);
         System.out.println("Các người chơi đặt thuyền.");
         System.out.println("Người chơi thứ nhất đặt thuyền: ");
         int totleNum = 0;
         while(totleNum < 5 ){
-            boardA.setShip();
-            boardA.displayBoard();
+            boardPlayerFirst.setShip();
+            boardPlayerFirst.displayBoard();
             totleNum++;
         }
         System.out.println("Người chơi thứ 2 đặt thuyền: ");
         totleNum = 0;
         while(totleNum < 5){
-            boardB.setShip();
-            boardB.displayBoard();
+            boardPlayerSecond.setShip();
+            boardPlayerSecond.displayBoard();
             totleNum++;
         }
     }
@@ -52,7 +76,7 @@ public class Game {
     public void playGame() {
         boolean gameRunning = true;
         int currentPlayer = 1;
-        int winner = 1;
+
         while (gameRunning) {
             if (currentPlayer == 1) {
                 System.out.println("Lượt của người thứ nhất: ");
@@ -63,16 +87,16 @@ public class Game {
                     scanf.nextLine();
                     switch (choice) {
                         case 1:
-                            player1.currentStatus();
+                            playerFirstMenu.currentStatus();
                             break;
                         case 2:
-                            player1.viewTable();
+                            playerFirstMenu.viewTable();
                             break;
                         case 3:
-                            player2.viewFogTable();
+                            playerSecondMenu.viewFogTable();
                             break;
                         case 4:
-                            player1.attack(playerB);
+                            playerFirstMenu.attack(playerSecond);
                             break;
                         case 5:
                             currentPlayer = 2;
@@ -82,7 +106,7 @@ public class Game {
                     }
                     if(choice == 5)
                         break;
-                    if(playerB.getNumberOfShipLeft() == 0) {
+                    if(playerSecond.getNumberOfShipLeft() == 0) {
                         gameRunning = false;
                         break;
                     }
@@ -93,21 +117,20 @@ public class Game {
                 menu();
                 while (true) {
                     System.out.println("Nhập lựa chọn của bạn: ");
-                    int choice = scanf.nextInt();
-                    scanf.nextLine();
+                    int choice = Integer.parseInt(scanf.nextLine());
 
                     switch (choice) {
                         case 1:
-                            player2.currentStatus();
+                            playerSecondMenu.currentStatus();
                             break;
                         case 2:
-                            player2.viewTable();
+                            playerSecondMenu.viewTable();
                             break;
                         case 3:
-                            player1.viewFogTable();
+                            playerFirstMenu.viewFogTable();
                             break;
                         case 4:
-                            player2.attack(playerA);
+                            playerSecondMenu.attack(playerFirst);
                             break;
                         case 5:
                             currentPlayer = 1;
@@ -117,7 +140,7 @@ public class Game {
                     }
                     if(choice == 5)
                         break;
-                    if(playerA.getNumberOfShipLeft() == 0){
+                    if(playerFirst.getNumberOfShipLeft() == 0){
                         gameRunning = false;
                         break;
                     }
@@ -126,9 +149,9 @@ public class Game {
         }
         System.out.println("Trận chiến kết thúc, người chiến thắng là người thứ: " + currentPlayer);
         System.out.println("Bảng chơi của người chơi 1: ");
-        boardA.displayBoard();
+        boardPlayerFirst.displayBoard();
         System.out.println("Bảng chơi của người chơi 2: ");
-        boardB.displayBoard();
+        boardPlayerSecond.displayBoard();
     }
 
 }
