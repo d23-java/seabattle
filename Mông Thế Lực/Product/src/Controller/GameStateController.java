@@ -1,28 +1,34 @@
+package Controller;
+
+import Model.Player;
+import View.GameView;
+
 public class GameStateController {
-    private final Player player1;
-    private final Player player2;
+    private final Player firstPlayer;
+    private final Player secondPlayer;
     private int currentTurn;
 
     public GameStateController() {
-        this.player1 = new Player("Player 1");
-        this.player2 = new Player("Player 2");
+        this.firstPlayer = new Player("Player 1");
+        this.secondPlayer = new Player("Player 2");
         this.currentTurn = 1;
     }
-
     public Player getCurrentPlayer() {
-
-        return currentTurn == 1 ? player1 : player2;
+        return currentTurn == 1 ? firstPlayer : secondPlayer;
     }
 
     public Player getOpponent() {
-        return currentTurn == 1 ? player2 : player1;
+        return currentTurn == 1 ? secondPlayer : firstPlayer;
     }
 
     public boolean isGameOver() {
-        return player1.getBoard().isAllShipsSunk() || player2.getBoard().isAllShipsSunk();
+        boolean isOver = firstPlayer.isLoose()  || secondPlayer.isLoose();
+        if(isOver) GameView.displayGameResult(firstPlayer, secondPlayer);
+        return isOver;
     }
 
     public void switchTurn() {
         currentTurn = currentTurn == 1 ? 2 : 1;
     }
+
 }

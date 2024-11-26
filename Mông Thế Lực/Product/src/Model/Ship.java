@@ -1,3 +1,5 @@
+package Model;
+
 public class Ship {
     private String name;
     private char symbol;
@@ -10,23 +12,29 @@ public class Ship {
     public Ship(String name, Coord position, int rowSize, int colSize, char direction) {
         this.name = name;
         this.position = position;
-        this.rowSize = rowSize;
-        this.colSize = colSize;
         this.isSunk = false;
         this.direction = direction;
-        if(name.contains("Patrol")) symbol = 'P';
-        else if(name.contains("Destroyer")) symbol = 'D';
-        else if(name.contains("Submarine")) symbol = 'S';
-        else if(name.contains("Battle")) symbol = 'B';
+        this.symbol = name.toUpperCase().charAt(0);
+        this.rowSize = rowSize;
+        this.colSize = colSize;
+    }
 
+    public char getSymbol() {
+        return symbol;
     }
 
     public void setPosition(Coord position) {
         this.position = position;
     }
-
+    public void swapRowCol(){
+        int temp = this.rowSize;
+        this.rowSize = this.colSize; this.colSize = temp;
+    }
     public void setDirection(char direction) {
         this.direction = direction;
+        if(Character.toLowerCase(direction) == 'h'){
+           swapRowCol();
+        }
     }
 
     public boolean isSunk() {
@@ -40,5 +48,22 @@ public class Ship {
     public String getName() {
         return name;
     }
-    // Additional methods for ship logic can be added here
+
+    public Coord getPosition() {
+        return position;
+    }
+    public int getRowPosition(){
+        return position.getRow();
+    }
+    public int getColPosition(){
+        return position.getCol();
+    }
+
+    public int getRowSize() {
+        return rowSize;
+    }
+
+    public int getColSize() {
+        return colSize;
+    }
 }

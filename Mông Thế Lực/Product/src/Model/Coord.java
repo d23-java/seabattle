@@ -1,3 +1,5 @@
+package Model;
+
 public class Coord {
     private int row;
     private int col;
