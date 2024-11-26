@@ -1,50 +1,44 @@
 package player;
 
-import java.util.ArrayList;
-import java.util.List;
+import main.system;
 
 public class Player {
     private String name;
-    private char[][] myBoard;
-    private char[][] enemyBoard;
+    private String[][] board;
+    private String[][] enemyBoard;
     private int soODaBan;
-    private int soOTrungDich;
     private int soTauDaPha;
     private int soTauConLai;
-    private int PatrolBoat1Point;
-    private int PatrolBoat2Point;
-    private int DestroyerBoatPoint;
-    private int SubmarinePoint;
-    private int BattleShipPoint;
+    private int patrolBoat1Point;
+    private int patrolBoat2Point;
+    private int destroyerBoatPoint;
+    private int submarinePoint;
+    private int battleShipPoint;
     Player(){}
     Player(String name) {
         this.name = name;
-        myBoard = new char[21][21];
-        enemyBoard = new char[21][21];
+        board = new String[21][21];
+        enemyBoard = new String[21][21];
         for(int i = 1; i <= 20; i++)
             for(int j = 1; j <= 20; j++) {
-                myBoard[i][j] = ' ';
-                enemyBoard[i][j] = '?';
+                board[i][j] = "\uD83C\uDF0A";
+                enemyBoard[i][j] = "❓";
             }
         soODaBan = 0;
-        soOTrungDich = 0;
         soTauDaPha = 0;
         soTauConLai = 5;
-        PatrolBoat1Point = 2;
-        PatrolBoat2Point = 2;
-        DestroyerBoatPoint = 4;
-        SubmarinePoint = 3;
-        BattleShipPoint = 5;
+        patrolBoat1Point = 2;
+        patrolBoat2Point = 2;
+        destroyerBoatPoint = 4;
+        submarinePoint = 3;
+        battleShipPoint = 5;
     }
 
-    public char[][] getMyBoard() {
-        return myBoard;
+    public String[][] getBoard() {
+        return board;
     }
 
-    public char getMyBoard(int x, int y) {
-        return myBoard[x][y];
-    }
-    public char[][] getEnemyBoard() {
+    public String[][] getEnemyBoard() {
         return enemyBoard;
     }
 
@@ -52,20 +46,16 @@ public class Player {
         return name;
     }
 
-    public void setMyBoard(char symbol, int i, int j) {
-        this.myBoard[i][j] = symbol;
+    public void setBoard(String symbol, int i, int j) {
+        this.board[i][j] = symbol;
     }
 
-    public void setEnemyBoard(char symbol, int i, int j) {
+    public void setEnemyBoard(String symbol, int i, int j) {
         this.enemyBoard[i][j] = symbol;
     }
 
     public int getSoODaBan() {
         return soODaBan;
-    }
-
-    public int getSoOTrungDich() {
-        return soOTrungDich;
     }
 
     public int getSoTauDaPha() {
@@ -76,50 +66,63 @@ public class Player {
        soODaBan++;
     }
 
-    public void updateSoOTrungDich() {
-        soOTrungDich++;
-    }
     public void updateSoTauDaPha() {
         soTauDaPha++;
     }
     public void decreasePatrolBoat1Point()
     {
-        PatrolBoat1Point--;
+        patrolBoat1Point--;
     }
     public void decreasePatrolBoat2Point()
     {
-        PatrolBoat2Point--;
+        patrolBoat2Point--;
     }
     public void decreaseDestroyerBoatPoint()
     {
-        DestroyerBoatPoint--;
+        destroyerBoatPoint--;
     }
     public void decreaseSubmarinePoint()
     {
-        SubmarinePoint--;
+        submarinePoint--;
     }
     public void decreaseBattleShipPoint()
     {
-        BattleShipPoint--;
+        battleShipPoint--;
+    }
+    public void decreaseSoTauConLai(){ soTauConLai--; }
+
+    public int getSoTauConLai() {
+        return soTauConLai;
     }
 
     public int getPatrolBoat1Point() {
-        return PatrolBoat1Point;
+        return patrolBoat1Point;
     }
 
     public int getDestroyerBoatPoint() {
-        return DestroyerBoatPoint;
+        return destroyerBoatPoint;
     }
 
     public int getPatrolBoat2Point() {
-        return PatrolBoat2Point;
+        return patrolBoat2Point;
     }
 
     public int getSubmarinePoint() {
-        return SubmarinePoint;
+        return submarinePoint;
     }
 
     public int getBattleShipPoint() {
-        return BattleShipPoint;
+        return battleShipPoint;
     }
+
+    public ToaDo toaDoShoot(){
+        java.lang.System.out.println("Chọn vị trí muốn khai hỏa:");
+        java.lang.System.out.printf("Chọn hoành độ: ");
+        int x = Integer.parseInt(system.scanner.nextLine());
+        java.lang.System.out.printf("Chọn tung độ: ");
+        int y = Integer.parseInt(system.scanner.nextLine());
+        ToaDo toaDo = new ToaDo(x,y);
+        return toaDo;
+    }
+
 }
