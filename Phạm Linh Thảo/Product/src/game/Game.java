@@ -34,13 +34,16 @@ public class Game {
                     if(j==0 || j==1 ) System.out.println("Place Patrol Boat size 1x2");
                     else if(j==2)     System.out.println("Place Destroyer Boat size 1x4");
                     else if(j==3)     System.out.println("Place Submarine size 1x3");
-                    else if(j==4)     System.out.println("Place Battle Ship 1x5");
+                    else if(j==4 )     System.out.println("Place Battle Ship 1x5");
                     System.out.println("Enter start X coordinate:");
                     int x = Integer.parseInt(scanner.nextLine());
                     System.out.println("Enter start Y coordinate:");
                     int y = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Enter ship size:");
-                    int size = Integer.parseInt(scanner.nextLine());
+                    int size = 0;
+                    if(j==0 || j==1) size =2;
+                    else if(j==2)    size =4;
+                    else if(j==3)    size = 3;
+                    else if( j==4 ) size =5;
                     System.out.println("Enter direction (H for horizontal, V for vertical):");
                     char direction = scanner.nextLine().toUpperCase().charAt(0);
                     if(currentPlayer.canPlaceShip(x, y, size, direction))
@@ -61,8 +64,8 @@ public class Game {
     }
 
     public void shooting() {
-        System.out.println("Phase: Shoot your opponent's ships!");
-        while (player1.getShipsRemaining() > 0 && player2.getShipsRemaining() > 0) {
+        System.out.println("Shoot your opponent's ships!");
+        while (!player1.getBoard().isCleanAllShip() && !player1.getBoard().isCleanAllShip() ) {
             System.out.println(currentPlayer.getName() + "'s turn to shoot.");
             currentPlayer.getBoard().displayBoard();
             System.out.println("Enter X coordinate to shoot:");
