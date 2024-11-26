@@ -1,20 +1,25 @@
 package manager;
 
+import model.Player;
 import util.ScreenUtil;
 
 import java.util.Scanner;
 
-public class Game {
-    private final Player player1;
-    private final Player player2;
-    private Player currentPlayer;
+public class GameManager {
+    private final Player playerOne;
+    private final Player playerTwo;
+    private final PlayerManager playerOneManager;
+    private final PlayerManager playerTwoManager;
+    private PlayerManager currentPlayerManager;
     private final Scanner scanner;
 
-    public Game() {
+    public GameManager() {
         scanner = new Scanner(System.in);
-        player1 = new Player("Player 1");
-        player2 = new Player("Player 2");
-        currentPlayer = player1;
+        playerOne = new Player("Player 1");
+        playerTwo = new Player("Player 2");
+        playerOneManager = new PlayerManager(playerOne);
+        playerTwoManager = new PlayerManager(playerTwo);
+        currentPlayerManager = playerOneManager;
     }
 
     public void start() {
@@ -25,16 +30,16 @@ public class Game {
         System.out.println("\033[33m███████║███████╗██║  ██║    ██████╔╝██║  ██║   ██║      ██║   ███████╗███████╗");
         System.out.println("\033[33m╚══════╝╚══════╝╚═╝  ╚═╝    ╚═════╝ ╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚══════╝╚══════╝");
         System.out.println("\u001B[32mWelcome to Sea Battle!\u001B[0m");
-        setupPhase(player1);
+        setupPhase(playerOneManager);
         ScreenUtil.waitForEnter();
         ScreenUtil.clearScreen();
-        setupPhase(player2);
+        setupPhase(playerTwoManager);
         playGame();
     }
 
-    private void setupPhase(Player player) {
-        System.out.println("\u001B[32m" + player.getName() + ", place your ships on the board.\u001B[0m");
-        player.placeShips(scanner);
+    private void setupPhase(PlayerManager playerManager) {
+        System.out.println("\u001B[32m" + playerManager.getPlayer().getName() + ", place your ships on the board.\u001B[0m");
+        playerManager.placeShips(scanner);
     }
 
     private void playGame() {
@@ -42,21 +47,21 @@ public class Game {
             ScreenUtil.waitForEnter();
             ScreenUtil.clearScreen();
             System.out.println();
-            System.out.println("\u001B[32m" + currentPlayer.getName() + "'s turn.\u001B[0m");
-            currentPlayer.takeTurn(scanner, getOpponent());
-            if (getOpponent().hasLost()) {
-                System.out.println("\u001B[32m" + currentPlayer.getName() + " wins!\u001B[0m");
+            System.out.println("\u001B[32m" + currentPlayerManager.getPlayer().getName() + "'s turn.\u001B[0m");
+            currentPlayerManager.takeTurn(scanner, getOpponentManager());
+            if (getOpponentManager().hasLost()) {
+                System.out.println("\u001B[32m" + currentPlayerManager.getPlayer().getName() + " wins!\u001B[0m");
                 break;
             }
             switchPlayer();
         }
     }
 
-    private Player getOpponent() {
-        return currentPlayer == player1 ? player2 : player1;
+    private PlayerManager getOpponentManager() {
+        return currentPlayerManager == playerOneManager ? playerTwoManager : playerOneManager;
     }
 
     private void switchPlayer() {
-        currentPlayer = getOpponent();
+        currentPlayerManager = getOpponentManager();
     }
 }

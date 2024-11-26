@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Board {
+public class BoardManager {
     private final char[][] grid;
     private final int size = 10;
     private final List<Ship> ships;
 
-    public Board() {
+    public BoardManager() {
         grid = new char[size][size];
         ships = new ArrayList<>();
         for (char[] row : grid) {
@@ -50,25 +50,25 @@ public class Board {
     }
 
     public boolean placeShip(Ship ship, Coordinate start, boolean isVertical) {
-        int x = start.getX();
-        int y = start.getY();
+        int xAxis = start.getXAxis();
+        int yAxis = start.getYAxis();
         int size = ship.getSize();
 
         if (isVertical) {
-            if (x + size > this.size) return false;
+            if (xAxis + size > this.size) return false;
             for (int i = 0; i < size; i++) {
-                if (grid[x + i][y] != '~') return false;
+                if (grid[xAxis + i][yAxis] != '~') return false;
             }
             for (int i = 0; i < size; i++) {
-                grid[x + i][y] = ship.getSymbol();
+                grid[xAxis + i][yAxis] = ship.getSymbol();
             }
         } else {
-            if (y + size > this.size) return false;
+            if (yAxis + size > this.size) return false;
             for (int i = 0; i < size; i++) {
-                if (grid[x][y + i] != '~') return false;
+                if (grid[xAxis][yAxis + i] != '~') return false;
             }
             for (int i = 0; i < size; i++) {
-                grid[x][y + i] = ship.getSymbol();
+                grid[xAxis][yAxis + i] = ship.getSymbol();
             }
         }
         ships.add(ship);
@@ -76,23 +76,23 @@ public class Board {
     }
 
     public boolean fireAt(Coordinate target) {
-        int x = target.getX();
-        int y = target.getY();
-        if (x < 0 || x >= size || y < 0 || y >= size) {
+        int xAxis = target.getXAxis();
+        int yAxis = target.getYAxis();
+        if (xAxis < 0 || xAxis >= size || yAxis < 0 || yAxis >= size) {
             System.out.println("Coordinates out of bounds. Try again.");
             return false;
         }
-        if (grid[x][y] == '~') {
-            grid[x][y] = 'O';
+        if (grid[xAxis][yAxis] == '~') {
+            grid[xAxis][yAxis] = 'O';
             return false;
-        } else if (grid[x][y] != 'O' && grid[x][y] != 'X') {
+        } else if (grid[xAxis][yAxis] != 'O' && grid[xAxis][yAxis] != 'X') {
             for (Ship ship : ships) {
-                if (Character.valueOf(ship.getSymbol()).equals(grid[x][y])) {
+                if (Character.valueOf(ship.getSymbol()).equals(grid[xAxis][yAxis])) {
                     ship.hit();
                     break;
                 }
             }
-            grid[x][y] = 'X';
+            grid[xAxis][yAxis] = 'X';
             return true;
         } else {
             System.out.println("Already fired at this location. Try again.");
@@ -101,9 +101,9 @@ public class Board {
     }
 
     public void update(Coordinate target, boolean hit) {
-        int x = target.getX();
-        int y = target.getY();
-        grid[x][y] = hit ? 'X' : 'O';
+        int xAxis = target.getXAxis();
+        int yAxis = target.getYAxis();
+        grid[xAxis][yAxis] = hit ? 'X' : 'O';
     }
 
     public boolean allShipsSunk() {

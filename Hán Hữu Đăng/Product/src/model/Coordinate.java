@@ -1,20 +1,20 @@
 package model;
 
 public class Coordinate {
-    private final int x;
-    private final int y;
+    private final int xAxis;
+    private final int yAxis;
 
-    public Coordinate(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Coordinate(int xAxis, int yAxis) {
+        this.xAxis = xAxis;
+        this.yAxis = yAxis;
     }
 
-    public int getX() {
-        return x;
+    public int getXAxis() {
+        return xAxis;
     }
 
-    public int getY() {
-        return y;
+    public int getYAxis() {
+        return yAxis;
     }
 
     public static Coordinate fromString(String input) {

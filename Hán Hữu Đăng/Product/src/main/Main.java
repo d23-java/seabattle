@@ -1,10 +1,10 @@
 package main;
 
-import manager.Game;
+import manager.GameManager;
 
 public class Main {
     public static void main(String[] args) {
-        Game game = new Game();
+        GameManager game = new GameManager();
         game.start();
     }
 }
