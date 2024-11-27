@@ -15,6 +15,7 @@ import static utilz.Constants.textConstants.*;
 public class Game {
     private Player player1;
     private Player player2;
+    private Bot bot;
     private Player currentPlayer;
     private boolean logout = false;
     private TextScreen textScreen;
@@ -29,6 +30,7 @@ public class Game {
         currentPlayer = player1;
         textScreen = new TextScreen(this);
         board = new Board(this);
+        bot = new Bot(board);
 
         while(true) {
 
@@ -53,8 +55,8 @@ public class Game {
 
             currentPlayer = player1;
 
-//            TextScreen.printBoard(player1.getPlayerBoard(), player1.getName());
-            TextScreen.printBoard(player2.getPlayerBoard());
+//            TextScreen.printBoard(player1.getPlayerBoard());
+//            TextScreen.printBoard(player2.getPlayerBoard());
 //        TextScreen.printBoard(player1.getPlayerFog(), player2.getName());
 //        TextScreen.printBoard(player2.getPlayerFog(), player2.getName());
 
@@ -81,7 +83,7 @@ public class Game {
                     break;
                 }
 
-                if(board.getContinueTurn())
+                if(board.getSwitchTurn())
                     currentPlayer = player2;
                 else
                     currentPlayer = player1;
@@ -109,12 +111,16 @@ public class Game {
                 else {
                     System.out.println("OK let me think");
                     TextEffect.printWithEffect(".....");
-                    Bot.botPlay(player1.getPlayerBoard());
-
+                    if(bot.botPlay(player1.getPlayerBoard())) {
+                        System.out.println();
+                        System.out.println(GREEN_BACKGROUND + player2.getName() + " win !!!" + RESET);
+                        System.out.println();
+                        break;
+                    }
                 }
 
 
-                if(board.getContinueTurn())
+                if(board.getSwitchTurn())
                     currentPlayer = player1;
                 else
                     currentPlayer = player2;

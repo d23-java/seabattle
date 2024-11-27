@@ -40,6 +40,10 @@ public class Constants {
         public static final int DESTROYER_BOAT_SIZE = 4;
         public static final int SUBMARINE_SIZE = 3;
         public static final int BATTLE_SHIP_SIZE = 5;
+    }
 
+    public static class itemConstants {
+        public static final int bombArea = 3;
+        public static final int lightArea = 3;
     }
 }

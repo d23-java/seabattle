@@ -14,7 +14,7 @@ import static utilz.Constants.textConstants.RESET;
 
 public class Board {
     private Game game;
-    private boolean continueTurn = true;
+    private boolean switchTurn = true;
     private final int[] shipSizes = {PATROL_BOAT_SIZE, PATROL_BOAT_SIZE, DESTROYER_BOAT_SIZE, SUBMARINE_SIZE, BATTLE_SHIP_SIZE};
     private final String[] ships = {PATROL_BOAT, PATROL_BOAT, DESTROYER_BOAT, SUBMARINE, BATTLE_SHIP};
     private final String[] shipNames = {"Patrol Boat", "Patrol Boat", "Destroyer Boat", "Submarine", "Battle Ship"};
@@ -89,7 +89,7 @@ public class Board {
             int row = rowChar - 'A';
             if (fog[row][col].equals(MISS_CELL) || fog[row][col].equals(DESTROYER_CELL)) {
                 System.out.println("You already shot a fire cell");
-                continueTurn = false;
+                switchTurn = false;
                 return false;
             }
 
@@ -98,23 +98,23 @@ public class Board {
                 currentPlayer.setScore(currentPlayer.getScore() + 1);
                 fog[row][col] = DESTROYER_CELL;
                 opponentBoard[row][col] = DESTROYER_CELL;
-                continueTurn = false;
+                switchTurn = false;
             }
             else {
                 System.out.println("Miss !!!");
                 fog[row][col] = MISS_CELL;
-                continueTurn = true;
+                switchTurn = true;
             }
         } catch (Exception e) {
             System.out.println("Invalid input");
-            continueTurn = false;
+            switchTurn = false;
             return false;
         }
 
         return checkWin(opponentBoard);
     }
 
-    private boolean checkWin(String[][] board) {
+    public boolean checkWin(String[][] board) {
         for (int i = 0; i < Game.boardSize; i++) {
             for (int j = 0; j < Game.boardSize; j++) {
                 if (board[i][j].equals(PATROL_BOAT) || board[i][j].equals(DESTROYER_BOAT) || board[i][j].equals(SUBMARINE) || board[i][j].equals(BATTLE_SHIP)) {
@@ -157,12 +157,12 @@ public class Board {
         return cntShip;
     }
 
-    public boolean getContinueTurn() {
-        return continueTurn;
+    public boolean getSwitchTurn() {
+        return switchTurn;
     }
 
-    public void setContinueTurn(boolean continueTurn) {
-        this.continueTurn = continueTurn;
+    public void setSwitchTurn(boolean switchTurn) {
+        this.switchTurn = switchTurn;
     }
 
 }
