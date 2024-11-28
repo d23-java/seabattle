@@ -1,5 +1,8 @@
+package Manager;
+import Body.Player;
+import Menu.Menu;
 import java.util.Scanner;
-
+import Console.Console;
 public class GameManager {
     private Player firstPlayer = new Player();
     private Player secondPlayer = new Player();
@@ -8,9 +11,11 @@ public class GameManager {
     public static boolean endGame = false;
     private boolean isFirstPlayerTurn = true;
     public Menu menu = new Menu();
+    public Console console = new Console();
+
     public void setUpGame() {
-        menu.displayMenuStart();
         while (true) {
+            menu.displayMenuStart();
             int choice = Integer.parseInt(scanner.nextLine());
             if (choice == 2) {
                 System.out.println("Successfully Exit!!!");
@@ -66,6 +71,7 @@ public class GameManager {
                         break;
                 }
             }
+            console.clearConsole();
         }
     }
 }

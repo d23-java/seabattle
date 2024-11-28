@@ -1,4 +1,6 @@
+package Body;
 import java.util.ArrayList;
+import Manager.GameManager;
 
 public class Board {
     public static final int boardSize = 11;
@@ -16,7 +18,26 @@ public class Board {
             }
         }
     }
-
+    public boolean checkHasShip (int x1, int x2, int y1, int y2) {
+        if (x1 < 0 || x2 > boardSize || y1 < 0 || y2 > boardSize) {
+            return false;
+        }
+        if (x1 == x2) {
+            for (int i = Math.min(y1, y2); i <= Math.max(y1, y2); i++) {
+                if (grid[x1][i] != EMPTY) {
+                    return false;
+                }
+            }
+        }
+        else {
+            for (int i = Math.min(x1, x2); i <= Math.max(x1, x2); i++) {
+                if (grid[i][y1] != EMPTY) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     public void setCoordinate(int x1, int x2, int y1, int y2, char type) {
         if (x1 == x2) {
             for (int i = Math.min(y1, y2); i <= Math.max(y1, y2); i++) {
@@ -62,6 +83,11 @@ public class Board {
             y1 = Integer.parseInt(xChar.substring(1)) - 1;
             x2 = (int)(yChar.charAt(0)) - 'A';
             y2 = Integer.parseInt(yChar.substring(1)) - 1;
+            if (!checkHasShip(x1, x2, y1, y2)) {
+                System.out.println("Has ship or Out of Board!! Please try again.");
+                --i;
+                continue;
+            }
             int size;
             if (i == 0 || i == 1) size = 2;
             else size = i + 1;
