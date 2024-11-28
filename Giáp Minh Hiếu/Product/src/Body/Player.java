@@ -1,3 +1,9 @@
+package Body;
+import Manager.GameManager;
+
+import static Body.Board.EMPTY;
+import static Body.Board.MISS;
+
 public class Player {
     public Board enemyBoard = new Board();
     public Board myBoard = new Board();
@@ -25,9 +31,9 @@ public class Player {
         String xChar = GameManager.scanner.nextLine();
         int y = Integer.parseInt(xChar.substring(1)) - 1;
         int x = xChar.charAt(0) - 'A';
-        if (enemy.myBoard.getGrid()[x][y] == '.') {
+        if (enemy.myBoard.getGrid()[x][y] == EMPTY) {
             System.out.println("Not exactly!");
-            enemy.myBoard.getGrid()[x][y] = 'N';
+            enemy.myBoard.getGrid()[x][y] = MISS;
         }
         else {
             System.out.println("Successful shot!");
