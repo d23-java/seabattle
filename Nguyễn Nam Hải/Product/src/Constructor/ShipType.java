@@ -1,3 +1,5 @@
+package Constructor;
+
 public class ShipType {
     private String name;
     private int area;
@@ -11,15 +13,7 @@ public class ShipType {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getArea() {
         return area;
-    }
-
-    public void setArea(int area) {
-        this.area = area;
     }
 }
