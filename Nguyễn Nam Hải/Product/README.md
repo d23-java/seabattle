@@ -2,7 +2,7 @@
 
 Sea Battle is a game for two players. The game is played on four grids, two for each player. The grids are typically square – usually 10×10 – and the individual squares in the grid are identified by letter and number. On one grid the player arranges ships and records the shots by the opponent. On the other grid the player records their own shots.
 
-The project was done by [Nguyễn Văn A](https://github.com/naa-ntu), in the course of Object Oriented Programming at [ProPTIT](https://proptit.com/).
+The project was done by [Nguyễn Nam Hải](https://github.com/HandQ2212), in the course of Object Oriented Programming at [ProPTIT](https://proptit.com/).
 
 
 ## Tech Stack
@@ -26,24 +26,20 @@ The project was done by [Nguyễn Văn A](https://github.com/naa-ntu), in the co
 ├── src
 │   ├── main
 │   │   ├── java
-│   │   │   ├── controller
-│   │   │   │   ├── Controller.java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   └── ....java
-│   │   │   ├── model
+│   │   │   ├── constructor
 │   │   │   │   ├── Board.java
-│   │   │   │   ├── Cell.java
+│   │   │   │   ├── Player.java
+│   │   │   │   ├── Ship.java
+│   │   │   │   └── ShipType.java
+│   │   │   ├── GamePlay
 │   │   │   │   ├── Game.java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   └── ....java
+│   │   │   │   ├── Main.java
+│   │   │   │   └── Menu.java
+│   │   │   ├── PlayerActivity
+│   │   │   │   ├── Fire.java
+│   │   │   │   ├── InitShip.java
+│   │   │   │   ├── ManagerPlayer.java
+│   │   │   │   └── PlayerData.java
 
 
 ```
