@@ -27,7 +27,7 @@ public class GameView {
     }
 
     public String getCoordinateInput(Scanner scanner) {
-        System.out.print("Nhập tọa độ (ví dụ: A1): ");
+        System.out.print("Nhập tọa độ hoặc gõ 'exit' để lưu và thoát: ");
         return scanner.nextLine().toUpperCase();
     }
 
@@ -75,7 +75,7 @@ public class GameView {
         scanner.nextLine();
     }
 
-    public void clearScreen() {
+    public static void clearScreen() {
         for (int i = 0; i < 50; i++) System.out.println(); // Mô phỏng xóa màn hình
     }
 }

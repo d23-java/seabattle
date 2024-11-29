@@ -5,29 +5,83 @@ import model.Player;
 import model.Ship;
 import view.GameView;
 
+import java.io.*;
 import java.util.Scanner;
 
 public class GameController {
-    private Player player1;
-    private Player player2;
+    final String GREEN = "\033[32m";
+    final String RESET = "\033[0m";
+
+    private Player firstPlayer;
+    private Player secondPlayer;
     private int boardSize;
     private final GameView view = new GameView();
+    private Player currentPlayer;
+    private Player opponent;
+
+    private static final String SAVE_FILE = "game_save.dat";
+
+    public void saveGame() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(SAVE_FILE))) {
+            out.writeObject(firstPlayer);
+            out.writeObject(secondPlayer);
+            out.writeObject(currentPlayer);
+            out.writeObject(opponent);
+            out.writeInt(boardSize);
+            System.out.println("Trạng thái game đã được lưu!");
+        } catch (IOException e) {
+            System.out.println("Lỗi khi lưu game: " + e.getMessage());
+        }
+    }
+
+    public boolean loadGame() {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(SAVE_FILE))) {
+            firstPlayer = (Player) in.readObject();
+            secondPlayer = (Player) in.readObject();
+            currentPlayer = (Player) in.readObject();
+            opponent = (Player) in.readObject();
+            boardSize = in.readInt();
+            return true;
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Không thể tải game: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public void resumeGame() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(GREEN +
+                "  ██████╗ ██████╗ ███╗   ██╗████████╗██╗███╗   ██╗██╗   ██╗███████╗\n" +
+                " ██╔════╝██╔═══██╗████╗  ██║╚══██╔══╝██║████╗  ██║██║   ██║██╔════╝\n" +
+                " ██║     ██║   ██║██╔██╗ ██║   ██║   ██║██╔██╗ ██║██║   ██║█████╗  \n" +
+                " ██║     ██║   ██║██║╚██╗██║   ██║   ██║██║╚██╗██║██║   ██║██╔══╝  \n" +
+                " ╚██████╗╚██████╔╝██║ ╚████║   ██║   ██║██║ ╚████║╚██████╔╝███████╗\n" +
+                "  ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝   ╚═╝   ╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚══════╝ \n" + GREEN);
+        System.out.println(GREEN + "\nResuming your game...\n" + RESET);
+        playGame(scanner);
+    }
 
     public void startGame() {
         Scanner scanner = new Scanner(System.in);
 
-        // Nhập kích thước bảng
+        System.out.println(GREEN +
+                " ███╗   ██╗███████╗██╗    ██╗     ██████╗  █████╗ ███╗   ███╗███████╗\n" +
+                " ████╗  ██║██╔════╝██║    ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝\n" +
+                " ██╔██╗ ██║█████╗  ██║ █╗ ██║    ██║  ███╗███████║██╔████╔██║█████╗  \n" +
+                " ██║╚██╗██║██╔══╝  ██║███╗██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  \n" +
+                " ██║ ╚████║███████╗╚███╔███╔╝    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗\n" +
+                " ╚═╝  ╚═══╝╚══════╝ ╚══╝╚══╝      ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝\n" + RESET);
+
         boardSize = view.getBoardSize(scanner);
 
-        // Nhập thông tin người chơi
-        player1 = new Player(view.getPlayerName(scanner, 1), boardSize);
-        player2 = new Player(view.getPlayerName(scanner, 2), boardSize);
+        firstPlayer = new Player(view.getPlayerName(scanner, 1), boardSize);
+        secondPlayer = new Player(view.getPlayerName(scanner, 2), boardSize);
 
-        // Giai đoạn chuẩn bị
+
         view.showMessage("\n--- Vòng chuẩn bị ---");
-        setupShips(player1, scanner);
+        setupShips(firstPlayer, scanner);
         view.clearScreen();
-        setupShips(player2, scanner);
+        setupShips(secondPlayer, scanner);
         view.clearScreen();
 
         // Bắt đầu trò chơi
@@ -60,19 +114,19 @@ public class GameController {
                     continue;
                 }
 
-                int x1 = startInput.charAt(0) - 'A';
-                int y1 = Integer.parseInt(startInput.substring(1)) - 1;
+                int startRowShip = startInput.charAt(0) - 'A';
+                int startColShip = Integer.parseInt(startInput.substring(1)) - 1;
 
-                int[][] validEndPositions = board.getValidEndPositions(x1, y1, ship);
+                int[][] validEndPositions = board.getValidEndPositions(startRowShip, startColShip, ship);
                 if (validEndPositions.length == 0) {
                     System.out.println("Không có vị trí kết thúc hợp lệ! Thử lại.");
                     continue;
                 }
 
                 for (int i = 0; i < validEndPositions.length; i++) {
-                    int x2 = validEndPositions[i][0];
-                    int y2 = validEndPositions[i][1];
-                    System.out.println((i + 1) + ". " + (char) ('A' + x2) + (y2 + 1));
+                    int endRowShip = validEndPositions[i][0];
+                    int endColShip = validEndPositions[i][1];
+                    System.out.println((i + 1) + ". " + (char) ('A' + endRowShip) + (endColShip + 1));
                 }
 
                 System.out.print("Chọn một vị trí (1-" + validEndPositions.length + "): ");
@@ -88,10 +142,10 @@ public class GameController {
                     continue;
                 }
 
-                int x2 = validEndPositions[choice - 1][0];
-                int y2 = validEndPositions[choice - 1][1];
+                int endRowShip = validEndPositions[choice - 1][0];
+                int endColShip = validEndPositions[choice - 1][1];
 
-                if (board.placeShip(x1, y1, x2, y2, ship)) {
+                if (board.placeShip(startRowShip, startColShip, endRowShip, endColShip, ship)) {
                     System.out.println("Đã đặt tàu thành công!");
                     break;
                 } else {
@@ -156,10 +210,10 @@ public class GameController {
                 continue;
             }
 
-            int x1 = startInput.charAt(0) - 'A';
-            int y1 = Integer.parseInt(startInput.substring(1)) - 1;
+            int startRowShip = startInput.charAt(0) - 'A';
+            int startColShip = Integer.parseInt(startInput.substring(1)) - 1;
 
-            int[][] validEndPositions = board.getValidEndPositions(x1, y1, ship);
+            int[][] validEndPositions = board.getValidEndPositions(startRowShip, startColShip, ship);
 
             if (validEndPositions.length == 0) {
                 view.showMessage("Không có vị trí kết thúc hợp lệ! Thử lại.");
@@ -169,10 +223,10 @@ public class GameController {
             view.showValidEndPositions(validEndPositions);
 
             int choice = view.getEndPositionChoice(scanner, validEndPositions.length);
-            int x2 = validEndPositions[choice - 1][0];
-            int y2 = validEndPositions[choice - 1][1];
+            int endRowShip = validEndPositions[choice - 1][0];
+            int endColShip = validEndPositions[choice - 1][1];
 
-            if (board.placeShip(x1, y1, x2, y2, ship)) {
+            if (board.placeShip(startRowShip, startColShip, endRowShip, endColShip, ship)) {
                 view.showMessage("Đã đặt tàu thành công!");
                 return true;
             } else {
@@ -183,31 +237,31 @@ public class GameController {
 
     private boolean isValidInput(String input) {
         if (input == null || input.length() < 2) {
-            return false; // Nhập vào rỗng hoặc quá ngắn
+            return false;
         }
 
-        char row = input.charAt(0); // Lấy ký tự hàng (A, B, C,...)
-        String colPart = input.substring(1); // Lấy phần số cột (1, 2, 3,...)
+        char row = input.charAt(0);
+        String colPart = input.substring(1);
 
         if (row < 'A' || row >= 'A' + boardSize) {
-            return false; // Ký tự hàng không nằm trong phạm vi bảng
+            return false;
         }
 
         try {
             int col = Integer.parseInt(colPart);
             if (col < 1 || col > boardSize) {
-                return false; // Số cột không nằm trong phạm vi bảng
+                return false;
             }
         } catch (NumberFormatException e) {
-            return false; // Không thể chuyển đổi phần số
+            return false;
         }
 
-        return true; // Đầu vào hợp lệ
+        return true;
     }
 
     private void playGame(Scanner scanner) {
-        Player currentPlayer = player1;
-        Player opponent = player2;
+        Player currentPlayer = firstPlayer;
+        Player opponent = secondPlayer;
 
         while (true) {
             boolean hit = true;
@@ -219,6 +273,13 @@ public class GameController {
                 opponent.getBoard().printBoard(true);
 
                 String input = view.getCoordinateInput(scanner);
+                if (input.equalsIgnoreCase("exit")) {
+                    saveGame();
+                    System.out.println("Game đã được lưu. Thoát trò chơi.");
+                    GameView.clearScreen();
+                    return;
+                }
+
 
                 int x = input.charAt(0) - 'A';
                 int y = Integer.parseInt(input.substring(1)) - 1;
