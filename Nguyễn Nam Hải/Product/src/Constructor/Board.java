@@ -29,17 +29,15 @@ public class Board {
     }
 
     private void displayBoard(char[][] board) {
-        System.out.print(" __|");
-        for(int i = 0; i < 10; i++){
-            System.out.printf("|%d|", i + 1);
-        }
-        System.out.printf("\n");
+        System.out.println("|___|  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10 |");
+        System.out.println("|~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|");
         for (int i = 0; i < 10; i++) {
-            System.out.printf("  %c|", 'A' + i);
+            System.out.printf("| %c |", 'A'+i);
             for (int j = 0; j < 10; j++) {
-                System.out.print("[" + board[i][j] + "]");
+                System.out.print(" [" + board[i][j] + "] |");
             }
             System.out.println();
+            System.out.println("|~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|");
         }
     }
 

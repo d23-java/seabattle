@@ -52,28 +52,37 @@ public class ManagerPlayer {
     }
 
     public void displayPlayerAndOpponentBoard(Board playerBoard, Board opponentBoard) {
-        System.out.print("  |______________PLAYER______________||________________OPPONENT_____________|");
-        System.out.printf("\n    ");
-        for(int i = 0; i < 10; i++){
-            System.out.printf("|%d|", i+1);
-        }
-        System.out.print("  ||    ");
-        for(int i = 0; i < 10; i++){
-            System.out.printf("|%d|", i+1);
-        }
-        System.out.printf("\n");
-
+        System.out.println("|_________________________PLAYER-BOARD__________________________|      |__________________________OPPONENT-BOARD_______________________|");
+        System.out.println("|___|  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10 |      |___|  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10 |");
+        System.out.println("|~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|      |~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|");
         for (int i = 0; i < 10; i++) {
-            System.out.printf("  %c|", 'A'+i);
+            System.out.printf("| %c |", 'A'+i);
             for (int j = 0; j < 10; j++) {
-                System.out.print("[" + playerBoard.getValue(i, j, true) + "]");
+                System.out.print(" [" + playerBoard.getValue(i, j, true) + "] |");
             }
-            System.out.print("   ||");
-            System.out.printf("  %c|", 'A'+i);
+            System.out.print("      ");
+            System.out.printf("| %c |", 'A'+i);
             for(int j = 0; j < 10; j++){
-                System.out.print("[" + opponentBoard.getValue(i, j, false) + "]");
+                System.out.print(" [" + opponentBoard.getValue(i, j, false) + "] |");
             }
             System.out.println();
+            System.out.println("|~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|      |~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|~~~~~|");
         }
+    }
+
+    public void displayPlayerCaption(){
+        System.out.println("Chú thích: ");
+        System.out.println("+ [ ]: Ô chưa bị bắn");
+        System.out.println("+ [Y]: Ô bị bắn nhưng chưa trúng tàu");
+        System.out.println("+ [R]: Đã bị bắn trúng 1 phần của tàu nào đó");
+        System.out.println("+ [1] or [2] or ..: Nơi đặt tàu 1, 2, 3, 4 hoặc 5 (Số thứ tự tương ứng lúc nhập tàu)");
+    }
+
+    public void displayOpponentCaption(){
+        System.out.println("Chú thích: ");
+        System.out.println("+ [ ]: Ô chưa bị bắn");
+        System.out.println("+ [Y]: Ô bị bắn nhưng chưa trúng tàu");
+        System.out.println("+ [R]: Đã bắn trúng 1 phần của tàu nào đó");
+        System.out.println("+ [1] or [2] or ..: Đã bắn trúng tàu 1, 2, 3, 4 hoặc 5 (Số thứ tự tương ứng lúc nhập tàu)");
     }
 }

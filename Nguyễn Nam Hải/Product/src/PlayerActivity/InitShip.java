@@ -14,36 +14,15 @@ public class InitShip {
         this.ships = ships;
         menu = new Menu();
     }
-    private boolean validateCoordinates(int xBefore, int yBefore, int xAfter, int yAfter, int area) {
-        if (!((0 <= xBefore && xBefore <= xAfter && xAfter <= 9) && (0 <= yBefore && yBefore <= yAfter && yAfter <= 9))) {
-            return false;
-        }
+
+    private boolean validateCoordinates(int[] beforeCoords, int[] afterCoords, int area) {
+        int xBefore = beforeCoords[0], yBefore = beforeCoords[1];
+        int xAfter = afterCoords[0], yAfter = afterCoords[1];
         int calculatedArea = (Math.abs(xAfter - xBefore) + 1) * (Math.abs(yAfter - yBefore) + 1);
         return calculatedArea == area;
     }
 
-    private void enterAfterCoordinates(int[] coordinates) {
-        int x = 0, y = 0;
-        boolean enterTrue = false;
-        while(!enterTrue) {
-            System.out.print("Enter x (1, 2,..., 10): ");
-            String xString = sc.nextLine().trim();
-            System.out.print("Enter y (A, B,..., J): ");
-            char yChar = sc.nextLine().charAt(0);
-            x = Integer.parseInt(xString);
-            y = yChar - 'A';
-            x-=1;
-            if(((0 <= x && x <= 9) && (0 <= y && y <= 9))) {
-                enterTrue = true;
-            }
-            if(!enterTrue) {
-                menu.errorCoord();
-            }
-        }
-        coordinates[0] = x;
-        coordinates[1] = y;
-    }
-    private void enterBeforeCoordinates(int[] coordinates, String direction, int area) {
+    private void enterBeforeCoordinates(int[] coordinates) {
         int x = 0, y = 0;
         boolean enterTrue = false;
         while(!enterTrue) {
@@ -51,9 +30,8 @@ public class InitShip {
             String xString = sc.nextLine().trim();
             System.out.print("Enter y (A, B,..): ");
             char yChar = sc.nextLine().charAt(0);
-            x = Integer.parseInt(xString);
+            x = Integer.parseInt(xString) - 1;
             y = yChar - 'A';
-            x-=1;
             if(((0 <= x && x <= 9) && (0 <= y && y <= 9))) {
                 enterTrue = true;
             }
@@ -63,19 +41,8 @@ public class InitShip {
         }
         coordinates[0] = x;
         coordinates[1] = y;
-        if(direction.equals("LEFT")){ //yLeft = yRight
-            int xNext = x + area;
-            if(xNext >= 1 && xNext <= 10){
-                System.out.printf("Suggest enter the coordinate for RIGHT: (%d, %c)\n", xNext, 'A'+y);
-            }
-        }
-        if(direction.equals("TOP")){
-            int yBefore = y + area - 1;
-            if(yBefore >= 0 && yBefore <= 9){
-                System.out.printf("Suggest enter the coordinate for BOTTOM: (%d, %c)\n", x+1, 'A'+yBefore);
-            }
-        }
     }
+
     private ShipType determineShipType(int turn) {
         ShipType shipType = null;
         if (turn == 1) shipType = new ShipType("Patrol Boat 1 (Size: 1x2)", 2);
@@ -102,27 +69,25 @@ public class InitShip {
                 }
                 else enterTrue = false;
             }
-
-            String beforeCoord = "";
-            String afterCoord = "";
-
+            //
+            String firstDirection = "", afterDirection = "";
             if(chooseOrientation == 1) {
-                beforeCoord = "TOP";
-                afterCoord = "BOTTOM";
+                firstDirection = "TOP";
+                afterDirection = "BOTTOM";
             }
             if(chooseOrientation == 2) {
-                beforeCoord = "LEFT";
-                afterCoord = "RIGHT";
+                firstDirection = "LEFT";
+                afterDirection = "RIGHT";
             }
-
+            //
             System.out.printf("Enter coordinates for %s:\n", shipName);
-            // Coords[0] is x & Coords[1] is y
             int[] beforeCoords = new int[2];
             int[] afterCoords = new int[2];
-            System.out.printf("Enter the coordinates for the %s cell (x, y): \n", beforeCoord);
-            enterBeforeCoordinates(beforeCoords, beforeCoord, area);
-            //Check beforeCoord
-            if(beforeCoord.equals("LEFT")) {
+            System.out.printf("Enter the coordinates for the %s cell (x, y): \n", firstDirection);
+            enterBeforeCoordinates(beforeCoords);
+
+            //Check firstDirection
+            if(firstDirection.equals("LEFT")) {
                 int xNext = beforeCoords[0] + area;
                 if(!(xNext >= 1 && xNext <= 10)){
                     System.out.println("Invalid coordinates, please try again!");
@@ -130,7 +95,7 @@ public class InitShip {
                     continue;
                 }
             }
-            if(beforeCoord.equals("TOP")) {
+            if(firstDirection.equals("TOP")) {
                 int yBefore = beforeCoords[1] + area - 1;
                 if(!(yBefore >= 0 && yBefore <= 9)){
                     System.out.println("Invalid coordinates, please try again!");
@@ -139,26 +104,29 @@ public class InitShip {
                 }
             }
 
-            System.out.printf("Enter the coordinates for the %s cell (x, y): \n", afterCoord);
-            enterAfterCoordinates(afterCoords);
-
-            int xBefore = beforeCoords[0], yBefore = beforeCoords[1];
-            int xAfter = afterCoords[0], yAfter = afterCoords[1];
-
-            if (validateCoordinates(xBefore, yBefore, xAfter, yAfter, area)) {
-                Ship newShip = new Ship(shipName, xBefore, yBefore, xAfter, yAfter, false);
-                if((chooseOrientation == 2 && (yBefore != yAfter)) || (chooseOrientation == 1 && (xBefore != xAfter))) {
-                    System.out.println("Invalid coordinates, please try again!");
-                }
-                else if (newShip.hasOverlapWithOtherShip(ships)) {
+            //
+            if(chooseOrientation == 1) {//theo dang cot
+                afterCoords[0] = beforeCoords[0];
+                afterCoords[1] = beforeCoords[1] + area - 1;
+            }
+            if(chooseOrientation == 2) {//theo hang
+                afterCoords[0] = beforeCoords[0] + area - 1;
+                afterCoords[1] = beforeCoords[1];
+            }
+            System.out.printf("The coordinates for the %s cell: (%d, %c)\n", afterDirection, afterCoords[0] + 1, 'A' + afterCoords[1]);
+            //
+            if (validateCoordinates(beforeCoords, afterCoords, area)) {
+                Ship newShip = new Ship(shipName, beforeCoords, afterCoords, false);
+                if (newShip.hasOverlapWithOtherShip(ships)) {
                     System.out.println("These coordinates overlap with another ship. Please try again.");
-
-                } else {
+                }
+                else {
                     ships.add(newShip);
                     System.out.printf("%s added successfully!\n", shipName);
                     continue;
                 }
-            } else {
+            }
+            else {
                 System.out.println("Invalid coordinates, please try again!");
             }
             turn--;

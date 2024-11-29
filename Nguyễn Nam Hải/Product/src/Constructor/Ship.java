@@ -6,11 +6,13 @@ public class Ship {
     private String nameShip;
     private ArrayList<int[]> coordinates;
     private boolean attacked;
-    public Ship(String nameShip, int xLeft, int yLeft, int xRight, int yRight, boolean attacked) {
+    public Ship(String nameShip, int[] beforeCoords, int[] afterCoords, boolean attacked) {
         this.nameShip = nameShip;
         this.coordinates = new ArrayList<>();
         this.attacked = attacked;
-        generateCoordinates(xLeft, yLeft, xRight, yRight);
+        int xBefore = beforeCoords[0], yBefore = beforeCoords[1];
+        int xAfter = afterCoords[0], yAfter = afterCoords[1];
+        generateCoordinates(xBefore, yBefore, xAfter, yAfter);
     }
 
     private void generateCoordinates(int xLeft, int yLeft, int xRight, int yRight) {

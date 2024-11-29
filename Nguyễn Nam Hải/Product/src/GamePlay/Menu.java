@@ -16,4 +16,11 @@ public class Menu {
         System.out.println("1. Vertically");
         System.out.println("2. Horizontally");
     }
+    public void showFireMenu(){
+        System.out.println("Choose one of the following options:");
+        System.out.println("1. Show Player and Opponent's foggy board");
+        System.out.println("2. Show Player caption");
+        System.out.println("3. Show Opponent caption");
+        System.out.println("Another number to attack");
+    }
 }

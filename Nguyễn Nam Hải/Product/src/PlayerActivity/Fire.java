@@ -3,28 +3,55 @@ package PlayerActivity;
 import Constructor.Board;
 import Constructor.Player;
 import Constructor.Ship;
+import GamePlay.Menu;
 
 import java.util.*;
 public class Fire {
     private Scanner sc = new Scanner(System.in);
     public ManagerPlayer managerPlayer = new ManagerPlayer();
+    Menu menu = new Menu();
+    private Player player = null, opponent = null;
+    public void chooseRole(int turn){
+        if (turn == 1) {
+            player = PlayerData.player1;
+            opponent = PlayerData.player2;
+        } else if (turn == 2) {
+            player = PlayerData.player2;
+            opponent = PlayerData.player1;
+        }
+    }
+    public void firstOption(){
+        menu.showFireMenu();
+        System.out.print("Your choice: ");
+        int choose = Integer.parseInt(sc.nextLine());
+        while(choose >= 1 && choose <= 3){
+            if(choose == 1)    managerPlayer.displayPlayerAndOpponentBoard(player.getPlayerBoard(), opponent.getPlayerBoard());
+            if(choose == 2)    managerPlayer.displayPlayerCaption();
+            if(choose == 3)    managerPlayer.displayOpponentCaption();
+            System.out.print("If you want to see another, please press 4: ");
+            int check = Integer.parseInt(sc.nextLine());
+            if(check != 4)  break;
+            System.out.print("Your choice: ");
+            choose = Integer.parseInt(sc.nextLine());
+        }
+    }
+    private boolean checkWin(Player opponent){
+        boolean checkWin = true;
+        for (Ship ship : opponent.getShips()) {
+            if (!ship.isAttacked()) {// There is a ship that hasn’t been hit yet
+                checkWin = false;
+                break;
+            }
+        }
+        return checkWin;
+    }
     public void attack(int turn) {
         boolean endGame = false;
         while (!endGame) {
-            boolean successAttack = false;
-            boolean shipWreck = false;
-            System.out.printf("\n");
+            chooseRole(turn);
+            System.out.print("\n");
             System.out.printf("================================TURN PLAYER %d===============================\n", turn);
-            Player player = null, opponent = null;
-            if (turn == 1) {
-                player = PlayerData.player1;
-                opponent = PlayerData.player2;
-            } else if (turn == 2) {
-                player = PlayerData.player2;
-                opponent = PlayerData.player1;
-            }
-            managerPlayer.displayPlayerAndOpponentBoard(player.getPlayerBoard(), opponent.getPlayerBoard());
-            //Enter coordinates
+            firstOption();
             System.out.println("Enter the coordinates you want to shoot: ");
             int x = 0, y = 0;
             boolean enterTrue = false;
@@ -43,9 +70,10 @@ public class Fire {
                     System.out.println("Please enter the coordinates again");
                 }
             }
+
             //cot la x, hang la y
-            successAttack = false;
-            shipWreck = false;
+            boolean successAttack = false;
+            boolean shipWreck = false;
             opponent.getPlayerBoard().setValue(y, x, 'Y', false);
             opponent.getPlayerBoard().setValue(y, x, 'Y', true);
             int soThuTuCuaTau = 1;
@@ -96,19 +124,12 @@ public class Fire {
                 System.out.println("===========YOU HAVE HIT A SHIP===========");
             }
             //Check win
-            boolean checkWin = true;
-            for (Ship ship : opponent.getShips()) {
-                if (!ship.isAttacked()) {// There is a ship that hasn’t been hit yet
-                    checkWin = false;
-                    break;
-                }
-            }
-            if (checkWin) {
+            if (checkWin(opponent)) {
                 System.out.printf( "-------------PLAYER %d WIN---------------\n", turn);
                 System.out.println("================GAME OVER================");
                 endGame = true;
             }
-            if(!endGame)    System.out.printf("Turn player %d end. Next turn\n", turn);
+            else System.out.printf("Turn player %d end. Next turn\n", turn);
             //switch turn
             if (turn == 1) turn = 2;
             else if (turn == 2) turn = 1;
