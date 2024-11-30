@@ -1,6 +1,11 @@
 package game;
 
-public class PlayerRecord {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class PlayerRecord implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     public String playerName;
     public int shotsTaken;
     public int remainingShips;

@@ -1,28 +1,35 @@
 package game;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
 import enums.ShipType;
 import enums.CellStatus;
+import items.Item;
 
-public class Player {
+public class Player implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     public String name;
     public Board board;
     public List<Ship> ships;
+    public List<Item> items;
     public Player(String name, int boardSize) {
         this.name = name;
         this.board = new Board(boardSize);
         this.ships = new ArrayList<>();
+        this.items = new ArrayList<>();
         initializeShips();
     }
 
     private void initializeShips() {
         ships.add(new Ship(ShipType.PATROL_BOAT));
         ships.add(new Ship(ShipType.PATROL_BOAT));
-//        ships.add(new Ship(ShipType.DESTROYER));
-//        ships.add(new Ship(ShipType.SUBMARINE));
-//        ships.add(new Ship(ShipType.BATTLESHIP));
+        ships.add(new Ship(ShipType.DESTROYER));
+        ships.add(new Ship(ShipType.SUBMARINE));
+        ships.add(new Ship(ShipType.BATTLESHIP));
     }
 
     public String getName() {
@@ -58,4 +65,13 @@ public class Player {
     public int getRemainingShips() {
         return ships.size()-getSunkShips();
     }
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
 }
