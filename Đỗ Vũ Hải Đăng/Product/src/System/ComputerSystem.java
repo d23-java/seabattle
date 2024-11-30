@@ -111,15 +111,19 @@ public class ComputerSystem {
             while(true){
                 Terminal.clear();
                 System.out.println(">>> " + players.get(playerTurn).getName() + "'s turn <<<<\n\n");
+                System.out.println(">>>Number of bullets fired: " + players.get(playerTurn).score);
+                System.out.println(">>>Number of enemy ships destroyed: " + (5 - players.get(1 - playerTurn).getRemainShip()));
+                System.out.println(">>>Number of remaining ships: " + players.get(playerTurn).getRemainShip()+"\n\n\n");
                 MenuList.showPlayerOption();
                 int playerChoice = Integer.parseInt(InputSystem.sc.nextLine());
                 if(playerChoice == 1){
+                    players.get(playerTurn).score++;
                     players.get(playerTurn).shotShip(players.get(1 - playerTurn));
                     break;
                 }
                 else if(playerChoice == 2){
                     Terminal.clear();
-                    System.out.println("          Player's Board\n");
+                    System.out.println("                Player's Board\n");
                     players.get(playerTurn).getPlayerScreen().display();
                     System.out.println(" ");
                     System.out.println("Press Enter to return");
@@ -132,10 +136,8 @@ public class ComputerSystem {
         }
         Terminal.clear();
         MenuList.showPlayerTitle(playerTurn + 1);
-        System.out.println(" ");
         MenuList.isWinnerNotify();
-        System.out.println(" ");
-        System.out.println("\n\n\n\nPress Enter to return to the main menu");
+        System.out.println("Press Enter to return to the main menu");
         InputSystem.sc.nextLine();
     }
 }
