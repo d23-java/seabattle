@@ -1,16 +1,16 @@
 package ObjectList;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 import System.*;
 
 public class Player {
     private String name;
-    private int idPlayer;
-    ArrayList<Ship> playerShip = new ArrayList<>();
+    private final int idPlayer;
+    private ArrayList<Ship> playerShip = new ArrayList<>();
     Screen playerScreen = new Screen();
     Screen shotScreen = new Screen();
+    public int score = 0;
 
     public Player(int idPlayer){
         this.idPlayer = idPlayer;
@@ -18,7 +18,7 @@ public class Player {
     public boolean isDefeat(){
         return playerShip.isEmpty();
     }
-    public void setInformation() throws InterruptedException {
+    public void setInformation(){
         Terminal.clear();
         MenuList.showPlayerTitle(idPlayer);
         System.out.print("Enter name: ");
@@ -34,9 +34,6 @@ public class Player {
         if(setUpChoice == 1){
             for(int i = 0;i < 5;++i){
                 Terminal.clear();
-                System.out.println("      +---------------+");
-                System.out.println("      | Set up Screen |");
-                System.out.println("      +---------------+\n\n");
                 playerScreen.display();
                 MenuList.showShipChoice();
                 String nameShip;
@@ -51,13 +48,20 @@ public class Player {
                         yield "";
                     }
                 };
-                System.out.println("Enter the coordinates of the boat's head:");
-                String coordinates = InputSystem.sc.nextLine();
-                System.out.println("Will your ship be columnar or columnar: ");
-                System.out.println("1. Col");
-                System.out.println("2. Row");
-                int directionChoice = Integer.parseInt(InputSystem.sc.nextLine());
-                Ship ship = new Ship(nameShip, coordinates, directionChoice);
+                Ship ship;
+                while(true){
+                    System.out.println("Enter the coordinates of the boat's head:");
+                    String coordinates = InputSystem.sc.nextLine();
+                    System.out.println("Will your ship be columnar or columnar: ");
+                    System.out.println("1. Col");
+                    System.out.println("2. Row");
+                    int directionChoice = Integer.parseInt(InputSystem.sc.nextLine());
+                    ship = new Ship(nameShip, coordinates, directionChoice);
+                    if(ship.checkShipPosition(playerScreen.getMatrix())){
+                        break;
+                    }
+                    System.out.println("Let try again!");
+                }
                 playerShip.add(ship);
                 playerScreen.addShip(ship);
                 if(i == 4){
@@ -78,8 +82,8 @@ public class Player {
             for(int i = 0;i < 5;++i){
                 while(true){
                     Random random = new Random();
-                    String coordinatesFirstLetter = new String (String.valueOf((char) (random.nextInt(10)  + 'a')));
-                    String coordinatesSecondNumber =  new String (String.valueOf((char) (random.nextInt(10)  + '0')));
+                    String coordinatesFirstLetter = new String (String.valueOf((char) (random.nextInt(10)  + 'a' + 1)));
+                    String coordinatesSecondNumber =  Integer.toString(random.nextInt(10) + 1);
                     Ship ship = new Ship(nameTypeShip.get(i),coordinatesFirstLetter + coordinatesSecondNumber, random.nextInt(2) + 1);
                     if(ship.checkShipPosition(playerScreen.getMatrix())){
                         playerShip.add(ship);
@@ -101,7 +105,7 @@ public class Player {
         Terminal.clear();
         System.out.println(name + "'s turn");
         System.out.println("FIRE!!! \n");
-        System.out.println("          Enemy's Board\n");
+        System.out.println("               Enemy's Board\n");
         shotScreen.display();
         System.out.println(" ");
         String coordinates;
@@ -115,8 +119,14 @@ public class Player {
         }
         if(Enemy.playerScreen.checkShot(coordinates)){
             MenuList.hitNotify();
-            shotScreen.getMatrix()[(int)coordinates.charAt(0) - 'a'][(int)coordinates.charAt(1) - '0'] = "[F]";
-            Enemy.playerScreen.getMatrix()[(int)coordinates.charAt(0) - 'a'][(int)coordinates.charAt(1) - '0'] = "[F]";
+            if(coordinates.length() == 3){
+                shotScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 3))] = "F";
+                Enemy.playerScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 3))] = "F";
+            }
+            else{
+                shotScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 2))] = "F";
+                Enemy.playerScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 2))] = "F";
+            }
             int checkShipDown = Enemy.playerScreen.checkShipBeDestroyed();
             if(checkShipDown != -1){
                 System.out.println("\n");
@@ -129,9 +139,15 @@ public class Player {
             if(!Enemy.isDefeat()) shotShip(Enemy);
         }
         else{
-            shotScreen.getMatrix()[(int)coordinates.charAt(0) - 'a'][(int)coordinates.charAt(1) - '0'] = "[F]";
-            Enemy.playerScreen.getMatrix()[(int)coordinates.charAt(0) - 'a'][(int)coordinates.charAt(1) - '0'] = "[F]";
-            System.out.println("You miss");
+            if(coordinates.length() == 3){
+                shotScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 3))] = "F";
+                Enemy.playerScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 3))] = "F";
+            }
+            else{
+                shotScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 2))] = "F";
+                Enemy.playerScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 2))] = "F";
+            }
+            MenuList.missNotify();
             System.out.println("Change Turn...");
             System.out.println("Press Enter to continue...");
             InputSystem.sc.nextLine();
@@ -143,5 +159,8 @@ public class Player {
 
     public Screen getPlayerScreen(){
         return playerScreen;
+    }
+    public int getRemainShip(){
+        return playerShip.size();
     }
 }
