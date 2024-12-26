@@ -6,20 +6,24 @@ import gamemanager.*;
 
 public class Main {
     private static final String SAVE_FILE = "tempGame.txt";
-    Scanner scanner = new Scanner(System.in);
-    private final Menu menu = new Menu();
+    public static final Scanner scanner = new Scanner(System.in);
     private final Leaderboard leaderboard = new Leaderboard();
 
     public static void main(String[] args) {
-        Main app = new Main();
-        app.run();
+        new Main().run();
+        scanner.close();
     }
 
     public void run() {
+        
         while (true) {
             try {
-                menu.seaBattle();
-                int option = getUserOption();
+                Sound.stopAllClips();
+                Sound.playSoundWithDurationAsync("/Sound/ready.wav", true, 900000, 0.3f);
+                GameFunction.clearScreen(1);
+                Menu.seaBattle();
+                System.out.print("Chọn một tùy chọn: ");
+                int option = Integer.parseInt(scanner.nextLine());
 
                 switch (option) {
                     case 1:
@@ -33,28 +37,20 @@ public class Main {
                         Sound.toggleSound();
                         break;
                     case 5:
+                        displayRule();
+                        break;
+                    case 6:
                         continueGame();
                         break;
                     case 0:
-                        exitGame();
+                        System.out.println("Cảm ơn bạn đã chơi trò chơi!");
                         return;
                     default:
-                        showInvalidOptionMessage();
+                        System.out.println("Lựa chọn không tồn tại, vui lòng nhập lại");
                 }
             } catch (Exception e) {
                 System.out.println("Lựa chọn không tồn tại, vui lòng nhập lại");
                 System.out.println("Lỗi: " + e.getMessage());
-            }
-        }
-    }
-
-    private int getUserOption() {
-        System.out.print("Chọn một tùy chọn: ");
-        while (true) {
-            try {
-                return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.print("Vui lòng nhập một số nguyên hợp lệ: ");
             }
         }
     }
@@ -75,35 +71,38 @@ public class Main {
             player1Name = scanner.nextLine();
         }
 
-        boolean itemsEnabled = isItemsEnabled();
-
         Game game = new Game(player1Name, player2Name, size);
         BoardController boardController1 = new BoardController(game.getPlayer1().getBoard());
         BoardController boardController2 = new BoardController(game.getPlayer2().getBoard());
-        PlayerFunction playerFunction1 = new PlayerFunction(boardController1);
-        PlayerFunction playerFunction2 = (option == 1) ? new PlayerFunction(boardController2) : null;
-        BotFunction botFunction = (option == 2) ? new BotFunction(boardController2) : null;
+        PlayerFunction playerFunction1 = new PlayerFunction(game.getPlayer1(), boardController1);
+        PlayerFunction playerFunction2 = (option == 1) ? new PlayerFunction(game.getPlayer2(), boardController2) : null;
+        BotFunction botFunction = (option == 2) ? new BotFunction(game.getPlayer2(), boardController2) : null;
 
         GameFunction gameFunction = new GameFunction(game, leaderboard, playerFunction1,
                 playerFunction2, botFunction,
-                botFunction != null, 1, itemsEnabled);
-        gameFunction.startGame();
+                botFunction != null, 1, isItemsEnabled());
+        gameFunction.startGameLoop();
     }
 
-    private int getBoardSize() {
-        System.out.print("Hãy chọn kích thước bảng: ");
+    public static int getValidOptionWithPrompt(String prompt) {
         while (true) {
             try {
-                return Integer.parseInt(scanner.nextLine());
+                String input = scanner.nextLine();
+                return Integer.parseInt(input);
             } catch (NumberFormatException e) {
-                System.out.print("Vui lòng nhập một số nguyên hợp lệ: ");
+                System.out.print(prompt);
             }
         }
     }
 
+    private int getBoardSize() {
+        System.out.print("Hãy chọn kích thước bảng: ");
+        return getValidOptionWithPrompt("Kích thước bảng vừa nhập không phải số nguyên, vui lòng nhập lại: ");
+    }
+
     private boolean isItemsEnabled() {
         System.out.print("Bạn có muốn bật chế độ vật phẩm không? Nếu có, hãy nhập \"Y\": ");
-        String input = scanner.nextLine();
+        String input = scanner.nextLine().trim();
         return input.equalsIgnoreCase("y");
     }
 
@@ -113,18 +112,24 @@ public class Main {
         scanner.nextLine();
     }
 
+    private void displayRule() {
+        Menu.rule();
+        System.out.println("Vui lòng nhập bất kì kí tự nào để thoát trang luật chơi.");
+        scanner.nextLine();
+    }
+
     private void continueGame() {
         File file = new File(SAVE_FILE);
         if (file.length() > 0) {
             GameState gameState = GameFunction.loadGame();
             if(gameState != null){
-                PlayerFunction playerFunction1 = new PlayerFunction(new BoardController(gameState.getPlayer1().getBoard()));
+                PlayerFunction playerFunction1 = new PlayerFunction(gameState.player1(), new BoardController(gameState.player1().getBoard()));
 
-                PlayerFunction playerFunction2 = (gameState.getPlayer2().getName().equals("BotMadeByHaiLong")) ?
-                        null : new PlayerFunction(new BoardController(gameState.getPlayer2().getBoard()));
+                PlayerFunction playerFunction2 = (gameState.player2().getName().equals("BotMadeByHaiLong")) ?
+                        null : new PlayerFunction(gameState.player2(), new BoardController(gameState.player2().getBoard()));
 
-                BotFunction botFunction = (gameState.getPlayer2().getName().equals("BotMadeByHaiLong")) ?
-                        new BotFunction(new BoardController(gameState.getPlayer2().getBoard())) : null;
+                BotFunction botFunction = (playerFunction2 == null) ?
+                        new BotFunction(gameState.player2(), new BoardController(gameState.player2().getBoard())) : null;
                 GameFunction gameFunction = new GameFunction(
                             new Game(gameState),
                             leaderboard,
@@ -132,10 +137,10 @@ public class Main {
                             playerFunction2,
                             botFunction,
                         botFunction != null,
-                            gameState.getCurrentTurn(),
-                            gameState.isItemEnabled()
+                            gameState.currentTurn(),
+                            gameState.itemEnabled()
                     );
-                gameFunction.startGame();
+                gameFunction.startGameLoop();
             } else {
                 System.out.println("Không thể tải game. File lưu có thể bị hỏng.");
             }
@@ -144,11 +149,4 @@ public class Main {
         }
     }
 
-    private void exitGame() {
-        System.out.println("Cảm ơn bạn đã chơi trò chơi!");
-    }
-
-    private void showInvalidOptionMessage() {
-        System.out.println("Lựa chọn không tồn tại, vui lòng nhập lại");
-    }
 }

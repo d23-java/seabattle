@@ -11,44 +11,43 @@ import java.util.List;
 
 public class BotFunction {
     public BoardController boardController;
-    public ShipPlacement shipPlacement = new ShipPlacement();
+    private final Player player;
     private char lastHitX = '@';
     private int lastHitY = 99;
     private int direction = 0; // 0: not set, 1: up, 2: down, 3: left, 4: right
     public List<Integer> attemptedDirections = new ArrayList<>();
 
-    public BotFunction(BoardController boardController) {
+    public BotFunction(Player player, BoardController boardController) {
+        this.player = player;
         this.boardController = boardController;
     }
 
-    public void placeShips(Player player) {
-        shipPlacement.placeShips(player, boardController);
+    public void placeShips() {
+        ShipPlacement.placeShipsRandomly(player.getShips(), boardController);
     }
 
     public BoardController getBoardController() {
         return boardController;
     }
 
-    public FireResult fireAt(Player player, Player opponent) {
+    public FireResult fireAt(Player opponent) {
         FireResult result;
-
         if (lastHitX == '@' && lastHitY == 99) {
-            result = searchAndFire(player, opponent, true);
+            result = searchAndFire(opponent, true);
         } else {
-            result = searchAndFire(player, opponent, false);
+            result = searchAndFire(opponent, false);
         }
-
         return result;
     }
 
-    private FireResult searchAndFire(Player player, Player opponent, boolean scanMode) {
+    private FireResult searchAndFire(Player opponent, boolean scanMode) {
         FireResult result = FireResult.MISS;
         char targetX;
         int targetY;
         int boardSize = player.getBoard().getSize();
 
         if(!scanMode) {
-            result = continueDirectionFire(player, opponent);
+            result = continueDirectionFire(opponent);
             if(result == null) scanMode = true;
         }
 
@@ -57,7 +56,7 @@ public class BotFunction {
                 for (char x = 'A'; x < 'A' + boardSize; x++) {
                     targetX = x;
                     targetY = y;
-                    result = attemptFire(player, opponent, targetX, targetY);
+                    result = attemptFire(opponent, targetX, targetY);
                     if (result != null) {
                         direction = 0;
                         return result;
@@ -69,8 +68,8 @@ public class BotFunction {
         return result;
     }
 
-    private FireResult continueDirectionFire(Player player, Player opponent) {
-        FireResult result = FireResult.MISS;
+    private FireResult continueDirectionFire(Player opponent) {
+        FireResult result = null;
         int[] dx = {0, 0, -1, 1};
         int[] dy = {-1, 1, 0, 0};
         char targetX;
@@ -85,7 +84,12 @@ public class BotFunction {
 
                 targetX = (char) (lastHitX + dx[i]);
                 targetY = lastHitY + dy[i];
-                result = attemptFire(player, opponent, targetX, targetY);
+                result = attemptFire(opponent, targetX, targetY);
+
+                if (!player.getBoard().isCoordinateValid(targetX, targetY)) {
+                    attemptedDirections.add(i);
+                    continue;
+                }
 
                 if (result != null) {
                     if (result == FireResult.HIT) {
@@ -105,13 +109,13 @@ public class BotFunction {
         } else {
             targetX = (char) (lastHitX + dx[direction - 1]);
             targetY = lastHitY + dy[direction - 1];
-            result = attemptFire(player, opponent, targetX, targetY);
+            result = attemptFire(opponent, targetX, targetY);
         }
 
         return result;
     }
 
-    private FireResult attemptFire(Player player, Player opponent, char targetX, int targetY) {
+    private FireResult attemptFire(Player opponent, char targetX, int targetY) {
         if (player.getBoard().isCoordinateValid(targetX, targetY)) {
             Cell target = opponent.getBoard().getCell(targetX, targetY);
             if (target.getStatus() != CellStatus.HIT && target.getStatus() != CellStatus.MISS) {
@@ -126,6 +130,7 @@ public class BotFunction {
                         direction = 0;
                     }
                 }
+                System.out.println("Bot đã bắn vào ô " + targetX + targetY);
                 return result;
             }
         }

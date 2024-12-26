@@ -2,6 +2,7 @@ package items;
 
 import game.Board;
 import game.Cell;
+import game.Menu;
 import game.Player;
 import gamemanager.BoardController;
 
@@ -24,5 +25,6 @@ public class Bomb extends Item implements Serializable {
                 }
             }
         }
+        Menu.explosion();
     }
 }

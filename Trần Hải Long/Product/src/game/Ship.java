@@ -17,8 +17,11 @@ public class Ship implements Serializable {
     private int hits;
     private boolean shielded = false;
 
-    public void addShield() {
-        shielded = true;
+    public Ship(ShipType type) {
+        this.type = type;
+        this.size = getSizeByType();
+        this.cells = new ArrayList<>();
+        this.hits = 0;
     }
 
     public boolean isShielded() {
@@ -29,20 +32,13 @@ public class Ship implements Serializable {
         this.shielded = shielded;
     }
 
-    private int getSizeByType(ShipType type) {
+    private int getSizeByType() {
         return switch (type) {
             case PATROL_BOAT -> 2;
             case DESTROYER -> 4;
             case SUBMARINE -> 3;
             case BATTLESHIP -> 5;
         };
-    }
-
-    public Ship(ShipType type) {
-        this.type = type;
-        this.size = getSizeByType(type);
-        this.cells = new ArrayList<>();
-        this.hits = 0;
     }
 
     public ShipType getType() {

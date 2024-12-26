@@ -13,10 +13,9 @@ public class Menu {
     public static final String blue = "\u001B[34m";
     public static final String purple = "\u001B[35m";
     public static final String gray = "\u001B[90m";
-    File file = new File("tempGame.txt");
+    public static File file = new File("tempGame.txt");
 
-    public void seaBattle(){
-        playSoundWithDurationAsync("Sound/ocean-waves.wav", 10000);
+    public static void seaBattle(){
         System.out.print(
                 " ███████╗███████╗ █████╗ ██████╗  █████╗ ████████╗████████╗██╗     ███████╗ \n" +
                 " ██╔════╝██╔════╝██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝╚══██╔══╝██║     ██╔════╝ \n" +
@@ -33,18 +32,20 @@ public class Menu {
                 "                       3. Hiển thị bảng xếp hạng                            \n" +
         blue +
                 "                             4. Bật/Tắt âm                                  \n" +
+        reset +
+                "                             5. Luật chơi                                  \n" +
                 reset);
         if (file.length() > 0) {
             System.out.print(green +
-                "                              5. Tiếp tục                                   \n" +
+                "                              6. Tiếp tục                                   \n" +
                 reset);
         }
-        System.out.println(reset +
+        System.out.println(red +
                 "                               0. Thoát                                     \n" +
                 reset);
     }
-    public void start(){
-        playSoundWithDurationAsync("Sound/start.wav", 4000);
+    public static void start(){
+        playSoundWithDurationAsync("/Sound/start.wav", false,4000, 1f);
         String[] lines = {
                 " ____ _____  _    ____ _____ _ ",
                 "/ ___|_   _|/ \\  |  _ \\_   _| |",
@@ -56,9 +57,10 @@ public class Menu {
         for (String line : lines) {
             System.out.println(yellow + line + reset);
         }
+        System.out.println();
     }
-    public void end(){
-        playSoundWithDurationAsync("Sound/end.wav", 3000);
+    public static void end(){
+        playSoundWithDurationAsync("/Sound/end.wav", false, 3000, 1f);
         String[] lines = {
                 " _____ _   _ ____  _ ",
                 "| ____| \\ | |  _ \\| |",
@@ -72,8 +74,8 @@ public class Menu {
         }
     }
 
-    public void hit(){
-        playSoundWithDurationAsync("Sound/hit.wav", 3000);
+    public static void hit(){
+        playSoundWithDurationAsync("/Sound/hit.wav", false,3000, 1f);
         String[] lines = {
                 " __    __   __  .___________. __ ",
                 "|  |  |  | |  | |           ||  |",
@@ -87,8 +89,8 @@ public class Menu {
             System.out.println(red + line + reset);
         }
     }
-    public void miss(){
-        playSoundWithDurationAsync("Sound/miss.wav", 3000);
+    public static void miss(){
+        playSoundWithDurationAsync("/Sound/miss.wav", false,3000, 1f);
         String[] lines = {
                 ".___  ___.  __       _______.     _______.",
                 "|   \\/   | |  |     /       |    /       |",
@@ -101,8 +103,8 @@ public class Menu {
             System.out.println(gray + line + reset);
         }
     }
-    public void sunk(){
-        playSoundWithDurationAsync("Sound/sink.wav", 3000);
+    public static void sunk(){
+        playSoundWithDurationAsync("/Sound/sink.wav", false,3000, 1f);
         String[] lines = {
                 "     _______. __    __  .__   __.  __  ___  __   __   __ ",
                 "    /       ||  |  |  | |  \\ |  | |  |/  / |  | |  | |  |",
@@ -117,4 +119,30 @@ public class Menu {
         }
     }
 
+    public static void explosion(){
+        playSoundWithDurationAsync("/Sound/sink.wav", false,3000, 1f);
+        String[] art = {
+                "          _ ._  _ , _ ._",
+                "        (_ ' ( `  )_  .__)",
+                "      ( (  (    )   `)  ) _)",
+                "     (__ (_   (_ . _) _) ,__)",
+                "         `~~`\\ ' . /`~~`",
+                "              ;   ;",
+                "              /   \\",
+                "_____________/_ __ \\_____________"
+        };
+
+        for (String line : art) {
+            System.out.println(red + line + reset);
+        }
+    }
+
+    public static void rule(){
+        System.out.println("+------------------------Luật chơi----------------------------+");
+        System.out.println("| 1. Mỗi người bí mật đặt tàu trên bảng của mình              |");
+        System.out.println("| 2. Luân phiên bắn nhau bằng cách chọn một ô trên bảng địch  |");
+        System.out.println("| 3. Khi một tàu bị bắn hết ô, tàu đó bị chìm                 |");
+        System.out.println("| 4. Người chiến thắng là người bắn chìm hết tàu đối phương   |");
+        System.out.println("+-------------------------------------------------------------+");
+    }
 }

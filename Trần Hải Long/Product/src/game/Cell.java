@@ -23,7 +23,6 @@ public class Cell implements Serializable {
         return xAris;
     }
 
-
     public int getYAris() {
         return yAris;
     }

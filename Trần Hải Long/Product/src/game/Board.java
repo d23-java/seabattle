@@ -73,23 +73,34 @@ public class Board implements Serializable {
 
     public void displayBoardsSideBySide(Board fogBoard) {
         String headerFormat = String.format("%%-%ds     %%-%ds%n", size * 3 + 3, size * 3 + 3);
-        System.out.printf(headerFormat, "Bảng của bạn", "Bảng sương mù");
+        if(fogBoard!=this) System.out.printf(headerFormat, "Bảng của bạn", "Bảng sương mù");
+        else System.out.printf(headerFormat, "Bảng của bạn", "");
 
         System.out.print("  ");
-        for (int i = 1; i <= size; i++) System.out.print(" " + i + " ");
-        System.out.print("  ~~~   ");
-        for (int i = 1; i <= fogBoard.getSize(); i++) System.out.print(" " + i + " ");
+        for (int i = 1; i <= size; i++){
+            System.out.print(" " + i);
+            if(i<10) System.out.print(" ");
+        }
+        if(fogBoard!=this) {
+            System.out.print("  ~~~   ");
+            for (int i = 1; i <= fogBoard.getSize(); i++){
+                System.out.print(" " + i);
+                if(i<10) System.out.print(" ");
+            }
+        }
         System.out.println();
 
         System.out.print(" +");
         for (int k = 1; k <= size; k++) {
             System.out.print("---");
         }
-        System.out.print("+");
-        System.out.print(" ~~~ ");
-        System.out.print(" +");
-        for (int k = 1; k <= fogBoard.getSize(); k++) {
-            System.out.print("---");
+        if(fogBoard!=this) {
+            System.out.print("+");
+            System.out.print(" ~~~ ");
+            System.out.print(" +");
+            for (int k = 1; k <= fogBoard.getSize(); k++) {
+                System.out.print("---");
+            }
         }
         System.out.println("+");
 
@@ -117,23 +128,25 @@ public class Board implements Serializable {
                 }
             }
 
-            System.out.print(" ~~~ ");
+            if(fogBoard!=this) {
+                System.out.print(" ~~~ ");
 
-            System.out.print(x + "| ");
-            for (int j = 0; j < fogBoard.getSize(); j++) {
-                Cell cell = fogBoard.getCell((char) ('A' + i), j + 1);
-                Cell[][] cells = fogBoard.getCells();
-                switch (cell.getStatus()) {
-                    case HIT:
-                        if(cell.getShip().isSunk())
-                            printShip("\uD83D\uDC7B", cells, i, j);
-                        else System.out.print("💥 ");
-                        break;
-                    case MISS:
-                        System.out.print("❌ ");
-                        break;
-                    default:
-                        System.out.print("🌊 ");
+                System.out.print(x + "| ");
+                for (int j = 0; j < fogBoard.getSize(); j++) {
+                    Cell cell = fogBoard.getCell((char) ('A' + i), j + 1);
+                    Cell[][] cells = fogBoard.getCells();
+                    switch (cell.getStatus()) {
+                        case HIT:
+                            if (cell.getShip().isSunk())
+                                printShip("\uD83D\uDC7B", cells, i, j);
+                            else System.out.print("💥 ");
+                            break;
+                        case MISS:
+                            System.out.print("❌ ");
+                            break;
+                        default:
+                            System.out.print("🌊 ");
+                    }
                 }
             }
             System.out.println();

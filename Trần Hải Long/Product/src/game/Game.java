@@ -12,14 +12,12 @@ public class Game {
         this.player1 = new Player(player1Name, boardSize);
         this.player2 = new Player(player2Name, boardSize);
         this.currentTurn = player1;
-        this.status = GameStatus.PREPARATION;
     }
 
     public Game(GameState gameState) {
-        this.player1 = gameState.getPlayer1();
-        this.player2 = gameState.getPlayer2();
+        this.player1 = gameState.player1();
+        this.player2 = gameState.player2();
         this.currentTurn = player1;
-        this.status = GameStatus.PREPARATION;
     }
 
     public Player getPlayer1() {
