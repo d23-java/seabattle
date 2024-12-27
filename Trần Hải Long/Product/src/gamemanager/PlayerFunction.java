@@ -24,7 +24,7 @@ public class PlayerFunction {
     public void placeShips() {
         System.out.println("Lượt đặt thuyền của " + Menu.blue + player.getName() + Menu.reset + " sẽ bắt đầu sau 3s");
         GameFunction.clearScreen(2);
-        System.out.print("Nếu bạn muốn hệ thống tự động đặt thuyền, hãy nhập \"0\", còn không thì bạn hãy gõ bất kì kí tự khác: ");
+        System.out.print("Nếu bạn muốn hệ thống tự động đặt thuyền, hãy nhập \"0\", còn không thì bạn hãy gõ bất kì số khác: ");
         int option = Main.getValidOptionWithPrompt("Bạn đã chọn cách đặt không nằm trong hệ thống, vui lòng nhập lại: ");
         if(option == 0) {
             ShipPlacement.placeShipsRandomly(player.getShips(), boardController);

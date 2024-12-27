@@ -14,7 +14,7 @@ public class BotFunction {
     private final Player player;
     private char lastHitX = '@';
     private int lastHitY = 99;
-    private int direction = 0; // 0: not set, 1: up, 2: down, 3: left, 4: right
+    private int direction = -1; // 0: not set, 1: up, 2: down, 3: left, 4: right
     public List<Integer> attemptedDirections = new ArrayList<>();
 
     public BotFunction(Player player, BoardController boardController) {
@@ -32,7 +32,7 @@ public class BotFunction {
 
     public FireResult fireAt(Player opponent) {
         FireResult result;
-        if (lastHitX == '@' && lastHitY == 99) {
+        if (direction==-1) {
             result = searchAndFire(opponent, true);
         } else {
             result = searchAndFire(opponent, false);
@@ -53,12 +53,21 @@ public class BotFunction {
 
         if (scanMode) {
             for (int y = 1; y <= boardSize; y++) {
-                for (char x = 'A'; x < 'A' + boardSize; x++) {
+                for (char x = (char) ('A'+(y%2)); x < 'A' + boardSize; x+=2) {
                     targetX = x;
                     targetY = y;
                     result = attemptFire(opponent, targetX, targetY);
                     if (result != null) {
                         direction = 0;
+                        return result;
+                    }
+                }
+            }
+            for (int y = 1; y <= boardSize; y++) {
+                for (char x = 'A'; x < 'A' + boardSize; x++) {
+                    Cell tempCell = opponent.getBoard().getCell(x, y);
+                    if(tempCell.getStatus() == CellStatus.SHIP){
+                        result = attemptFire(opponent, x, y);
                         return result;
                     }
                 }
@@ -124,10 +133,9 @@ public class BotFunction {
                     lastHitX = targetX;
                     lastHitY = targetY;
 
-                    if (target.getShip() != null && target.getShip().isSunk()) {
+                    if (target.getShip().isSunk()) {
                         resetLastHit();
                         attemptedDirections.clear();
-                        direction = 0;
                     }
                 }
                 System.out.println("Bot đã bắn vào ô " + targetX + targetY);
@@ -140,6 +148,6 @@ public class BotFunction {
     private void resetLastHit() {
         lastHitX = '@';
         lastHitY = 99;
-        direction = 0;
+        direction = -1;
     }
 }
