@@ -36,4 +36,15 @@ public class MainMenu {
         }
         scanner.close();
     }
+
+    public void menuInGame() {
+        System.out.println("==========================");
+        System.out.println("        MENU        ");
+        System.out.println("==========================");
+        System.out.println("1. Show my board!");
+        System.out.println("2. Show my fog board!");
+        System.out.println("2. Shoot!");
+        System.out.println("==========================");
+        System.out.print("Choose your option: ");
+    }
 }
