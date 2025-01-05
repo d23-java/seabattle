@@ -16,6 +16,8 @@ The project was done by [Nguyễn Văn Minh Lực](https://github.com/naa-ntu), 
 - Clone the repo
 - Open the project in your IDE
 
+## Video demo
+[Video Demo Gameplay](https://www.youtube.com/watch?v=Uy3wFUvyaqA&ab_channel=LucNguyen)
 
 ## Usage
 

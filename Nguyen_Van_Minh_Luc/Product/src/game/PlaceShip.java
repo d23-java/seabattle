@@ -36,8 +36,9 @@ public class PlaceShip {
                 System.out.println("Nhập tọa độ điểm đầu: ");
                 System.out.printf("Nhập hoành độ: ");
                 hoanhdo = Integer.parseInt(system.scanner.nextLine());
-                System.out.printf("Nhập tung độ: ");
-                tungdo = Integer.parseInt(system.scanner.nextLine());
+                System.out.printf("Chọn tung độ: ");
+                char c = system.scanner.nextLine().charAt(0);
+                tungdo = c - 'A' + 1;
 
                 if (hoanhdo < 1 || hoanhdo > GameManager.kichThuoc || tungdo < 1 || tungdo > GameManager.kichThuoc) {
                     Template.enterAgain();

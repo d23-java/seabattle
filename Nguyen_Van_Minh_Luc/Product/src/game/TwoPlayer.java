@@ -15,7 +15,9 @@ public class TwoPlayer {
         String name2 = system.scanner.nextLine();
         player2 = new Player(name2);
 
-        // Placeship
+        System.out.println("-------------------------------------------------");
+
+        // Player 1 placeship
         System.out.println("Người chơi " + player1.getName() + " đặt tàu: ");
         Template.showPlaceShipOption();
         while(true){
@@ -32,8 +34,10 @@ public class TwoPlayer {
                 Template.enterAgain();
             }
         }
-        ShowBoard.showBoards(player1);
+        ShowBoard.showBoard(player1);
+        System.out.println("-------------------------------------------------");
 
+        // Player 2 placeship
         System.out.println("Người chơi " + player2.getName() + " đặt tàu: ");
         Template.showPlaceShipOption();
         while(true){
@@ -50,28 +54,29 @@ public class TwoPlayer {
                 Template.enterAgain();
             }
         }
-        ShowBoard.showBoards(player2);
+        ShowBoard.showBoard(player2);
+        System.out.println("-------------------------------------------------");
 
-        int checkWin = 0;
         while(true)
         {
             System.out.println("Lượt người chơi " + player1.getName());
             Turn.turn(player1, player2);
             if (player1.getSoTauDaPha() == 5) {
                 System.out.println(player1.getName() + " đã giành chiến thắng");
+                System.out.println("-------------------------------------------------");
                 FileRank.updateBxh(player1);
-                break;
+                return;
             }
             System.out.println("-------------------------------------------------");
             System.out.println("Lượt người chơi " + player2.getName());
-
             Turn.turn(player2, player1);
             if (player2.getSoTauDaPha() == 5) {
                 System.out.println(player2.getName() + " đã giành chiến thắng");
+                System.out.println("-------------------------------------------------");
                 FileRank.updateBxh(player2);
-                break;
+                return;
             }
-
+            System.out.println("-------------------------------------------------");
         }
     }
 }

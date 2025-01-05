@@ -13,7 +13,7 @@ public class Main {
         GameManager Game = new GameManager();
         FileRank.loadFromFile();
         //State.loadFromFile();
-        //ShowBoard.showBoards(State.player1);
+        //ShowBoard.showBoard(State.player1);
         while(true){
             Template.showGameMenu();
             int selection = Integer.parseInt(system.scanner.nextLine());

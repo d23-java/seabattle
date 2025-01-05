@@ -32,8 +32,8 @@ public class OnePlayer {
                 Template.enterAgain();
             }
         }
-        ShowBoard.showBoards(player);
-
+        ShowBoard.showBoard(player);
+        System.out.println("-------------------------------------------------");
         // InGame
 
         while(true) {
@@ -41,15 +41,19 @@ public class OnePlayer {
             Turn.turn(player, bot);
             if (player.getSoTauDaPha() == 5) {
                 System.out.println(player.getName() + " đã giành chiến thắng");
+                System.out.println("-------------------------------------------------");
                 FileRank.updateBxh(player);
                 break;
             }
+            System.out.println("-------------------------------------------------");
             Turn.botTurn(bot, player);
             //if (bot.soLanBan == 10) return;
             if (bot.getSoTauDaPha() == 5) {
                 System.out.println("Máy đã giành chiến thắng");
+                System.out.println("-------------------------------------------------");
                 return;
             }
+            System.out.println("-------------------------------------------------");
         }
     }
 }

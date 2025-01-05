@@ -20,7 +20,7 @@ public class Turn {
             int selection = Integer.parseInt(system.scanner.nextLine());
             switch(selection)
             {
-                case 1: ShowBoard.showBoards(player); break;
+                case 1: ShowBoard.showBoard(player); break;
                 case 2:
                     if (checkKhaiHoa == 1)
                     {
@@ -32,7 +32,7 @@ public class Turn {
                         if (player.getSoTauDaPha() == 5) {
                             return;
                         }
-                        ShowBoard.showEnemyBoards(player);
+                        ShowBoard.showEnemyBoard(player);
                         ToaDo toaDo = player.toaDoShoot();
                         boolean continueShoot = CheckShoot.shoot(toaDo, player, enemy);
                         if (continueShoot == false) {
