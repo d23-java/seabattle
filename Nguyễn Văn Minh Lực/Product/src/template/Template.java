@@ -12,7 +12,11 @@ public class Template {
 
     public static void showBattleMenu(){
         System.out.println("Chế độ:");
+<<<<<<< HEAD
         System.out.println("1. Chơi với máy.");
+=======
+        System.out.println("1. Chơi với máy (Chưa cập nhật).");
+>>>>>>> c3c8aaf3e3b14f5686a0ca6104018351027dc829
         System.out.println("2. 2 người chơi.");
     }
 
