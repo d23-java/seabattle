@@ -1,12 +1,20 @@
 package Body;
 import java.util.ArrayList;
+import java.util.Random;
+
 import Manager.GameManager;
 
+import static Manager.GameManager.boardSize;
+
 public class Board {
-    public static final int boardSize = 11;
-    private final char[][] grid = new char[boardSize][boardSize];
+    private final char[][] grid = new char[25][25];
     public Ship ship = new Ship();
     public ArrayList<Ship> ships = new ArrayList<>();
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String WHITE = "\u001B[37m";
     public static final char HIT = 'X';
     public static final char MISS = '0';
     public static final char EMPTY = '.';
@@ -19,6 +27,7 @@ public class Board {
         }
     }
     public boolean checkHasShip (int x1, int x2, int y1, int y2) {
+//        System.out.println(x1 + " " + x2 + " " + y1 + " " + y2);
         if (x1 < 0 || x2 > boardSize || y1 < 0 || y2 > boardSize) {
             return false;
         }
@@ -58,15 +67,25 @@ public class Board {
 
     public void display() {
         System.out.print("   ");
+        System.out.print(YELLOW);
         for (int i = 0; i < boardSize; i++) {
             System.out.printf("%3d", i + 1);
         }
         System.out.println();
         for (int i = 0; i < boardSize; i++) {
+            System.out.print(GREEN);
             System.out.print((char)('A' + i) + "  ");
             for (int j = 0; j < boardSize; j++) {
+                System.out.print(WHITE);
+                if (grid[i][j] == HIT) {
+                    System.out.print(RED);
+                }
+                else if (grid[i][j] == MISS) {
+                    System.out.print(BLUE);
+                }
                 System.out.print("  " + grid[i][j]);
             }
+            System.out.print(WHITE);
             System.out.println();
         }
     }
@@ -97,7 +116,34 @@ public class Board {
             display();
         }
     }
-
+    public void randomShip(int shipSize) {
+        Random random = new Random();
+        char type = ship.getType(shipSize);
+        boolean placed = false;
+        while (!placed) {
+            boolean horizontal = random.nextBoolean();
+            int row = random.nextInt(boardSize);
+            int col = random.nextInt(boardSize);
+            if (horizontal && col + shipSize <= boardSize) {
+                if (checkHasShip(row, row, col, col + shipSize)) {
+                    for (int i = 0; i < shipSize; i++) {
+                        grid[row][col+i] = type;
+                    }
+                    ships.add(new Ship(row, col, row, col + shipSize, type, shipSize));
+                    placed = true;
+                }
+            }
+            else if (!horizontal && row + shipSize <= boardSize) {
+                if (checkHasShip(row, row + shipSize, col, col)) {
+                    for (int i = 0; i < shipSize; i++) {
+                        grid[row+i][col] = type;
+                    }
+                    ships.add(new Ship(row, col, row + shipSize, col, type, shipSize));
+                    placed = true;
+                }
+            }
+        }
+    }
     public boolean checkShipSunk(char[][] sunk) {
         for (Ship value : ships) {
             if (value.isSunk(sunk)) {
@@ -108,7 +154,13 @@ public class Board {
         }
         return false;
     }
-
+    public void placeRandomShip() {
+        randomShip(2);
+        randomShip(2);
+        randomShip(3);
+        randomShip(4);
+        randomShip(5);
+    }
     public void setGrid(int x, int y) {
         grid[x][y] = HIT;
     }

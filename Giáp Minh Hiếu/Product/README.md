@@ -2,7 +2,7 @@
 
 Sea Battle is a game for two players. The game is played on four grids, two for each player. The grids are typically square – usually 10×10 – and the individual squares in the grid are identified by letter and number. On one grid the player arranges ships and records the shots by the opponent. On the other grid the player records their own shots.
 
-The project was done by [Nguyễn Văn A](https://github.com/naa-ntu), in the course of Object Oriented Programming at [ProPTIT](https://proptit.com/).
+The project was done by [Giáp Minh Hiếu](https://github.com/HieuGM), in the course of Object Oriented Programming at [ProPTIT](https://proptit.com/).
 
 
 ## Tech Stack
@@ -12,9 +12,9 @@ The project was done by [Nguyễn Văn A](https://github.com/naa-ntu), in the co
 
 ## Installation
 
+- Install JDE/JRK
 - Clone the repo
-- Open the project in your IDE
-- Run the project
+- Open terminal and type: "java -jar seabattle.jar"
 
 
 ## Usage
@@ -24,26 +24,18 @@ The project was done by [Nguyễn Văn A](https://github.com/naa-ntu), in the co
 ```bash
 
 ├── src
-│   ├── main
-│   │   ├── java
-│   │   │   ├── controller
-│   │   │   │   ├── Controller.java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   └── ....java
-│   │   │   ├── model
-│   │   │   │   ├── Board.java
-│   │   │   │   ├── Cell.java
-│   │   │   │   ├── Game.java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   ├── ....java
-│   │   │   │   └── ....java
+│   ├── Body
+│   │   ├── Board.java
+│   │   ├── Player.java   
+│   │   ├── Ship.java
+│   ├── Console    
+│   │   ├── Console.java    
+│   ├── Manager    
+│   │   ├── GameManager.java    
+│   ├── Menu    
+│   │   ├── Menu.java    
+│   ├── Ranking   
+│   │   ├── LeaderBoard.java      
 
 
 ```

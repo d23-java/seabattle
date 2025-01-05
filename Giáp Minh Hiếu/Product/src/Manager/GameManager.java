@@ -3,30 +3,58 @@ import Body.Player;
 import Menu.Menu;
 import java.util.Scanner;
 import Console.Console;
+import Ranking.LeaderBoard;
+
 public class GameManager {
-    private Player firstPlayer = new Player();
-    private Player secondPlayer = new Player();
+    public static int boardSize;
+    private Player firstPlayer;
+    private Player secondPlayer;
     public static Scanner scanner = new Scanner(System.in);
     public static int hasShip = 5;
     public static boolean endGame = false;
     private boolean isFirstPlayerTurn = true;
     public Menu menu = new Menu();
     public Console console = new Console();
-
+    private LeaderBoard leaderBoard;
+    public GameManager() {
+        leaderBoard = new LeaderBoard();
+    }
     public void setUpGame() {
         while (true) {
             menu.displayMenuStart();
             int choice = Integer.parseInt(scanner.nextLine());
-            if (choice == 2) {
+            if (choice == 3) {
                 System.out.println("Successfully Exit!!!");
                 return;
             }
+            if (choice == 2) {
+                leaderBoard.displayLeaderBoard();
+                continue;
+            }
+            System.out.println("Enter the size of the board: ");
+            boardSize = Integer.parseInt(scanner.nextLine());
             menu.newGame();
-            firstPlayer.name = scanner.nextLine();
-            firstPlayer.myBoard.placeShip();
+            String name = scanner.nextLine();
+            firstPlayer = new Player(name, 0, 5);
+            menu.kindShip();
+            int choice1 = Integer.parseInt(scanner.nextLine());
+            if (choice1 == 1) {
+                firstPlayer.myBoard.placeShip();
+            }
+            else {
+                firstPlayer.myBoard.placeRandomShip();
+            }
             menu.newGame();
-            secondPlayer.name = scanner.nextLine();
-            secondPlayer.myBoard.placeShip();
+            name = scanner.nextLine();
+            secondPlayer = new Player(name, 0, 5);
+            menu.kindShip();
+            int choice2 = Integer.parseInt(scanner.nextLine());
+            if (choice2 == 1) {
+                secondPlayer.myBoard.placeShip();
+            }
+            else {
+                secondPlayer.myBoard.placeRandomShip();
+            }
             loadGame();
         }
     }
@@ -37,8 +65,8 @@ public class GameManager {
         System.out.println("Destroyed: " + player.destroyedShip);
         System.out.println("Alive: " + player.aliveShip);
         System.out.println("Enter your choice: ");
-        System.out.println("1. Show my board: ");
-        System.out.println("2. Shot: ");
+        System.out.println("1. Show my board ");
+        System.out.println("2. Shot ");
         System.out.println("3. End turn");
     }
     public void loadGame() {
@@ -72,6 +100,12 @@ public class GameManager {
                 }
             }
             console.clearConsole();
+        }
+        if (!isFirstPlayerTurn) {
+            leaderBoard.addPlayer(firstPlayer);
+        }
+        else {
+            leaderBoard.addPlayer(secondPlayer);
         }
     }
 }

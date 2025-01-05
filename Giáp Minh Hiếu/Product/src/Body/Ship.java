@@ -20,7 +20,20 @@ public class Ship {
         this.shipType = shipType;
         this.shipSize = shipSize;
     }
-
+    public char getType(int size) {
+        if (size == 2) {
+            return 'P';
+        }
+        else if (size == 3) {
+            return 'D';
+        }
+        else if (size == 4) {
+            return 'S';
+        }
+        else {
+            return 'B';
+        }
+    }
     public int getShipSize() {
         return shipSize;
     }
