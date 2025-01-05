@@ -21,6 +21,7 @@ public class GameManager {
     }
     public void setUpGame() {
         while (true) {
+            endGame = false;
             menu.displayMenuStart();
             int choice = Integer.parseInt(scanner.nextLine());
             if (choice == 3) {
