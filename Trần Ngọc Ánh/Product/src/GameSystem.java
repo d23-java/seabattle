@@ -16,6 +16,7 @@ public class GameSystem {
         Boat patrolBoat1 = new PatrolBoat1();
         Boat patrolBoat2 = new PatrolBoat2();
 
+
         // Người chơi 1 đặt các tàu
         System.out.println("Người chơi 1 đặt tàu");
         game.placeBoat(battleship, 1);
