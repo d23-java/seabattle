@@ -17,12 +17,11 @@ The project was done by [Nguyễn Nam Hải](https://github.com/HandQ2212), in t
 GamePlay Video: https://studio.youtube.com/video/Cz6vyrd2QMQ/edit
 
 # Demo Image
-
-![alt text](<Demo 5-1.png>) 
-![alt text](<Demo 1-1.png>) 
-![alt text](<Demo 2-1.png>) 
-![alt text](<Demo 3-1.png>) 
-![alt text](<Demo 4-1.png>)
+![alt text](<Demo 1.png>) 
+![alt text](<Demo 2.png>) 
+![alt text](<Demo 3.png>) 
+![alt text](<Demo 4.png>)
+![alt text](<Demo 5.png>) 
 # Features
 - Player can play with another player
 
@@ -36,7 +35,7 @@ GamePlay Video: https://studio.youtube.com/video/Cz6vyrd2QMQ/edit
 ```bash
 
 ├── SeaBattle
-│   ├── Nguyễn Nam Hải
+│   ├── Nguyen_Nam_Hai
 │   │   ├── Product
 |   |   |   ├── src
 |   |   |   |   ├── Constructor
