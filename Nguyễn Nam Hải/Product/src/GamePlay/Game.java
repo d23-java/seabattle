@@ -14,10 +14,9 @@ public class Game {
     }
 
     public void initTwoPlayer(){
-        System.out.println("Enter data of Player 1:");
         managerPlayer.initPlayer1();
         managerPlayer.displayPlayer1Board();
-        System.out.println("Enter data of Player 2:");
+
         managerPlayer.initPlayer2();
         managerPlayer.displayPlayer2Board();
     }
