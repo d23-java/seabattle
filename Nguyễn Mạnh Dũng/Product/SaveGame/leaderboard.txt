@@ -3,3 +3,6 @@ han,0,4
 haha,5,6
 DUNG,0,5
 Dung,16,5
+player1,17,3
+nguoiChoi2,20,0
+playWithBot,48,2

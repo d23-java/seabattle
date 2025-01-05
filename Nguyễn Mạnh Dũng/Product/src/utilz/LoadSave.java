@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoadSave {
-    private static final String FILE_NAME = "d23_nguyen_manh_dung/Product/SaveGame/leaderboard.txt";
+    private static final String FILE_NAME = "E:/ProPTIT/seabattle/Nguyen Manh Dung/Product/SaveGame/leaderboard.txt";
 
     public static void savePlayer(Player player) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
