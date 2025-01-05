@@ -8,12 +8,13 @@ public class Player {
     private String name;
     private final int idPlayer;
     private ArrayList<Ship> playerShip = new ArrayList<>();
-    Screen playerScreen = new Screen();
-    Screen shotScreen = new Screen();
     public int score = 0;
-
-    public Player(int idPlayer){
+    Screen playerScreen;
+    Screen shotScreen;
+    int sizeScreen;
+    public Player(int idPlayer, int sizeScreen){
         this.idPlayer = idPlayer;
+        this.sizeScreen = sizeScreen;
     }
     public boolean isDefeat(){
         return playerShip.isEmpty();
@@ -23,7 +24,8 @@ public class Player {
         MenuList.showPlayerTitle(idPlayer);
         System.out.print("Enter name: ");
         name = InputSystem.sc.nextLine();
-        playerScreen = new Screen();
+        playerScreen = new Screen(sizeScreen);
+        shotScreen = new Screen(sizeScreen);
         setShip();
     }
     void setShip(){
@@ -82,8 +84,8 @@ public class Player {
             for(int i = 0;i < 5;++i){
                 while(true){
                     Random random = new Random();
-                    String coordinatesFirstLetter = new String (String.valueOf((char) (random.nextInt(10)  + 'a' + 1)));
-                    String coordinatesSecondNumber =  Integer.toString(random.nextInt(10) + 1);
+                    String coordinatesFirstLetter = new String (String.valueOf((char) (random.nextInt(sizeScreen)  + 'a' + 1)));
+                    String coordinatesSecondNumber =  Integer.toString(random.nextInt(sizeScreen) + 1);
                     Ship ship = new Ship(nameTypeShip.get(i),coordinatesFirstLetter + coordinatesSecondNumber, random.nextInt(2) + 1);
                     if(ship.checkShipPosition(playerScreen.getMatrix())){
                         playerShip.add(ship);
@@ -102,6 +104,7 @@ public class Player {
         }
     }
     public void shotShip(Player Enemy){
+        score++;
         Terminal.clear();
         System.out.println(name + "'s turn");
         System.out.println("FIRE!!! \n");
@@ -140,12 +143,12 @@ public class Player {
         }
         else{
             if(coordinates.length() == 3){
-                shotScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 3))] = "F";
-                Enemy.playerScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 3))] = "F";
+                shotScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 3))] = "F'";
+                Enemy.playerScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 3))] = "F'";
             }
             else{
-                shotScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 2))] = "F";
-                Enemy.playerScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 2))] = "F";
+                shotScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 2))] = "F'";
+                Enemy.playerScreen.getMatrix()[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 2))] = "F'";
             }
             MenuList.missNotify();
             System.out.println("Change Turn...");
@@ -156,7 +159,9 @@ public class Player {
     public String getName(){
         return name;
     }
-
+    public int getScore(){
+        return score;
+    }
     public Screen getPlayerScreen(){
         return playerScreen;
     }

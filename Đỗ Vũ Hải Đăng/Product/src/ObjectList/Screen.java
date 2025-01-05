@@ -3,10 +3,12 @@ package ObjectList;
 import java.util.ArrayList;
 
 public class Screen{
-    public static int sizeScreen = 10;
-    private String[][] matrix = new String[sizeScreen+1][sizeScreen+1];
-    private ArrayList<Ship> activeShip = new ArrayList<>();
-    public Screen(){
+    public static int sizeScreen;
+    private final String[][] matrix;
+    private final ArrayList<Ship> activeShip = new ArrayList<>();
+    public Screen(int sizeScreen){
+        Screen.sizeScreen = sizeScreen;
+        matrix = new String[sizeScreen+1][sizeScreen+1];
         for(int i = 0; i <= sizeScreen; i++){
             for(int j = 0; j <= sizeScreen; j++){
                 matrix[i][j] = "~";
@@ -42,10 +44,10 @@ public class Screen{
                 System.out.print("   |");
             }
             else if(i >= 10){
-                System.out.print("\u001B[47m"+" "+"\u001B[30m"+i+"\u001B[0m" + "|");
+                System.out.print("\u001B[47m" + " " + "\u001B[30m" + i + "\u001B[0m" + "|");
             }
             else{
-                System.out.print("\u001B[47m"+" "+"\u001B[30m"+i+" "+"\u001B[0m"+"|");
+                System.out.print("\u001B[47m" + " " + "\u001B[30m" + i + " " + "\u001B[0m"+"|");
             }
         }
         System.out.println(" ");
@@ -56,24 +58,14 @@ public class Screen{
         for(int i = 1; i <= sizeScreen; i++){
             System.out.print("\u001B[47m"+" "+"\u001B[30m"+ (char)(i-1 + 'a')+" "+"\u001B[0m"+ "|");
             for(int j = 1; j <= sizeScreen; j++){
-                if(matrix[i][j].equals("P")){
-                    System.out.print(" "+"\u001B[32m"+matrix[i][j]+"\u001B[0m"+" |");
-                }
-                else if(matrix[i][j].equals("D")){
-                    System.out.print(" "+"\u001B[33m"+matrix[i][j]+"\u001B[0m"+" |");
-
-                }
-                else if(matrix[i][j].equals("S")){
-                    System.out.print(" "+"\u001B[36m"+matrix[i][j]+"\u001B[0m"+" |");
-                }
-                else if(matrix[i][j].equals("B")){
-                    System.out.print(" "+"\u001B[35m"+matrix[i][j]+"\u001B[0m"+" |");
-                }
-                else if(matrix[i][j].equals("F")){
-                    System.out.print(" "+"\u001B[31m"+matrix[i][j]+"\u001B[0m"+" |");
-                }
-                else if(matrix[i][j].equals("~")){
-                    System.out.print(" "+"\u001B[34m"+matrix[i][j]+"\u001B[0m"+" |");
+                switch (matrix[i][j]) {
+                    case "P" -> System.out.print(" " + "\u001B[32m" + matrix[i][j] + "\u001B[0m" + " |");
+                    case "D" -> System.out.print(" " + "\u001B[33m" + matrix[i][j] + "\u001B[0m" + " |");
+                    case "S" -> System.out.print(" " + "\u001B[36m" + matrix[i][j] + "\u001B[0m" + " |");
+                    case "B" -> System.out.print(" " + "\u001B[35m" + matrix[i][j] + "\u001B[0m" + " |");
+                    case "F" -> System.out.print("\u001B[41m" + " " + "\u001B[30m" + "F" + " " + "\u001B[0m" + "|");
+                    case "F'" -> System.out.print("\u001B[43m" + " " + "\u001B[30m" + "F" + " " + "\u001B[0m" + "|");
+                    case "~" -> System.out.print(" " + "\u001B[37m" + matrix[i][j] + "\u001B[0m" + " |");
                 }
             }
             System.out.print("\n");
@@ -124,8 +116,8 @@ public class Screen{
         }
         if(coordinates.length() == 3){
             int valueOfCol = Integer.parseInt(coordinates.substring(1, 3));
-            if (valueOfCol > sizeScreen) return false;
-        };
+            return valueOfCol <= sizeScreen;
+        }
         return true;
     }
 

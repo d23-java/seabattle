@@ -7,7 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ComputerSystem {
     ArrayList<Player> players = new ArrayList<>();
-
+    public int settingSizeScreen = 10;
+    ScoreBoard scoreBoard = new ScoreBoard();
     public void startGame() throws InterruptedException {
         while(true){
             Terminal.clear();
@@ -27,10 +28,24 @@ public class ComputerSystem {
                     newGame();
                     break;
                 case 2:
-                case 3:
-                case 4:
                     System.out.println("Updating....");
                     TimeUnit.SECONDS.sleep(1);
+                    break;
+                case 3:
+                    Terminal.clear();
+                    MenuList.gameName();
+                    System.out.println("");
+                    System.out.println("                                                Current size: " + settingSizeScreen);
+                    System.out.println("");
+                    System.out.print("                                               Enter new size: ");
+                    settingSizeScreen = Integer.parseInt(InputSystem.sc.nextLine());
+                    break;
+                case 4:
+                    Terminal.clear();
+                    ScoreBoard.displayScoreBoard();
+                    System.out.println(" ");
+                    System.out.println("Press Enter to return");
+                    InputSystem.sc.nextLine();
                     break;
                 case 5:
                     System.out.println("See u soon!");
@@ -92,7 +107,7 @@ public class ComputerSystem {
             System.out.println("Set up PLAYER " + i + " in \n");
             MenuList.printNumber(1);
             TimeUnit.SECONDS.sleep(1);
-            Player player = new Player(i);
+            Player player = new Player(i,settingSizeScreen);
             Terminal.clear();
             player.setInformation();
             players.add(player);
@@ -117,7 +132,6 @@ public class ComputerSystem {
                 MenuList.showPlayerOption();
                 int playerChoice = Integer.parseInt(InputSystem.sc.nextLine());
                 if(playerChoice == 1){
-                    players.get(playerTurn).score++;
                     players.get(playerTurn).shotShip(players.get(1 - playerTurn));
                     break;
                 }
@@ -134,6 +148,7 @@ public class ComputerSystem {
                 }
             }
         }
+        scoreBoard.addPlayerIntoFile(players.get(playerTurn).getName(),players.get(playerTurn).getScore(),players.get(playerTurn).getRemainShip());
         Terminal.clear();
         MenuList.showPlayerTitle(playerTurn + 1);
         MenuList.isWinnerNotify();
