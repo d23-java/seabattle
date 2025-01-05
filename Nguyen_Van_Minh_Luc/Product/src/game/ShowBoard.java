@@ -26,7 +26,7 @@ public class ShowBoard {
         for(int i = 1; i <= GameManager.kichThuoc; i++)
         {
             //if (i < 10)
-                System.out.printf("%s", Template.listNumberIcons[i]);
+            System.out.printf("%s", Template.listNumberIcons[i]);
             //else system.out.printf(" %d", i);
         }
         System.out.println();

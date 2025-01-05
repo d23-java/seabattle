@@ -67,7 +67,7 @@ public class Player {
     }
 
     public void updateSoODaBan() {
-       soODaBan++;
+        soODaBan++;
     }
 
     public void updateSoTauDaPha() {

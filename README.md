@@ -16,7 +16,7 @@ Cấu trúc folder
 ```bash
 
 ├── branch develop
-│   ├── Nguyễn Văn A
+│   ├── Nguyễn Văn Minh Lự
 │   │   ├── Product
 |   |   |   ├── src
 |   |   |   |   ├── main
