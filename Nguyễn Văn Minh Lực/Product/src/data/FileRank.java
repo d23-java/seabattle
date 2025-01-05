@@ -1,22 +1,20 @@
 package data;
 
-import player.Player;
+import game.Player;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class Bxh {
+public class FileRank {
     public static List<PlayerRank> rank;
 
     public static void loadFromFile() throws IOException
     {
         rank = new ArrayList<PlayerRank>();
         File f = new File("rank.txt");
-        if (!f.exists())
-        {
+        if (!f.exists()) {
             f.createNewFile();
         }
         FileReader fr = new FileReader(f);

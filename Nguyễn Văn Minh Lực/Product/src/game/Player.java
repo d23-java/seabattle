@@ -1,11 +1,11 @@
-package player;
+package game;
 
 import main.system;
 
 public class Player {
     private String name;
-    private String[][] board;
-    private String[][] enemyBoard;
+    String[][] board;
+    String[][] enemyBoard;
     private int soODaBan;
     private int soTauDaPha;
     private int soTauConLai;
@@ -14,15 +14,15 @@ public class Player {
     private int destroyerBoatPoint;
     private int submarinePoint;
     private int battleShipPoint;
-    Player(){}
-    Player(String name) {
+    public Player(){}
+    public Player(String name) {
         this.name = name;
         board = new String[21][21];
         enemyBoard = new String[21][21];
         for(int i = 1; i <= 20; i++)
             for(int j = 1; j <= 20; j++) {
-                board[i][j] = "\uD83C\uDF0A";
-                enemyBoard[i][j] = "❓";
+                board[i][j] = ".";
+                enemyBoard[i][j] = "?";
             }
         soODaBan = 0;
         soTauDaPha = 0;
@@ -52,6 +52,10 @@ public class Player {
 
     public void setEnemyBoard(String symbol, int i, int j) {
         this.enemyBoard[i][j] = symbol;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getSoODaBan() {
@@ -116,11 +120,12 @@ public class Player {
     }
 
     public ToaDo toaDoShoot(){
-        java.lang.System.out.println("Chọn vị trí muốn khai hỏa:");
-        java.lang.System.out.printf("Chọn hoành độ: ");
+        System.out.println("Chọn vị trí muốn khai hỏa:");
+        System.out.printf("Chọn hoành độ: ");
         int x = Integer.parseInt(system.scanner.nextLine());
-        java.lang.System.out.printf("Chọn tung độ: ");
-        int y = Integer.parseInt(system.scanner.nextLine());
+        System.out.printf("Chọn tung độ: ");
+        char c = system.scanner.nextLine().charAt(0);
+        int y = c - 'A' + 1;
         ToaDo toaDo = new ToaDo(x,y);
         return toaDo;
     }

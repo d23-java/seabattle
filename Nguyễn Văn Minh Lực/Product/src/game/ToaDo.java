@@ -1,4 +1,4 @@
-package player;
+package game;
 
 public class ToaDo {
     private int x;

@@ -1,5 +1,5 @@
-package player;
-import data.Bxh;
+package game;
+import data.FileRank;
 import main.system;
 import template.Template;
 
@@ -21,7 +21,7 @@ public class TwoPlayer {
         while(true){
             int selection1 = Integer.parseInt(system.scanner.nextLine());
             if (selection1==1) {
-                PlaceShip.placeShip((player1));
+                PlaceShip.placeShip(player1);
                 break;
             }
             else if (selection1==2){
@@ -32,14 +32,14 @@ public class TwoPlayer {
                 Template.enterAgain();
             }
         }
-        ShowBoard.showBoard(player1);
+        ShowBoard.showBoards(player1);
 
         System.out.println("Người chơi " + player2.getName() + " đặt tàu: ");
         Template.showPlaceShipOption();
         while(true){
             int selection2 = Integer.parseInt(system.scanner.nextLine());
             if (selection2==1) {
-                PlaceShip.placeShip((player2));
+                PlaceShip.placeShip(player2);
                 break;
             }
             else if (selection2==2){
@@ -50,7 +50,7 @@ public class TwoPlayer {
                 Template.enterAgain();
             }
         }
-        ShowBoard.showBoard(player2);
+        ShowBoard.showBoards(player2);
 
         int checkWin = 0;
         while(true)
@@ -59,16 +59,16 @@ public class TwoPlayer {
             Turn.turn(player1, player2);
             if (player1.getSoTauDaPha() == 5) {
                 System.out.println(player1.getName() + " đã giành chiến thắng");
-                Bxh.updateBxh(player1);
+                FileRank.updateBxh(player1);
                 break;
             }
             System.out.println("-------------------------------------------------");
-            java.lang.System.out.println("Lượt người chơi " + player2.getName());
+            System.out.println("Lượt người chơi " + player2.getName());
 
             Turn.turn(player2, player1);
             if (player2.getSoTauDaPha() == 5) {
                 System.out.println(player2.getName() + " đã giành chiến thắng");
-                Bxh.updateBxh(player2);
+                FileRank.updateBxh(player2);
                 break;
             }
 
