@@ -34,7 +34,7 @@ public class ScoreBoard {
 
 	@Override
 	public String toString() {
-		return String.format("Người thắng cuộc: %s, Số lượt: %d, Tàu còn lại: %d", namePlayer, turn, numOfRemainShip);
+		return String.format("Winner: %s, Turn: %d, Ship of remain: %d", namePlayer, turn, numOfRemainShip);
 	}
 
 	public static void saveScoreBoard(ScoreBoard score) {
@@ -75,7 +75,7 @@ public class ScoreBoard {
 				"|  _ <  / ___ \\| |\\  | . \\ | || |\\  | |_| |\r\n" + //
 				"|_| \\_\\/_/   \\_\\_| \\_|_|\\_\\___|_| \\_|\\____|" + Color.ANSI_Reset);
 		System.out.println();
-		System.out.printf("|%-5s| %-20s| %-15s| %-15s|\n", "STT", "Tên người chơi", "Số lượt chơi", "Số tàu còn lại");
+		System.out.printf("|%-5s| %-20s| %-15s| %-15s|\n", "STT", "Winner", "Turn", "Ship of remain");
 		System.out.printf("|%-5s| %-20s| %-15s| %-15s|\n", "-----", "--------------------", "---------------",
 				"---------------");
 		for (int i = 0; i < scores.size(); i++) {

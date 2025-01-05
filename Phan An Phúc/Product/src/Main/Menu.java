@@ -1,13 +1,12 @@
 package Main;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import element.Boat;
 import element.Bot;
 import element.Cell;
 import element.Player;
 import element.PlayerOpponent;
+import java.util.ArrayList;
+import java.util.Scanner;
 import playing.BeforePlaying;
 import playing.ClearConsole;
 import playing.Color;
@@ -59,16 +58,16 @@ public class Menu {
 				break;
 			case 3:
 				ScoreBoard.displayScoresBoard();
-				System.out.println("Bạn có muốn quay lại menu?");
-				System.out.println("1. Quay lại");
-				System.out.println("2. Thoát");
+				System.out.println("Do you want to come back Menu");
+				System.out.println("1. Return");
+				System.out.println("2. Quit");
 				System.out.print("--> Enter your choice: ");
 				int typeChoice = Integer.parseInt(sc.nextLine().trim());
 
 				if (typeChoice == 1) {
 					break;
 				} else if (typeChoice == 2) {
-					System.out.println("Cảm ơn bạn đã sử dụng chương trình. Hẹn gặp lại!");
+					System.out.println("Thank you for using Sea Battle. See you soon!");
 					return;
 				}
 			case 4:
@@ -81,7 +80,7 @@ public class Menu {
 
 	public void StartGame() {
 
-		System.out.println("Nhập kích cỡ của bảng");
+		System.out.println("Enter your size board: ");
 		int size = Integer.parseInt(sc.nextLine());
 
 		Cell[][] mapPlayer1 = new Cell[size][size];
@@ -95,19 +94,19 @@ public class Menu {
 		}
 		ArrayList<Boat> boats1 = new ArrayList<>();
 		ArrayList<Boat> boats2 = new ArrayList<>();
-		System.out.println("Nhập tên người chơi 1:");
+		System.out.println("Enter name of player1: ");
 		String nguoi_choi_1 = sc.nextLine();
 		Player player1 = new Player(nguoi_choi_1, boats1, mapPlayer1);
 
-		System.out.println("Nhập tên người chơi 2:");
+		System.out.println("Enter name of player2: ");
 		String nguoi_choi_2 = sc.nextLine();
 		PlayerOpponent player2 = new PlayerOpponent(nguoi_choi_2, boats2, mapPlayer2);
 
 		BeforePlaying beforePlaying = new BeforePlaying();
-		System.out.println("Đặt tàu cho người chơi 1");
-		System.out.println("Bạn muốn đặt tàu thủ công hay tự động ");
-		System.out.println("1. Thủ công");
-		System.out.println("2. Tự động");
+		System.out.println("Placement ship for player1");
+		System.out.println("Do you want to place manual or automatic ");
+		System.out.println("1. Manual");
+		System.out.println("2. Automatic");
 
 		int choice_1 = Integer.parseInt(sc.nextLine());
 		boolean choice_player1;
@@ -118,10 +117,10 @@ public class Menu {
 		beforePlaying.setUpBoatsForPlayer(player1, choice_player1);
 		clear.clearConsole();
 
-		System.out.println("Đặt tàu cho người chơi 2");
-		System.out.println("Bạn muốn đặt tàu thủ công hay tự động ");
-		System.out.println("1. Thủ công");
-		System.out.println("2. Tự động");
+		System.out.println("Placement ship for player2");
+		System.out.println("Do you want to place manual or automatic ");
+		System.out.println("1. Manual");
+		System.out.println("2. Automatic");
 		int choice_2 = Integer.parseInt(sc.nextLine());
 		boolean choice_player2;
 		if (choice_2 == 1)
@@ -131,18 +130,18 @@ public class Menu {
 		beforePlaying.setUpBoatsForOpponent(player2, choice_player2);
 		clear.clearConsole();
 
-		System.out.println("\nTất cả tàu đã được đặt. Trò chơi bắt đầu!");
+		System.out.println("\nAll the ships have been placed. Game started!");
 		clear.clearConsole();
 		GameController gameController = new GameController(player1, player2);
 		gameController.startGame();
 
-		System.out.println("Trò chơi kết thúc!");
+		System.out.println("Game over!");
 
 	}
 
 	public void StartGameBot() {
 
-		System.out.println("Nhập kích cỡ của bảng");
+		System.out.println("Enter your size board: ");
 		int size = Integer.parseInt(sc.nextLine());
 
 		Cell[][] mapPlayer1 = new Cell[size][size];
@@ -156,17 +155,17 @@ public class Menu {
 		}
 		ArrayList<Boat> boats1 = new ArrayList<>();
 		ArrayList<Boat> boats2 = new ArrayList<>();
-		System.out.println("Nhập tên người chơi 1:");
+		System.out.println("Enter name player1:");
 		String nguoi_choi_1 = sc.nextLine();
 		Player player1 = new Player(nguoi_choi_1, boats1, mapPlayer1);
 
 		Bot player2 = new Bot("Bot", boats2, mapPlayer2);
 
 		BeforePlaying beforePlaying = new BeforePlaying();
-		System.out.println("Đặt tàu cho người chơi 1");
-		System.out.println("Bạn muốn đặt tàu thủ công hay tự động ");
-		System.out.println("1. Thủ công");
-		System.out.println("2. Tự động");
+		System.out.println("Placement ship for player1");
+		System.out.println("Do you want to place manual or automatic ");
+		System.out.println("1. Manual");
+		System.out.println("2. Automatic");
 
 		int choice_1 = Integer.parseInt(sc.nextLine());
 		boolean choice_player1;
@@ -180,12 +179,12 @@ public class Menu {
 		beforePlaying.setUpBoatsForBot(player2);
 		clear.clearConsole();
 
-		System.out.println("\nTất cả tàu đã được đặt. Trò chơi bắt đầu!");
+		System.out.println("\nAll the ships have been placed. Game started!");
 		clear.clearConsole();
 		GameController gameController = new GameController(player1, player2);
 		gameController.startGameWithBot();
 
-		System.out.println("Trò chơi kết thúc!");
+		System.out.println("Game over!");
 
 	}
 }

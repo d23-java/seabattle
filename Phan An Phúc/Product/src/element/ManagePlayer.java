@@ -1,7 +1,6 @@
 package element;
 
 import Main.Input;
-
 import java.util.Random;
 import java.util.Scanner;
 
@@ -81,7 +80,7 @@ public class ManagePlayer {
 	}
 
 	public static boolean acceptedCoordinates(int x, int y, Cell[][] mapPlayer) {
-		System.out.println("Kiểm tra tọa độ hợp lệ...");
+		System.out.println("Check your coordinates....");
 		if (x >= 0 && x < mapPlayer.length && y >= 0 && y < mapPlayer[0].length) {
 			return true;
 		}
@@ -89,14 +88,14 @@ public class ManagePlayer {
 	}
 
 	public static int[] getCoordinatesFromPlayer(String namePlayer, Cell[][] mapPlayer) {
-		System.out.println(namePlayer + ", nhập tọa độ x: ");
+		System.out.println(namePlayer + ", enter coordinate x: ");
 		int toaDoX = Integer.parseInt(sc.nextLine());
-		System.out.println(namePlayer + ", nhập tọa độ y: ");
+		System.out.println(namePlayer + ", enter coordinate y");
 		int toaDoY = Integer.parseInt(sc.nextLine());
 		--toaDoX;
 		--toaDoY;
 		while (acceptedCoordinates(toaDoX, toaDoY, mapPlayer) == false) {
-			System.out.println("Vui lòng nhập lại tọa độ:");
+			System.out.println("Please re-enter your coordinates:");
 			toaDoX = Integer.parseInt(sc.nextLine());
 			toaDoY = Integer.parseInt(sc.nextLine());
 		}

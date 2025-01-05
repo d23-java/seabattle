@@ -1,8 +1,5 @@
 package playing;
 
-import java.util.Random;
-import java.util.Scanner;
-
 import Main.Input;
 import element.Boat;
 import element.BoatType;
@@ -10,6 +7,8 @@ import element.Bot;
 import element.Cell;
 import element.Player;
 import element.PlayerOpponent;
+import java.util.Random;
+import java.util.Scanner;
 
 public class BeforePlaying {
 	static Scanner sc = Input.getScanner();
@@ -18,16 +17,17 @@ public class BeforePlaying {
 	public void setUpBoatsForPlayer(Player player, boolean checkTypeOfSetUp) {
 		for (BoatType type : BoatType.values()) {
 			for (int i = 0; i < type.getSoLuong(); i++) {
-				System.out.println("Đặt tàu: " + type.getName() + " (Kích thước: " + type.getSize() + ")");
+				System.out.println("Placement ship: " + type.getName() + " (Size: " + type.getSize() + ")");
 				boolean placed = false;
 				if (checkTypeOfSetUp) {
 					while (!placed) {
-						System.out.print("Nhập tọa độ đầu (x, y): ");
+						System.out.print("Enter coordinate x:  ");
 						int x = Integer.parseInt(sc.nextLine());
+						System.out.print("Enter coordinate y:  ");
 						int y = Integer.parseInt(sc.nextLine());
 						--x;
 						--y;
-						System.out.print("Chọn hướng (1. Ngang, 2. Dọc): ");
+						System.out.print("Choose direction (1. Horizontal, 2. Vertical): ");
 						int direction = Integer.parseInt(sc.nextLine());
 
 						if (isValidPlacement(player.getMapPlayer(), x, y, type.getSize(), direction)) {
@@ -35,7 +35,7 @@ public class BeforePlaying {
 							player.mapSetUp();
 							placed = true;
 						} else {
-							System.out.println("Vị trí không hợp lệ, thử lại!");
+							System.out.println("Location is not correct! Re-enter: ");
 						}
 					}
 				} else {
@@ -73,16 +73,17 @@ public class BeforePlaying {
 	public void setUpBoatsForOpponent(PlayerOpponent player, boolean checkTypeOfSetUp) {
 		for (BoatType type : BoatType.values()) {
 			for (int i = 0; i < type.getSoLuong(); i++) {
-				System.out.println("Đặt tàu: " + type.getName() + " (Kích thước: " + type.getSize() + ")");
+				System.out.println("Placement ship: " + type.getName() + " (Size: " + type.getSize() + ")");
 				boolean placed = false;
 				if (checkTypeOfSetUp) {
 					while (!placed) {
-						System.out.print("Nhập tọa độ đầu (x, y): ");
+						System.out.print("Enter coordinate x:  ");
 						int x = Integer.parseInt(sc.nextLine());
+						System.out.print("Enter coordinate y:  ");
 						int y = Integer.parseInt(sc.nextLine());
 						--x;
 						--y;
-						System.out.print("Chọn hướng (1. Ngang, 2. Dọc): ");
+						System.out.print("Choose direction (1. Horizontal, 2. Vertical): ");
 						int direction = Integer.parseInt(sc.nextLine());
 
 						if (isValidPlacement(player.getMapPlayer(), x, y, type.getSize(), direction)) {
@@ -90,7 +91,7 @@ public class BeforePlaying {
 							player.mapSetUp();
 							placed = true;
 						} else {
-							System.out.println("Vị trí không hợp lệ, thử lại!");
+							System.out.println("Location is not correct! Re-enter: ");
 						}
 					}
 				} else {
