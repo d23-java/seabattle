@@ -2,7 +2,7 @@
 
 Sea Battle is a game for two players. The game is played on four grids, two for each player. The grids are typically square – usually 10×10 – and the individual squares in the grid are identified by letter and number. On one grid the player arranges ships and records the shots by the opponent. On the other grid the player records their own shots.
 
-The project was done by [Phan An Phúc](https://github.com/anphuc2005), in the course of Object Oriented Programming at [ProPTIT](https://proptit.com/).
+The project was done by [Nguyễn Văn A](https://github.com/naa-ntu), in the course of Object Oriented Programming at [ProPTIT](https://proptit.com/).
 
 
 ## Tech Stack
@@ -16,14 +16,6 @@ The project was done by [Phan An Phúc](https://github.com/anphuc2005), in the c
 - Open the project in your IDE
 - Run the project
 
-### **Gameplay video:** https://youtu.be/ZBr-b8L218I
-### **Images**:
-
-![Alt text](image.png)
-![Alt text](image1.png)
-![Alt text](image2.png)
-![Alt text](image3.png)
-![Alt text](image4.png)
 
 ## Usage
 
@@ -34,36 +26,27 @@ The project was done by [Phan An Phúc](https://github.com/anphuc2005), in the c
 ├── src
 │   ├── main
 │   │   ├── java
-│   │   │   ├── element
-│   │   │   │   ├── Boat.java
-│   │   │   │   ├── BoatType.java
-│   │   │   │   ├── Bot.java
+│   │   │   ├── controller
+│   │   │   │   ├── Controller.java
+│   │   │   │   ├── ....java
+│   │   │   │   ├── ....java
+│   │   │   │   ├── ....java
+│   │   │   │   ├── ....java
+│   │   │   │   ├── ....java
+│   │   │   │   └── ....java
+│   │   │   ├── model
+│   │   │   │   ├── Board.java
 │   │   │   │   ├── Cell.java
-│   │   │   │   ├── Coordinates.java
-│   │   │   │   ├── ManagerPlayer.java
-│   │   │   │   ├── Player.java
-│   │   │   │   └── PlayerOpponent.java
-│   │   │   ├── Main
-│   │   │   │   ├── Input.java
-│   │   │   │   ├── Main.java
-│   │   │   │   └── Menu.java
-│   │   │   └── playing
-│   │   │       ├── BeforePlaying.java
-│   │   │       ├── ClearConsole.java
-│   │   │       ├── Color.java
-│   │   │       ├── Efect.java
-│   │   │       ├── GameController.java
-│   │   │       └── ScoreBoard.java
+│   │   │   │   ├── Game.java
+│   │   │   │   ├── ....java
+│   │   │   │   ├── ....java
+│   │   │   │   ├── ....java
+│   │   │   │   ├── ....java
+│   │   │   │   ├── ....java
+│   │   │   │   └── ....java
 
 
 ```
-## UML
-### Class Diagram:
-<img src = "SeaBattle-Class Diagram.drawio.png"></img>
-
-
-### Activity Diagram:
-<img src = "SeaBattle-Activity Diagram.drawio.png"></img>
 
 ## Contributing
 
