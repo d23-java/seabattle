@@ -24,38 +24,26 @@ public class Game {
     public void attack(Player player1, Player player2){
         player2.showEnemyBoard();
         if (player1.attack(player2)) {
-            if (player2.getOwnBoard().checkSunk()) {
-                System.out.println("Tàu đã bị chìm!");
-            }
+            if (player2.getOwnBoard().checkSunk()) return;
         }
         else attack(player1, player2);
     }
 
-//    public void attack(Player player1, Player player2){
-//        player1.showEnemyBoard();
-//        if (player1.attack(player2.getOwnBoard())) {
-//            if (player2.getOwnBoard().checkSunk()) {
-//                System.out.println("Tàu đã bị chìm!");
-//            }
-//        }
-//        else attack(player1, player2);
-//        player1.setEnemyBoard(player2.getOwnBoard());
-//    }
-
     public boolean checkGameOver(){
         if (player1.getOwnBoard().shipList.size() == 0){
-            System.out.println(player1.getName() + " đã bị thua!");
+            System.out.println(player2.getName() + " wins!");
             return true;
         }
         if (player2.getOwnBoard().shipList.size() == 0){
-            System.out.println(player2.getName() + " đã bị thua!");
+            System.out.println(player1.getName() + " wins!");
             return true;
         }
         return false;
     }
 
     public void playTurn(Player player1, Player player2){
-        System.out.println("Đây là lượt của " + player1.getName());
+        MenuGame.clearScreen();
+        System.out.println("It's " + player1.getName() + " turn. ");
         MenuGame.playMenu();
         int playChoice = Integer.parseInt(ScannerManager.scanner.nextLine());
         if (playChoice == 1) {
@@ -72,11 +60,10 @@ public class Game {
     public void playGame(){
         MenuGame.printPhase("PreBattle Phase");
         MenuGame.clearScreen();
-        System.out.print("Đây là lượt của " + player1.getName() + ". ");
+        System.out.print("It's " + player1.getName() + " turn. ");
         player1.placeShips();
         MenuGame.clearScreen();
-//        System.out.println("\n------------------------------------------------------------------\n");
-        System.out.print("Đây là lượt của " + player2.getName() + ". ");
+        System.out.print("It's " + player2.getName() + " turn. ");
         player2.placeShips();
         MenuGame.clearScreen();
         player1.setEnemyBoard(player2.getOwnBoard());
@@ -96,9 +83,9 @@ public class Game {
                 player2.setEnemyBoard(player1.getOwnBoard());
             }
         }
-        System.out.println("                                  Game Over!");
-        System.out.println("Bạn có muốn chơi lại không?");
-        System.out.println("1. Có\n 2. Không");
+        System.out.println("Game Over!");
+        System.out.println("Play Again?");
+        System.out.println("1. Yes\n2. No");
         int choiceRestart = Integer.parseInt(ScannerManager.scanner.nextLine());
         MenuGame.clearScreen();
         if (choiceRestart == 1) playGame();

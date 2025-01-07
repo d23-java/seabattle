@@ -5,6 +5,11 @@ public class Board {
     private Cell[][] grid;
     private int size;
     public ArrayList<Ship> shipList;
+    public static final String RESET = "\u001B[0m";
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String BLUE = "\u001B[34m";
 
     public Board(int size){
         this.size = size;
@@ -79,57 +84,56 @@ public class Board {
         return true;
     }
 
-    public void showOwnBoard(){
-        System.out.println("Bảng chơi của bản thân:");
-        System.out.print("|\\|");
-        for (int i = 0; i < this.size; i++){
-            System.out.print("|" + i + "|");
-        }
-        System.out.print("\n");
-        for (int i = 0; i < this.size; i++){
-            System.out.print("|" + (char)(i + 'a') + "|");
-            for (int j = 0; j < this.size; j++){
-                if (grid[i][j].occupied()){
-                    if (grid[i][j].status()) System.out.print("|O|");
-                    else System.out.print("|S|");
+    public void showOwnBoard() {
+        System.out.println("Your Board:");
+        System.out.print("   ");
+        System.out.println("|  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |");
+        for (int i = 0; i < this.size; i++) {
+            System.out.printf("%2s ", (char) (i + 'a'));
+            for (int j = 0; j < this.size; j++) {
+                if (grid[i][j].occupied()) {
+                    if (grid[i][j].status()) {
+                        System.out.print("| \u274C "); // ❌
+                    } else {
+                        System.out.print("| \uD83D\uDEA2 "); // 🚢
+                    }
+                } else if (grid[i][j].status()) {
+                    System.out.print("| \uD83D\uDCA5 "); // 💥
+                } else {
+                    System.out.print("| \uD83C\uDF0A "); // 🌊
                 }
-                else if (grid[i][j].status()) System.out.print("|X|");
-                else System.out.print("|~|");
             }
-            System.out.print("\n");
+            System.out.println("|"); // Đóng hàng
         }
     }
 
+
     public void showEnemyBoard(){
-        System.out.println("Bảng chơi của đối thủ:");
-        System.out.print("|\\|");
-        for (int i = 0; i < this.size; i++){
-            System.out.print("|" + i + "|");
-        }
-        System.out.print("\n");
-        for (int i = 0; i < this.size; i++){
-            System.out.print("|" + (char)(i + 'a') + "|");
-            for (int j = 0; j < this.size; j++){
-                if (grid[i][j].status()){
-                    if (grid[i][j].occupied()){
-                        System.out.print("|O|");
-                    }
-                    else System.out.print("|X|");
+        System.out.println("Enemy's Board:");
+        System.out.print("   ");
+        System.out.println("|  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 |");
+        for (int i = 0; i < this.size; i++) {
+            System.out.printf("%2s ", (char) (i + 'a'));
+            for (int j = 0; j < this.size; j++) {
+                if (grid[i][j].status()) {
+                    if (grid[i][j].occupied()) System.out.print("| \u274C "); // ❌
+                    else System.out.print("| \uD83D\uDCA5 "); // 💥
+                } else {
+                    System.out.print("| \uD83C\uDF0A "); // 🌊
                 }
-                else System.out.print("|~|");
             }
-            System.out.print("\n");
+            System.out.println("|");
         }
     }
 
     public boolean isAttacked(int x, int y){
         if (grid[x][y].status()){
-            System.out.println("Ô này đã bị bắn rồi. Vui lòng nhập lại tọa độ khác!");
+            System.out.println("This cell has already been hit. Please enter a different coordinate!");
             return false;
         }
         grid[x][y].isHit(true);
         if (grid[x][y].occupied()){
-            System.out.println("Bạn đã bắn trúng!");
+            System.out.println("Result: Hit!");
             for (Ship ship : shipList){
                 if (ship.getPositionList().contains(grid[x][y])){
                     ship.hitCount();
@@ -137,7 +141,7 @@ public class Board {
                 }
             }
         }
-        else System.out.println("Bạn đã bắn trượt!");
+        else System.out.println("Result: Miss!");
         return grid[x][y].status();
     }
 
@@ -147,7 +151,7 @@ public class Board {
             while (iterator.hasNext()) {
                 ship = iterator.next();
                 if (ship.isSunk()) {
-                    System.out.println("Tàu " + ship.getType() + " đã bị chìm!");
+                    System.out.println(ship.getType() + " is sunk!");
                     iterator.remove();
                     return true;
                 }

@@ -1,6 +1,19 @@
 import java.io.IOException;
 
 public class MenuGame {
+    public static void printTextWithDot(String text){
+        try {
+            for (int j = 0; j < 3; j++) {
+                for (int i = 0; i <= 3; i++) {
+                    System.out.print("\033[2K\r                                                                                                         " + text + ".".repeat(i));
+                    Thread.sleep(500);
+                }
+            }
+        } catch (InterruptedException e) {
+            System.err.println("Error!");
+        }
+    }
+
     public static void showIntro() {
 
         String[] introText = {
@@ -22,16 +35,12 @@ public class MenuGame {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.print("\n                                                                                                     ");
-        System.out.println("Press Enter to start...");
+        printTextWithDot("Game Starting");
+        System.out.print("\n");
+    }
 
-        try {
-            System.in.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.print("\n                                                                                                         ");
-        System.out.println("Game Starting...");
+    public static void printQuitGame(){
+        printTextWithDot("Exiting Game");
     }
 
     public static void showMenu(){
@@ -41,38 +50,6 @@ public class MenuGame {
         System.out.println("1. Play Game");
         System.out.print("                                                                                                           ");
         System.out.println("2. Quit Game");
-    }
-
-    public static void printQuitGame(){
-        boolean isRunning = true;
-        boolean finalIsRunning = isRunning;
-        Thread blinkingThread = new Thread(() -> {
-            String baseText = "Đang thoát game";
-            String[] dots = {"", ".", "..", "..."};
-            int i = 0;
-
-            while (finalIsRunning) {
-                System.out.print("\r" + baseText + dots[i]);
-                i = (i + 1) % dots.length;
-
-                try {
-                    Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    return;
-                }
-            }
-        });
-
-        blinkingThread.start();
-
-        try {
-            Thread.sleep(3700);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        isRunning = false;
-        blinkingThread.interrupt();
     }
 
     public static String getPhase(String phaseName) {
@@ -111,9 +88,9 @@ public class MenuGame {
     }
 
     public static void playMenu(){
-        System.out.println("1. Xem bảng của bản thân");
-        System.out.println("2. Tấn công");
-        System.out.println("3. Kết thúc lượt");
+        System.out.println("1. View your own board");
+        System.out.println("2. Attack");
+        System.out.println("3. End your turn");
     }
 
     public static void clearScreen(){
