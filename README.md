@@ -14,7 +14,7 @@ The project was done by [Nguyễn Nam Hải](https://github.com/HandQ2212), in t
 
 # Demo Video
 
-GamePlay Video: https://studio.youtube.com/video/Cz6vyrd2QMQ/edit
+GamePlay Video: https://www.youtube.com/watch?v=Cz6vyrd2QMQ
 
 # Demo Image
 ![alt text](<Demo 1.png>) 

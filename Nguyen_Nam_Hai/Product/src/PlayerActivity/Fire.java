@@ -54,7 +54,7 @@ public class Fire {
     private boolean checkWin(Player opponent){
         boolean checkWin = true;
         for (Ship ship : opponent.getShips()) {
-            if (!ship.isAttacked()) {// There is a ship that hasn’t been hit yet
+            if (!ship.isAttacked()) {
                 checkWin = false;
                 break;
             }
