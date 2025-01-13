@@ -1,18 +1,38 @@
 package game;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import enums.ShipType;
 import enums.CellStatus;
 
-public class Ship {
-    private ShipType type;
-    private int size;
-    private List<Cell> cells;
+public class Ship implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+    private final ShipType type;
+    private final int size;
+    private final List<Cell> cells;
     private int hits;
+    private boolean shielded = false;
 
-    private int getSizeByType(ShipType type) {
+    public Ship(ShipType type) {
+        this.type = type;
+        this.size = getSizeByType();
+        this.cells = new ArrayList<>();
+        this.hits = 0;
+    }
+
+    public boolean isShielded() {
+        return shielded;
+    }
+
+    public void setShielded(boolean shielded) {
+        this.shielded = shielded;
+    }
+
+    private int getSizeByType() {
         return switch (type) {
             case PATROL_BOAT -> 2;
             case DESTROYER -> 4;
@@ -21,43 +41,16 @@ public class Ship {
         };
     }
 
-    public Ship(ShipType type) {
-        this.type = type;
-        this.size = getSizeByType(type);
-        this.cells = new ArrayList<>();
-        this.hits = 0;
-    }
-
     public ShipType getType() {
         return type;
-    }
-
-    public void setType(ShipType type) {
-        this.type = type;
     }
 
     public int getSize() {
         return size;
     }
 
-    public void setSize(int size) {
-        this.size = size;
-    }
-
     public List<Cell> getCells() {
         return cells;
-    }
-
-    public void setCells(List<Cell> cells) {
-        this.cells = cells;
-    }
-
-    public int getHits() {
-        return hits;
-    }
-
-    public void setHits(int hits) {
-        this.hits = hits;
     }
 
     public void addCell(Cell cell) {

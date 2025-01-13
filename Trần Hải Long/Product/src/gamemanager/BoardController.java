@@ -17,8 +17,8 @@ public class BoardController {
         else
             dx = 1;
 
-        int row = start.getX() - 'A';
-        int col = start.getY() - 1;
+        int row = start.getXAris() - 'A';
+        int col = start.getYAris() - 1;
 
         int endRow = row + dx * (ship.getSize() - 1);
         int endCol = col + dy * (ship.getSize() - 1);
@@ -47,6 +47,11 @@ public class BoardController {
 
     public FireResult fireAt(Cell target) {
         if (target.getStatus() == CellStatus.SHIP) {
+            if(target.getShip().isShielded()){
+                System.out.println("Tàu được bảo vệ bởi lá chắn!");
+                target.getShip().setShielded(false);
+                return FireResult.MISS;
+            }
             target.setStatus(CellStatus.HIT);
             Ship ship = target.getShip();
             ship.takeHit();
@@ -59,4 +64,9 @@ public class BoardController {
             return FireResult.MISS;
         }
     }
+
+    public Board getBoard() {
+        return board;
+    }
 }
+
