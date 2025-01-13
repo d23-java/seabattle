@@ -1,0 +1,2 @@
+Người thắng cuộc: phuc, Số lượt: 16, Tàu còn lại: -1
+Winner: Phuc, Turn: 16, Ship of remain: -1

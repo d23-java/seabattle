@@ -130,6 +130,7 @@ public class ComputerSystem {
                 System.out.println(">>>Number of bullets fired: " + players.get(playerTurn).score);
                 System.out.println(">>>Number of enemy ships destroyed: " + (5 - players.get(1 - playerTurn).getRemainShip()));
                 System.out.println(">>>Number of remaining ships: " + players.get(playerTurn).getRemainShip()+"\n\n");
+
                 MenuList.showPlayerOption();
                 int playerChoice = Integer.parseInt(InputSystem.sc.nextLine());
                 if(playerChoice == 1){
@@ -139,6 +140,7 @@ public class ComputerSystem {
                 else if(playerChoice == 2){
                     Terminal.clear();
                     System.out.println("                Player's Board\n");
+                    System.out.println("          Player's Board\n");
                     players.get(playerTurn).getPlayerScreen().display();
                     System.out.println(" ");
                     System.out.println("Press Enter to return");

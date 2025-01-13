@@ -203,4 +203,35 @@ public class MenuList {
         System.out.println("\u001B[31m"+"  ███    ███   ███    █▀   ▀█   █▀    ███   ▀█▀ █▀    ▀█   █▀    ████████▀ "+"\u001B[0m");
         System.out.println("\u001B[31m"+"  ███    ███                          ▀"+"\u001B[0m");
     }
+    public static void sunkNotify(){
+        System.out.println("   ▄████████ ███    █▄  ███▄▄▄▄      ▄█   ▄█▄");
+        System.out.println("  ███    ███ ███    ███ ███▀▀▀██▄   ███ ▄███▀");
+        System.out.println("  ███    █▀  ███    ███ ███   ███   ███▐██▀");
+        System.out.println("  ███        ███    ███ ███   ███  ▄█████▀");
+        System.out.println("▀███████████ ███    ███ ███   ███ ▀▀█████▄");
+        System.out.println("         ███ ███    ███ ███   ███   ███▐██▄");
+        System.out.println("   ▄█    ███ ███    ███ ███   ███   ███ ▀███▄");
+        System.out.println(" ▄████████▀  ████████▀   ▀█   █▀    ███   ▀█▀");
+        System.out.println("                                    ▀");
+    }
+    public static void isWinnerNotify(){
+        System.out.println("    ▄█     ▄████████");
+        System.out.println("   ███    ███    ███");
+        System.out.println("   ███▌   ███    █▀");
+        System.out.println("   ███▌   ███");
+        System.out.println("   ███▌ ▀███████████");
+        System.out.println("   ███           ███");
+        System.out.println("   ███     ▄█    ███");
+        System.out.println("   █▀    ▄████████▀");
+        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println("    ▄█     █▄   ▄█  ███▄▄▄▄   ███▄▄▄▄      ▄████████    ▄████████");
+        System.out.println("   ███     ███ ███  ███▀▀▀██▄ ███▀▀▀██▄   ███    ███   ███    ███");
+        System.out.println("   ███     ███ ███▌ ███   ███ ███   ███   ███    █▀    ███    ███");
+        System.out.println("   ███     ███ ███▌ ███   ███ ███   ███  ▄███▄▄▄      ▄███▄▄▄▄██▀");
+        System.out.println("   ███     ███ ███▌ ███   ███ ███   ███ ▀▀███▀▀▀     ▀▀███▀▀▀▀▀");
+        System.out.println("   ███     ███ ███  ███   ███ ███   ███   ███    █▄  ▀███████████");
+        System.out.println("   ███ ▄█▄ ███ ███  ███   ███ ███   ███   ███    ███   ███    ███");
+        System.out.println("    ▀███▀███▀  █▀    ▀█   █▀   ▀█   █▀    ██████████   ███    ███");
+    }
 }
