@@ -1,11 +1,13 @@
 package game;
 
+import gamemanager.SoundController;
+
 import java.io.File;
 
-import static game.Sound.playSoundWithDurationAsync;
+import static game.Main.scanner;
 
 
-public class Menu {
+public class MenuInterface {
     public static final String reset = "\u001B[0m";
     public static final String red = "\u001B[31m";
     public static final String yellow = "\u001B[33m";
@@ -14,6 +16,7 @@ public class Menu {
     public static final String purple = "\u001B[35m";
     public static final String gray = "\u001B[90m";
     public static File file = new File("tempGame.txt");
+    public static SoundController soundController = SoundController.getInstance();
 
     public static void seaBattle(){
         System.out.print(
@@ -24,28 +27,36 @@ public class Menu {
                 " ╚════██║██╔══╝  ██╔══██║██╔══██╗██╔══██║   ██║      ██║   ██║     ██╔══╝   \n" +
                 " ███████║███████╗██║  ██║██████╔╝██║  ██║   ██║      ██║   ███████╗███████╗ \n" +
                 " ╚══════╝╚══════╝╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝   ╚═╝      ╚═╝   ╚══════╝╚══════╝ \n" +
-        reset +
-                "                         1. Chế độ 2 người chơi                             \n" +
         blue +
-                "                           2. Chơi với máy                                  \n" +
+                "                              1. Chơi mới                                   \n" +
         reset +
-                "                       3. Hiển thị bảng xếp hạng                            \n" +
+                "                       2. Hiển thị bảng xếp hạng                            \n" +
         blue +
-                "                             4. Bật/Tắt âm                                  \n" +
+                "                             3. Bật/Tắt âm                                  \n" +
         reset +
-                "                             5. Luật chơi                                  \n" +
+                "                             4. Luật chơi                                  \n" +
                 reset);
         if (file.length() > 0) {
             System.out.print(green +
-                "                              6. Tiếp tục                                   \n" +
+                "                              5. Tiếp tục                                   \n" +
                 reset);
         }
         System.out.println(red +
                 "                               0. Thoát                                     \n" +
                 reset);
     }
+
+    public static String gameplayPicker(){
+        return green + "1. Chế độ 2 người chơi" + blue + "\n2. Đấu với máy" + reset +
+                "\nHãy chọn chế độ chơi (Nếu bạn chọn số khác 1, bạn sẽ chơi với máy): ";
+    }
+
+    public static void alert(String message) {
+        System.out.println(red + message + reset);
+    }
+
     public static void start(){
-        playSoundWithDurationAsync("/Sound/start.wav", false,4000, 1f);
+        soundController.playSoundWithDurationAsync("/Sound/start.wav", false,4000, 1f);
         String[] lines = {
                 " ____ _____  _    ____ _____ _ ",
                 "/ ___|_   _|/ \\  |  _ \\_   _| |",
@@ -60,7 +71,7 @@ public class Menu {
         System.out.println();
     }
     public static void end(){
-        playSoundWithDurationAsync("/Sound/end.wav", false, 3000, 1f);
+        soundController.playSoundWithDurationAsync("/Sound/end.wav", false, 3000, 1f);
         String[] lines = {
                 " _____ _   _ ____  _ ",
                 "| ____| \\ | |  _ \\| |",
@@ -75,7 +86,7 @@ public class Menu {
     }
 
     public static void hit(){
-        playSoundWithDurationAsync("/Sound/hit.wav", false,3000, 1f);
+        soundController.playSoundWithDurationAsync("/Sound/hit.wav", false,3000, 1f);
         String[] lines = {
                 " __    __   __  .___________. __ ",
                 "|  |  |  | |  | |           ||  |",
@@ -90,7 +101,7 @@ public class Menu {
         }
     }
     public static void miss(){
-        playSoundWithDurationAsync("/Sound/miss.wav", false,3000, 1f);
+        soundController.playSoundWithDurationAsync("/Sound/miss.wav", false,3000, 1f);
         String[] lines = {
                 ".___  ___.  __       _______.     _______.",
                 "|   \\/   | |  |     /       |    /       |",
@@ -104,7 +115,7 @@ public class Menu {
         }
     }
     public static void sunk(){
-        playSoundWithDurationAsync("/Sound/sink.wav", false,3000, 1f);
+        soundController.playSoundWithDurationAsync("/Sound/sink.wav", false,3000, 1f);
         String[] lines = {
                 "     _______. __    __  .__   __.  __  ___  __   __   __ ",
                 "    /       ||  |  |  | |  \\ |  | |  |/  / |  | |  | |  |",
@@ -120,7 +131,7 @@ public class Menu {
     }
 
     public static void explosion(){
-        playSoundWithDurationAsync("/Sound/sink.wav", false,3000, 1f);
+        soundController.playSoundWithDurationAsync("/Sound/sink.wav", false,3000, 1f);
         String[] art = {
                 "          _ ._  _ , _ ._",
                 "        (_ ' ( `  )_  .__)",
@@ -137,12 +148,35 @@ public class Menu {
         }
     }
 
-    public static void rule(){
-        System.out.println("+------------------------Luật chơi----------------------------+");
-        System.out.println("| 1. Mỗi người bí mật đặt tàu trên bảng của mình              |");
-        System.out.println("| 2. Luân phiên bắn nhau bằng cách chọn một ô trên bảng địch  |");
-        System.out.println("| 3. Khi một tàu bị bắn hết ô, tàu đó bị chìm                 |");
-        System.out.println("| 4. Người chiến thắng là người bắn chìm hết tàu đối phương   |");
-        System.out.println("+-------------------------------------------------------------+");
+    public static void instructions() {
+        System.out.println("+------------------------Hướng dẫn chơi-------------------------------------------+");
+        System.out.println("| 1. Trò chơi có hai chế độ: Chơi đơn và Chơi hai người.                          |");
+        System.out.println("|    - Chế độ Chơi đơn: Người chơi đấu với máy (Mức Dễ hoặc Khó).                 |");
+        System.out.println("|    - Chế độ Chơi hai người: Hai người chơi đấu với nhau.                        |");
+        System.out.println("| 2. Người chơi có thể chọn kích thước bảng phù hợp.                              |");
+        System.out.println("| 3. Mỗi người chơi bí mật đặt tàu (tự động/thủ công) trên bảng của mình.         |");
+        System.out.println("| 4. Người chơi luân phiên bắn nhau bằng cách chọn một ô trên bảng địch.          |");
+        System.out.println("| 5. Khi một tàu bị bắn hết các ô, tàu đó bị chìm.                                |");
+        System.out.println("| 6. Người chiến thắng là người bắn chìm hết tàu của đối phương.                  |");
+        System.out.println("| 7. Hiển thị bảng xếp hạng để theo dõi điểm số của người chơi.                   |");
+        System.out.println("| 8. Sử dụng các vật phẩm như Bom, Khiên và Đèn để hỗ trợ trong trò chơi.         |");
+        System.out.println("|    - Bom: Phát nổ toàn bộ khu vực lân cận ô được chọn, diện tích 2x2            |");
+        System.out.println("|    - Khiên: Bảo vệ tàu chứa ô được chọn, chỉ có tác dụng 1 lần                  |");
+        System.out.println("|    - Đèn: Cho biết ô được chọn có tàu xuất hiện hay không                       |");
+        System.out.println("| 9. Có thể bật hoặc tắt âm thanh theo ý muốn.                                    |");
+        System.out.println("| 10. Bạn có thể lưu và tiếp tục tiến trình trò chơi để chơi sau.                 |");
+        System.out.println("+---------------------------------------------------------------------------------+");
+    }
+
+    public static int getValidOptionWithPrompt(String prompt, String notification) {
+        while (true) {
+            try {
+                System.out.print(prompt);
+                String input = scanner.nextLine();
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                alert(notification);
+            }
+        }
     }
 }
