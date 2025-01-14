@@ -21,11 +21,11 @@ The project was done by [Trần Hải Long](https://github.com/team3hailong), in
 [![[ProPTIT] OOP Course - SeaBattle](https://i.ytimg.com/an_webp/kl95eOPqVwc/mqdefault_6s.webp?du=3000&sqp=CNzsuLsG&rs=AOn4CLDu6OuV-kCNvxhgcTgt4ZCorxNdNQ)](https://www.youtube.com/watch?v=9R48sjtqH1M "[ProPTIT] OOP Course - SeaBattle")
 
 ## Demo Image
-![](./demo/seabattle-1.png)
-![](./demo/seabattle-5.png)
-![](./demo/seabattle-2.png)
-![](./demo/seabattle-3.png)
-![](./demo/seabattle-4.png)
+![](./Demo/seabattle-1.png)
+![](./Demo/seabattle-5.png)
+![](./Demo/seabattle-2.png)
+![](./Demo/seabattle-3.png)
+![](./Demo/seabattle-4.png)
 
 
 ## Features
