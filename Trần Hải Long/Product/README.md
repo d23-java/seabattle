@@ -18,15 +18,18 @@ The project was done by [Trần Hải Long](https://github.com/team3hailong), in
 
 ## Demo Video
 
-[![[ProPTIT] OOP Course - SeaBattle](https://i.ytimg.com/an_webp/kl95eOPqVwc/mqdefault_6s.webp?du=3000&sqp=CNzsuLsG&rs=AOn4CLDu6OuV-kCNvxhgcTgt4ZCorxNdNQ)](https://www.youtube.com/watch?v=kl95eOPqVwc "[ProPTIT] OOP Course - SeaBattle")
+[![[ProPTIT] OOP Course - SeaBattle](https://i.ytimg.com/an_webp/kl95eOPqVwc/mqdefault_6s.webp?du=3000&sqp=CNzsuLsG&rs=AOn4CLDu6OuV-kCNvxhgcTgt4ZCorxNdNQ)](https://www.youtube.com/watch?v=9R48sjtqH1M "[ProPTIT] OOP Course - SeaBattle")
 
 ## Demo Image
-![](./Demo/seabattle-1.png)
-![](./Demo/seabattle-2.png)
+![](./demo/seabattle-1.png)
+![](./demo/seabattle-5.png)
+![](./demo/seabattle-2.png)
+![](./demo/seabattle-3.png)
+![](./demo/seabattle-4.png)
 
 
 ## Features
-- Players can play against the computer
+- Players can play against the computer (Hard or Easy Mode)
 - Players can play against another player
 - Players can choose the game mode (single-player - or multiplayer)
 - Players can select the board size
@@ -50,38 +53,59 @@ The project was done by [Trần Hải Long](https://github.com/team3hailong), in
 
 ```bash
 
-├── src
-│   ├── main
-│   │   ├── java
-│   │   │   ├── enums
-│   │   │   │   ├── CellStatus.java
-│   │   │   │   ├── FireResult.java
-│   │   │   │   ├── GameStatus.java
-│   │   │   │   ├── Orientation.java
-│   │   │   │   └── ShipType.java
-│   │   │   ├── gamemanager
-│   │   │   │   ├── BotFunction.java
-│   │   │   │   ├── GameFunction.java
-│   │   │   │   ├── PlayerFunction.java
-│   │   │   │   ├── ShipPlacement.java
-│   │   │   │   └── BoardController.java
-│   │   │   ├── game
-│   │   │   │   ├── Board.java
-│   │   │   │   ├── Cell.java
-│   │   │   │   ├── Game.java
-│   │   │   │   ├── GameState.java
-│   │   │   │   ├── Leaderboard.java
-│   │   │   │   ├── Main.java
-│   │   │   │   ├── Menu.java
-│   │   │   │   ├── Player.java
-│   │   │   │   ├── PlayerRecord.java
-│   │   │   │   ├── Ship.java
-│   │   │   │   └── Sound.java
-│   │   │   └── items
-│   │   │       ├── Bomb.java
-│   │   │       ├── Item.java
-│   │   │       ├── Shield.java
-│   │   │       └── Light.java
+Product/
+├── src/
+│   ├── controller/
+│   │   ├── Main.java
+│   │   └── gamemanager/
+│   │       ├── BoardController.java
+│   │       ├── BotFunction.java
+│   │       ├── GameFunction.java
+│   │       ├── GameStateFunction.java
+│   │       ├── ItemManager.java
+│   │       ├── PlayerFunction.java
+│   │       ├── shipplacement/
+│   │       │   ├── ManualPlacementStrategy.java
+│   │       │   ├── PlacementStrategy.java
+│   │       │   ├── ShipPlacement.java
+│   │       │   └── RandomPlacementStrategy.java
+│   │       └── SoundController.java
+│   ├── model/
+│   │   ├── enums/
+│   │   │   ├── FireResult.java
+│   │   │   ├── GameStatus.java
+│   │   │   ├── ShipType.java
+│   │   │   ├── Orientation.java
+│   │   │   └── CellStatus.java
+│   │   ├── items/
+│   │   │   ├── Bomb.java
+│   │   │   ├── Light.java
+│   │   │   ├── Shield.java
+│   │   │   └── Item.java
+│   │   └── game/
+│   │       ├── Ship.java
+│   │       ├── PlayerRecord.java
+│   │       ├── Player.java
+│   │       ├── GameState.java
+│   │       ├── Board.java
+│   │       ├── Leaderboard.java
+│   │       ├── Sound.java
+│   │       ├── Cell.java
+│   │       └── Game.java
+│   └── view/
+│       ├── MenuInterface.java
+│       └── EventInterface.java
+├── resources/
+│   ├── data/
+│   │   ├── record.txt
+│   │   ├── tempGame.txt
+│   │   └── soundSettings.txt
+│   └── sound/
+│       └── *.wav
+├── other/
+│   ├── META-INF/
+│   │   └── MANIFEST.MF
+│   └── Product.iml
 
 
 ```
