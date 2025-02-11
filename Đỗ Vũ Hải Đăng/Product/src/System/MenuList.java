@@ -1,15 +1,25 @@
 package System;
 
 public class MenuList {
+    public static void gameName(){
+        System.out.println("\u001B[36m"+"  ▄████████    ▄████████    ▄████████        ▀█████████▄     ▄████████     ███         ███      ▄█          ▄████████ "+"\u001B[0m");
+        System.out.println("\u001B[36m"+"  ███    ███   ███    ███   ███    ███         ███    ███   ███    ███ ▀█████████▄ ▀█████████▄ ███         ███    ███ "+"\u001B[0m");
+        System.out.println("\u001B[36m"+"  ███    █▀    ███    █▀    ███    ███         ███    ███   ███    ███    ▀███▀▀██    ▀███▀▀██ ███         ███    █▀ "+"\u001B[0m");
+        System.out.println("\u001B[36m"+"  ███         ▄███▄▄▄       ███    ███        ▄███▄▄▄██▀    ███    ███     ███   ▀     ███   ▀ ███        ▄███▄▄▄ "+"\u001B[0m");
+        System.out.println("\u001B[36m"+"▀███████████ ▀▀███▀▀▀     ▀███████████       ▀▀███▀▀▀██▄  ▀███████████     ███         ███     ███       ▀▀███▀▀▀ "+"\u001B[0m");
+        System.out.println("\u001B[36m"+"         ███   ███    █▄    ███    ███         ███    ██▄   ███    ███     ███         ███     ███         ███    █▄"+"\u001B[0m");
+        System.out.println("\u001B[36m"+"   ▄█    ███   ███    ███   ███    ███         ███    ███   ███    ███     ███         ███     ███▌    ▄   ███    ███"+"\u001B[0m");
+        System.out.println("\u001B[36m"+" ▄████████▀    ██████████   ███    █▀        ▄█████████▀    ███    █▀     ▄████▀      ▄████▀   █████▄▄██   ██████████"+"\u001B[0m");
+    }
     public static void showMainMenu(){
-        System.out.println("  ▄████████    ▄████████    ▄████████        ▀█████████▄     ▄████████     ███         ███      ▄█          ▄████████ ");
-        System.out.println("  ███    ███   ███    ███   ███    ███         ███    ███   ███    ███ ▀█████████▄ ▀█████████▄ ███         ███    ███ ");
-        System.out.println("  ███    █▀    ███    █▀    ███    ███         ███    ███   ███    ███    ▀███▀▀██    ▀███▀▀██ ███         ███    █▀ ");
-        System.out.println("  ███         ▄███▄▄▄       ███    ███        ▄███▄▄▄██▀    ███    ███     ███   ▀     ███   ▀ ███        ▄███▄▄▄ ");
-        System.out.println("▀███████████ ▀▀███▀▀▀     ▀███████████       ▀▀███▀▀▀██▄  ▀███████████     ███         ███     ███       ▀▀███▀▀▀ ");
-        System.out.println("         ███   ███    █▄    ███    ███         ███    ██▄   ███    ███     ███         ███     ███         ███    █▄");
-        System.out.println("   ▄█    ███   ███    ███   ███    ███         ███    ███   ███    ███     ███         ███     ███▌    ▄   ███    ███");
-        System.out.println(" ▄████████▀    ██████████   ███    █▀        ▄█████████▀    ███    █▀     ▄████▀      ▄████▀   █████▄▄██   ██████████");
+        System.out.println("\u001B[36m"+"  ▄████████    ▄████████    ▄████████        ▀█████████▄     ▄████████     ███         ███      ▄█          ▄████████ "+"\u001B[0m");
+        System.out.println("\u001B[36m"+"  ███    ███   ███    ███   ███    ███         ███    ███   ███    ███ ▀█████████▄ ▀█████████▄ ███         ███    ███ "+"\u001B[0m");
+        System.out.println("\u001B[36m"+"  ███    █▀    ███    █▀    ███    ███         ███    ███   ███    ███    ▀███▀▀██    ▀███▀▀██ ███         ███    █▀ "+"\u001B[0m");
+        System.out.println("\u001B[36m"+"  ███         ▄███▄▄▄       ███    ███        ▄███▄▄▄██▀    ███    ███     ███   ▀     ███   ▀ ███        ▄███▄▄▄ "+"\u001B[0m");
+        System.out.println("\u001B[36m"+"▀███████████ ▀▀███▀▀▀     ▀███████████       ▀▀███▀▀▀██▄  ▀███████████     ███         ███     ███       ▀▀███▀▀▀ "+"\u001B[0m");
+        System.out.println("\u001B[36m"+"         ███   ███    █▄    ███    ███         ███    ██▄   ███    ███     ███         ███     ███         ███    █▄"+"\u001B[0m");
+        System.out.println("\u001B[36m"+"   ▄█    ███   ███    ███   ███    ███         ███    ███   ███    ███     ███         ███     ███▌    ▄   ███    ███"+"\u001B[0m");
+        System.out.println("\u001B[36m"+" ▄████████▀    ██████████   ███    █▀        ▄█████████▀    ███    █▀     ▄████▀      ▄████▀   █████▄▄██   ██████████"+"\u001B[0m");
         System.out.println(" ");
         System.out.println(" ");
         System.out.println("                                                      1. New Game");
@@ -20,14 +30,14 @@ public class MenuList {
         System.out.print("                                                    Your Choice: ");
     }
     public static void showGameModeMenu(){
-        System.out.println("  ▄████████    ▄████████    ▄████████        ▀█████████▄     ▄████████     ███         ███      ▄█          ▄████████");
-        System.out.println("  ███    ███   ███    ███   ███    ███         ███    ███   ███    ███ ▀█████████▄ ▀█████████▄ ███         ███    ███");
-        System.out.println("  ███    █▀    ███    █▀    ███    ███         ███    ███   ███    ███    ▀███▀▀██    ▀███▀▀██ ███         ███    █▀");
-        System.out.println("  ███         ▄███▄▄▄       ███    ███        ▄███▄▄▄██▀    ███    ███     ███   ▀     ███   ▀ ███        ▄███▄▄▄");
-        System.out.println("▀███████████ ▀▀███▀▀▀     ▀███████████       ▀▀███▀▀▀██▄  ▀███████████     ███         ███     ███       ▀▀███▀▀▀");
-        System.out.println("         ███   ███    █▄    ███    ███         ███    ██▄   ███    ███     ███         ███     ███         ███    █▄");
-        System.out.println("   ▄█    ███   ███    ███   ███    ███         ███    ███   ███    ███     ███         ███     ███▌    ▄   ███    ███");
-        System.out.println(" ▄████████▀    ██████████   ███    █▀        ▄█████████▀    ███    █▀     ▄████▀      ▄████▀   █████▄▄██   ██████████");
+        System.out.println("\u001B[36m"+"  ▄████████    ▄████████    ▄████████        ▀█████████▄     ▄████████     ███         ███      ▄█          ▄████████"+"\u001B[0m");
+        System.out.println("\u001B[36m"+"  ███    ███   ███    ███   ███    ███         ███    ███   ███    ███ ▀█████████▄ ▀█████████▄ ███         ███    ███"+"\u001B[0m");
+        System.out.println("\u001B[36m"+"  ███    █▀    ███    █▀    ███    ███         ███    ███   ███    ███    ▀███▀▀██    ▀███▀▀██ ███         ███    █▀"+"\u001B[0m");
+        System.out.println("\u001B[36m"+"  ███         ▄███▄▄▄       ███    ███        ▄███▄▄▄██▀    ███    ███     ███   ▀     ███   ▀ ███        ▄███▄▄▄"+"\u001B[0m");
+        System.out.println("\u001B[36m"+"▀███████████ ▀▀███▀▀▀     ▀███████████       ▀▀███▀▀▀██▄  ▀███████████     ███         ███     ███       ▀▀███▀▀▀"+"\u001B[0m");
+        System.out.println("\u001B[36m"+"         ███   ███    █▄    ███    ███         ███    ██▄   ███    ███     ███         ███     ███         ███    █▄ "+"\u001B[0m");
+        System.out.println("\u001B[36m"+"   ▄█    ███   ███    ███   ███    ███         ███    ███   ███    ███     ███         ███     ███▌    ▄   ███    ███ "+"\u001B[0m");
+        System.out.println("\u001B[36m"+" ▄████████▀    ██████████   ███    █▀        ▄█████████▀    ███    █▀     ▄████▀      ▄████▀   █████▄▄██   ██████████ "+"\u001B[0m");
         System.out.println(" ");
         System.out.println(" ");
         System.out.println("                                                   1. Play with Player");
@@ -36,14 +46,16 @@ public class MenuList {
         System.out.print("                                                      Your Choice: ");
     }
     public static void showShipChoice(){
-        System.out.println("Choose your ship:");
-        System.out.println("1. Patrol Boat");
-        System.out.println("2. Destroyer Boat");
-        System.out.println("3. Submarine");
-        System.out.println("4. Battle Ship");
+        System.out.println("             "+"\u001B[36m"+"Choose your ship:"+"\u001B[0m");
+        System.out.println("          +---------------------+");
+        System.out.println("          |    "+"\u001B[32m"+"1. Patrol Boat"+"\u001B[0m"+"   |");
+        System.out.println("          |  "+"\u001B[33m"+"2. Destroyer Boat"+"\u001B[0m"+"  |");
+        System.out.println("          |     "+"\u001B[34m"+"3. Submarine"+"\u001B[0m"+"    |");
+        System.out.println("          |    "+"\u001B[35m"+"4. Battle Ship"+"\u001B[0m"+"   |");
+        System.out.println("          +---------------------+");
     }
     public static void showPlayerOption(){
-        System.out.println("     PLAYER OPTION");
+        System.out.println("     "+"\u001B[36m"+"PLAYER OPTION"+"\u001B[0m");
         System.out.println("+---------------------+");
         System.out.println("|       1. Shot       |");
         System.out.println("+---------------------+");
@@ -80,17 +92,17 @@ public class MenuList {
         }
     }
     public static void letStartTitle(){
-        System.out.println(" ▄█          ▄████████     ███             ▄████████     ███        ▄████████    ▄████████     ███    ");
-        System.out.println("███         ███    ███ ▀█████████▄        ███    ███ ▀█████████▄   ███    ███   ███    ███ ▀█████████▄");
-        System.out.println("███         ███    █▀     ▀███▀▀██        ███    █▀     ▀███▀▀██   ███    ███   ███    ███    ▀███▀▀██");
-        System.out.println("███        ▄███▄▄▄         ███   ▀        ███            ███   ▀   ███    ███  ▄███▄▄▄▄██▀     ███   ▀");
-        System.out.println("███       ▀▀███▀▀▀         ███          ▀███████████     ███     ▀███████████ ▀▀███▀▀▀▀▀       ███    ");
-        System.out.println("███         ███    █▄      ███                   ███     ███       ███    ███ ▀███████████     ███    ");
-        System.out.println("███▌    ▄   ███    ███     ███             ▄█    ███     ███       ███    ███   ███    ███     ███    ");
-        System.out.println("█████▄▄██   ██████████    ▄████▀         ▄████████▀     ▄████▀     ███    █▀    ███    ███    ▄████▀");
+        System.out.println("\u001B[31m"+" ▄█          ▄████████     ███             ▄████████     ███        ▄████████    ▄████████     ███    "+"\u001B[0m");
+        System.out.println("\u001B[31m"+"███         ███    ███ ▀█████████▄        ███    ███ ▀█████████▄   ███    ███   ███    ███ ▀█████████▄"+"\u001B[0m");
+        System.out.println("\u001B[31m"+"███         ███    █▀     ▀███▀▀██        ███    █▀     ▀███▀▀██   ███    ███   ███    ███    ▀███▀▀██"+"\u001B[0m");
+        System.out.println("\u001B[31m"+"███        ▄███▄▄▄         ███   ▀        ███            ███   ▀   ███    ███  ▄███▄▄▄▄██▀     ███   ▀"+"\u001B[0m");
+        System.out.println("\u001B[31m"+"███       ▀▀███▀▀▀         ███          ▀███████████     ███     ▀███████████ ▀▀███▀▀▀▀▀       ███    "+"\u001B[0m");
+        System.out.println("\u001B[31m"+"███         ███    █▄      ███                   ███     ███       ███    ███ ▀███████████     ███    "+"\u001B[0m");
+        System.out.println("\u001B[31m"+"███▌    ▄   ███    ███     ███             ▄█    ███     ███       ███    ███   ███    ███     ███    "+"\u001B[0m");
+        System.out.println("\u001B[31m"+"█████▄▄██   ██████████    ▄████▀         ▄████████▀     ▄████▀     ███    █▀    ███    ███    ▄████▀  "+"\u001B[0m");
     }
     public static void setShipOptionMenu(){
-        System.out.println("  +----Set up Ship----+");
+        System.out.println("  +----"+"\u001B[36m"+"Set up Ship"+"\u001B[0m"+"----+");
         System.out.println("  | 1.    Basic       |");
         System.out.println("  | 2.    Auto        |");
         System.out.println("  +-------------------+");
@@ -131,14 +143,65 @@ public class MenuList {
         }
     }
     public static void hitNotify(){
-        System.out.println("   ▄█    █▄     ▄█      ███");
-        System.out.println("  ███    ███   ███  ▀█████████▄");
-        System.out.println("  ███    ███   ███▌    ▀███▀▀██");
-        System.out.println(" ▄███▄▄▄▄███▄▄ ███▌     ███   ▀");
-        System.out.println("▀▀███▀▀▀▀███▀  ███▌     ███");
-        System.out.println("  ███    ███   ███      ███");
-        System.out.println("  ███    ███   ███      ███");
-        System.out.println("  ███    █▀    █▀      ▄████▀");
+        System.out.println("\u001B[31m"+"   ▄█    █▄     ▄█      ███"+"\u001B[0m");
+        System.out.println("\u001B[31m"+"  ███    ███   ███  ▀█████████▄"+"\u001B[0m");
+        System.out.println("\u001B[31m"+"  ███    ███   ███▌    ▀███▀▀██"+"\u001B[0m");
+        System.out.println("\u001B[31m"+" ▄███▄▄▄▄███▄▄ ███▌     ███   ▀"+"\u001B[0m");
+        System.out.println("\u001B[31m"+"▀▀███▀▀▀▀███▀  ███▌     ███"+"\u001B[0m");
+        System.out.println("\u001B[31m"+"  ███    ███   ███      ███"+"\u001B[0m");
+        System.out.println("\u001B[31m"+"  ███    ███   ███      ███"+"\u001B[0m");
+        System.out.println("\u001B[31m"+"  ███    █▀    █▀      ▄████▀"+"\u001B[0m");
+    }
+    public static void sunkNotify(){
+        System.out.println("\u001B[34m"+"   ▄████████ ███    █▄  ███▄▄▄▄      ▄█   ▄█▄"+"\u001B[0m");
+        System.out.println("\u001B[34m"+"  ███    ███ ███    ███ ███▀▀▀██▄   ███ ▄███▀"+"\u001B[0m");
+        System.out.println("\u001B[34m"+"  ███    █▀  ███    ███ ███   ███   ███▐██▀"+"\u001B[0m");
+        System.out.println("\u001B[34m"+"  ███        ███    ███ ███   ███  ▄█████▀"+"\u001B[0m");
+        System.out.println("\u001B[34m"+"▀███████████ ███    ███ ███   ███ ▀▀█████▄"+"\u001B[0m");
+        System.out.println("\u001B[34m"+"         ███ ███    ███ ███   ███   ███▐██▄"+"\u001B[0m");
+        System.out.println("\u001B[34m"+"   ▄█    ███ ███    ███ ███   ███   ███ ▀███▄"+"\u001B[0m");
+        System.out.println("\u001B[34m"+" ▄████████▀  ████████▀   ▀█   █▀    ███   ▀█▀"+"\u001B[0m");
+        System.out.println("\u001B[34m"+"                                    ▀"+"\u001B[0m");
+    }
+    public static void isWinnerNotify(){
+        System.out.println("\u001B[33m"+"    ▄█     ▄████████"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"   ███    ███    ███"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"   ███▌   ███    █▀"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"   ███▌   ███"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"   ███▌ ▀███████████"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"   ███           ███"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"   ███     ▄█    ███"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"   █▀    ▄████████▀"+"\u001B[0m");
+        System.out.println(" ");
+        System.out.println("\u001B[33m"+"    ▄█     █▄   ▄█  ███▄▄▄▄   ███▄▄▄▄      ▄████████    ▄████████"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"   ███     ███ ███  ███▀▀▀██▄ ███▀▀▀██▄   ███    ███   ███    ███"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"   ███     ███ ███▌ ███   ███ ███   ███   ███    █▀    ███    ███"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"   ███     ███ ███▌ ███   ███ ███   ███  ▄███▄▄▄      ▄███▄▄▄▄██▀"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"   ███     ███ ███▌ ███   ███ ███   ███ ▀▀███▀▀▀     ▀▀███▀▀▀▀▀"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"   ███     ███ ███  ███   ███ ███   ███   ███    █▄  ▀███████████"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"   ███ ▄█▄ ███ ███  ███   ███ ███   ███   ███    ███   ███    ███"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"    ▀███▀███▀  █▀    ▀█   █▀   ▀█   █▀    ██████████   ███    ███"+"\u001B[0m");
+    }
+    public static void missNotify(){
+        System.out.println("\u001B[33m"+"  ▄▄▄▄███▄▄▄▄    ▄█     ▄████████    ▄████████"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"▄██▀▀▀███▀▀▀██▄ ███    ███    ███   ███    ███"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"███   ███   ███ ███▌   ███    █▀    ███    █▀ "+"\u001B[0m");
+        System.out.println("\u001B[33m"+"███   ███   ███ ███▌   ███          ███       "+"\u001B[0m");
+        System.out.println("\u001B[33m"+"███   ███   ███ ███▌ ▀███████████ ▀███████████"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"███   ███   ███ ███           ███          ███"+"\u001B[0m");
+        System.out.println("\u001B[33m"+"███   ███   ███ ███     ▄█    ███    ▄█    ███"+"\u001B[0m");
+        System.out.println("\u001B[33m"+" ▀█   ███   █▀  █▀    ▄████████▀   ▄████████▀ "+"\u001B[0m");
+    }
+    public static void rankTitle(){
+        System.out.println("\u001B[31m"+"   ▄████████    ▄████████ ███▄▄▄▄      ▄█   ▄█▄  ▄█  ███▄▄▄▄      ▄██████▄ "+"\u001B[0m");
+        System.out.println("\u001B[31m"+"  ███    ███   ███    ███ ███▀▀▀██▄   ███ ▄███▀ ███  ███▀▀▀██▄   ███    ███"+"\u001B[0m");
+        System.out.println("\u001B[31m"+"  ███    ███   ███    ███ ███   ███   ███▐██▀   ███▌ ███   ███   ███    █▀ "+"\u001B[0m");
+        System.out.println("\u001B[31m"+" ▄███▄▄▄▄██▀   ███    ███ ███   ███  ▄█████▀    ███▌ ███   ███  ▄███       "+"\u001B[0m");
+        System.out.println("\u001B[31m"+"▀▀███▀▀▀▀▀   ▀███████████ ███   ███ ▀▀█████▄    ███▌ ███   ███ ▀▀███ ████▄ "+"\u001B[0m");
+        System.out.println("\u001B[31m"+"▀███████████   ███    ███ ███   ███   ███▐██▄   ███  ███   ███   ███    ███"+"\u001B[0m");
+        System.out.println("\u001B[31m"+"  ███    ███   ███    ███ ███   ███   ███ ▀███▄ ███  ███   ███   ███    ███"+"\u001B[0m");
+        System.out.println("\u001B[31m"+"  ███    ███   ███    █▀   ▀█   █▀    ███   ▀█▀ █▀    ▀█   █▀    ████████▀ "+"\u001B[0m");
+        System.out.println("\u001B[31m"+"  ███    ███                          ▀"+"\u001B[0m");
     }
     public static void sunkNotify(){
         System.out.println("   ▄████████ ███    █▄  ███▄▄▄▄      ▄█   ▄█▄");

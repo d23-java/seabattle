@@ -7,7 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ComputerSystem {
     ArrayList<Player> players = new ArrayList<>();
-
+    public int settingSizeScreen = 10;
+    ScoreBoard scoreBoard = new ScoreBoard();
     public void startGame() throws InterruptedException {
         while(true){
             Terminal.clear();
@@ -27,10 +28,25 @@ public class ComputerSystem {
                     newGame();
                     break;
                 case 2:
-                case 3:
-                case 4:
                     System.out.println("Updating....");
                     TimeUnit.SECONDS.sleep(1);
+                    break;
+                case 3:
+                    Terminal.clear();
+                    MenuList.gameName();
+                    System.out.print("\n");
+                    System.out.println("                                                Current size: " + settingSizeScreen);
+                    System.out.print("\n");
+                    System.out.print("                                               Enter new size: ");
+                    settingSizeScreen = Integer.parseInt(InputSystem.sc.nextLine());
+                    break;
+                case 4:
+                    Terminal.clear();
+                    MenuList.rankTitle();
+                    ScoreBoard.displayScoreBoard();
+                    System.out.println(" ");
+                    System.out.println("Press Enter to return");
+                    InputSystem.sc.nextLine();
                     break;
                 case 5:
                     System.out.println("See u soon!");
@@ -92,7 +108,7 @@ public class ComputerSystem {
             System.out.println("Set up PLAYER " + i + " in \n");
             MenuList.printNumber(1);
             TimeUnit.SECONDS.sleep(1);
-            Player player = new Player(i);
+            Player player = new Player(i,settingSizeScreen);
             Terminal.clear();
             player.setInformation();
             players.add(player);
@@ -111,6 +127,10 @@ public class ComputerSystem {
             while(true){
                 Terminal.clear();
                 System.out.println(">>> " + players.get(playerTurn).getName() + "'s turn <<<<\n\n");
+                System.out.println(">>>Number of bullets fired: " + players.get(playerTurn).score);
+                System.out.println(">>>Number of enemy ships destroyed: " + (5 - players.get(1 - playerTurn).getRemainShip()));
+                System.out.println(">>>Number of remaining ships: " + players.get(playerTurn).getRemainShip()+"\n\n");
+
                 MenuList.showPlayerOption();
                 int playerChoice = Integer.parseInt(InputSystem.sc.nextLine());
                 if(playerChoice == 1){
@@ -119,6 +139,7 @@ public class ComputerSystem {
                 }
                 else if(playerChoice == 2){
                     Terminal.clear();
+                    System.out.println("                Player's Board\n");
                     System.out.println("          Player's Board\n");
                     players.get(playerTurn).getPlayerScreen().display();
                     System.out.println(" ");
@@ -130,12 +151,11 @@ public class ComputerSystem {
                 }
             }
         }
+        scoreBoard.addPlayerIntoFile(players.get(playerTurn).getName(),players.get(playerTurn).getScore(),players.get(playerTurn).getRemainShip());
         Terminal.clear();
         MenuList.showPlayerTitle(playerTurn + 1);
-        System.out.println(" ");
         MenuList.isWinnerNotify();
-        System.out.println(" ");
-        System.out.println("\n\n\n\nPress Enter to return to the main menu");
+        System.out.println("Press Enter to return to the main menu");
         InputSystem.sc.nextLine();
     }
 }

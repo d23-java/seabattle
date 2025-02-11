@@ -3,13 +3,15 @@ package ObjectList;
 import java.util.ArrayList;
 
 public class Screen{
-    public static int sizeScreen = 10;
-    private String[][] matrix = new String[10][10];
-    private ArrayList<Ship> activeShip = new ArrayList<>();
-    public Screen(){
-        for(int i = 0; i < sizeScreen; i++){
-            for(int j = 0; j < sizeScreen; j++){
-                matrix[i][j] = "[ ]";
+    public static int sizeScreen;
+    private final String[][] matrix;
+    private final ArrayList<Ship> activeShip = new ArrayList<>();
+    public Screen(int sizeScreen){
+        Screen.sizeScreen = sizeScreen;
+        matrix = new String[sizeScreen+1][sizeScreen+1];
+        for(int i = 0; i <= sizeScreen; i++){
+            for(int j = 0; j <= sizeScreen; j++){
+                matrix[i][j] = "~";
             }
         }
 
@@ -20,35 +22,78 @@ public class Screen{
         for(int i = ship.getCoordinatesHeadRow();i <= ship.getCoordinatesEndRow();++i){
             for(int j = ship.getCoordinatesHeadCol();j <= ship.getCoordinatesEndCol();++j){
                 switch (ship.getNameShip()){
-                    case "Patrol Boat" -> matrix[i][j] = "[P]";
-                    case "Destroyer Boat" -> matrix[i][j] = "[D]";
-                    case "Submarine" -> matrix[i][j] = "[S]";
-                    case "Battle Boat" -> matrix[i][j] = "[B]";
+                    case "Patrol Boat" -> matrix[i][j] = "P";
+                    case "Destroyer Boat" -> matrix[i][j] = "D";
+                    case "Submarine" -> matrix[i][j] = "S";
+                    case "Battle Boat" -> matrix[i][j] = "B";
                 }
             }
         }
     }
 
     public void display(){
-        System.out.print("| |");
         for(int i = 0; i < sizeScreen; i++){
-            System.out.print("|"+ i + "|");
+            if(i==0){
+                System.out.print("    ");
+            }
+            System.out.print("────");
         }
         System.out.print("\n");
-        for(int i = 0; i < sizeScreen; i++){
-            System.out.print("|" + (char)(i + 'a') + "|");
-            for(int j = 0; j < sizeScreen; j++){
-                System.out.print(matrix[i][j]);
+        for(int i = 0; i <= sizeScreen; i++){
+            if(i == 0){
+                System.out.print("   |");
+            }
+            else if(i >= 10){
+                System.out.print("\u001B[47m" + " " + "\u001B[30m" + i + "\u001B[0m" + "|");
+            }
+            else{
+                System.out.print("\u001B[47m" + " " + "\u001B[30m" + i + " " + "\u001B[0m"+"|");
+            }
+        }
+        System.out.println(" ");
+        for(int j = 0; j <= sizeScreen; j++){
+            System.out.print("────");
+        }
+        System.out.print("\n");
+        for(int i = 1; i <= sizeScreen; i++){
+            System.out.print("\u001B[47m"+" "+"\u001B[30m"+ (char)(i-1 + 'a')+" "+"\u001B[0m"+ "|");
+            for(int j = 1; j <= sizeScreen; j++){
+                switch (matrix[i][j]) {
+                    case "P" -> System.out.print(" " + "\u001B[32m" + matrix[i][j] + "\u001B[0m" + " |");
+                    case "D" -> System.out.print(" " + "\u001B[33m" + matrix[i][j] + "\u001B[0m" + " |");
+                    case "S" -> System.out.print(" " + "\u001B[36m" + matrix[i][j] + "\u001B[0m" + " |");
+                    case "B" -> System.out.print(" " + "\u001B[35m" + matrix[i][j] + "\u001B[0m" + " |");
+                    case "F" -> System.out.print("\u001B[41m" + " " + "\u001B[30m" + "F" + " " + "\u001B[0m" + "|");
+                    case "F'" -> System.out.print("\u001B[43m" + " " + "\u001B[30m" + "F" + " " + "\u001B[0m" + "|");
+                    case "~" -> System.out.print(" " + "\u001B[37m" + matrix[i][j] + "\u001B[0m" + " |");
+                }
+            }
+            System.out.print("\n");
+            for(int j = 0; j <= sizeScreen; j++){
+                if(j == 0){
+                    System.out.print("    ");
+                }
+                else{
+                    System.out.print("────");
+                }
             }
             System.out.print("\n");
         }
     }
 
     boolean checkShot(String coordinates){
-         return  (matrix[(int)coordinates.charAt(0) - 'a'][(int)coordinates.charAt(1) - '0'].equals("[B]")) ||
-                 (matrix[(int)coordinates.charAt(0) - 'a'][(int)coordinates.charAt(1) - '0'].equals("[P]")) ||
-                 (matrix[(int)coordinates.charAt(0) - 'a'][(int)coordinates.charAt(1) - '0'].equals("[D]")) ||
-                 (matrix[(int)coordinates.charAt(0) - 'a'][(int)coordinates.charAt(1) - '0'].equals("[S]"));
+        if(coordinates.length() == 2){
+             return  (matrix[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 2))].equals("B")) ||
+                     (matrix[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 2))].equals("P")) ||
+                     (matrix[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 2))].equals("D")) ||
+                     (matrix[(int)coordinates.charAt(0) - 'a' + 1][Integer.parseInt(coordinates.substring(1, 2))].equals("S"));
+        }
+        else{
+            return  (matrix[(int)coordinates.charAt(0) - 'a'+ 1][Integer.parseInt(coordinates.substring(1, 3))].equals("B")) ||
+                    (matrix[(int)coordinates.charAt(0) - 'a'+ 1][Integer.parseInt(coordinates.substring(1, 3))].equals("P")) ||
+                    (matrix[(int)coordinates.charAt(0) - 'a'+ 1][Integer.parseInt(coordinates.substring(1, 3))].equals("D")) ||
+                    (matrix[(int)coordinates.charAt(0) - 'a'+ 1][Integer.parseInt(coordinates.substring(1, 3))].equals("S"));
+        }
     }
 
     int checkShipBeDestroyed(){
@@ -62,12 +107,16 @@ public class Screen{
     }
 
     public boolean checkCoordinates(String coordinates){
-        if(coordinates.length() != 2) return false;
+        if(coordinates.length() < 2 || coordinates.length() > 3) return false;
         if(coordinates.charAt(0) < 'a' || coordinates.charAt(0) > 'z'){
             return false;
         }
-        if(coordinates.charAt(1) < '0' || coordinates.charAt(1) >= (char)(sizeScreen + '0') ) {
+        if(coordinates.charAt(1) <= '0' || coordinates.charAt(1) > (char)(sizeScreen + '0')) {
             return false;
+        }
+        if(coordinates.length() == 3){
+            int valueOfCol = Integer.parseInt(coordinates.substring(1, 3));
+            return valueOfCol <= sizeScreen;
         }
         return true;
     }

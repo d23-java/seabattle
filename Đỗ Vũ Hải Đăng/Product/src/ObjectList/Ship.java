@@ -16,8 +16,13 @@ public class Ship {
             case "Destroyer Boat" -> shipLength = 3;
             default -> shipLength = 5;
         }
-        coordinatesHeadRow = (int)coordinates.charAt(0) - 'a';
-        coordinatesHeadCol = (int)coordinates.charAt(1) - '0';
+        coordinatesHeadRow = (int)coordinates.charAt(0) - 'a' + 1;
+        if(coordinates.length() == 2){
+            coordinatesHeadCol = Integer.parseInt(coordinates.substring(1, 2));
+        }
+        else{
+            coordinatesHeadCol = Integer.parseInt(coordinates.substring(1, 3));
+        }
         if(direction == 1){
             coordinatesEndCol = coordinatesHeadCol;
             coordinatesEndRow = coordinatesHeadRow + shipLength - 1;
@@ -48,30 +53,30 @@ public class Ship {
         int numberOfBulletsHit = 0;
         if(coordinatesHeadRow == coordinatesEndRow){
             for(int i = coordinatesHeadCol; i <= coordinatesEndCol; ++i){
-                if(matrix[coordinatesHeadRow][i].equals("[F]")) ++numberOfBulletsHit;
+                if(matrix[coordinatesHeadRow][i].equals("F")) ++numberOfBulletsHit;
             }
         }
         else{
             for(int i = coordinatesHeadRow; i <= coordinatesEndRow; ++i){
-                if(matrix[i][coordinatesHeadCol].equals("[F]")) ++numberOfBulletsHit;
+                if(matrix[i][coordinatesHeadCol].equals("F")) ++numberOfBulletsHit;
             }
         }
         if(numberOfBulletsHit == shipLength) status = false;
         return status;
     }
     boolean checkShipPosition(String[][] matrix){
-        if(coordinatesEndRow >= Screen.sizeScreen) return false;
-        else if(coordinatesEndCol >= Screen.sizeScreen) return false;
-        else if(coordinatesHeadRow < 0) return false;
-        else if(coordinatesHeadCol < 0) return false;
+        if(coordinatesEndRow > Screen.sizeScreen) return false;
+        else if(coordinatesEndCol > Screen.sizeScreen) return false;
+        else if(coordinatesHeadRow <= 0) return false;
+        else if(coordinatesHeadCol <= 0) return false;
         else if(coordinatesHeadRow == coordinatesEndRow){
             for(int i = coordinatesHeadCol; i <= coordinatesEndCol; ++i){
-                if(!matrix[coordinatesHeadRow][i].equals("[ ]")) return false;
+                if(!matrix[coordinatesHeadRow][i].equals("~")) return false;
             }
         }
         else{
             for(int i = coordinatesHeadRow; i <= coordinatesEndRow; ++i){
-                if(!matrix[i][coordinatesHeadCol].equals("[ ]")) return false;
+                if(!matrix[i][coordinatesHeadCol].equals("~")) return false;
             }
         }
         return true;
